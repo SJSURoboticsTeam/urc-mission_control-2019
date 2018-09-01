@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drive</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../APIs_Frameworks/bootstrap4/css/bootstrap.css">
+    <link rel="stylesheet" href="../../APIs_Frameworks/fontawesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../../APIs_Frameworks/bootstrap_slider/css/bootstrap_slider.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Row 1: Connection Input, Fullscreen button -->
+                <div class="col-sm-2">
+                    <div class="row">
+                        <h3>Connection</h3>
+                    </div>
+                    <div class="row">
+                        <span class="input-group d-inline-flex">
+                                <span class="input-group-addon d-inline-flex">
+                                    <i class="icon fa fa-minus-circle icon-red" id="connection-icon"></i>    
+                                </span>
+                                <input type="text" class="form-control" id="host" placeholder="Enter drive ESP32's network address" value="192.168.0.69">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button" id="connect-ESP">Connect</button>
+                                </span>  
+                        </span>    
+                        <span class="input-group d-inline-flex">
+                            <span class="input-group-addon d-inline-flex">
+                                    <i class="fa fa-video-camera"></i>
+                                </span>
+                            <input type="text" class="form-control" id="video-server" placeholder="Video Server Address">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button" id="connect-video">Connect</button>
+                            </span>  
+                        </span>  
+                    </div>
+                </div>
+
+                <div class="col-sm-1">
+                    <div id="longitude">Longitude: </div>
+                    <div id="latitude">Latitude: </div>
+                </div>
+
+                <!-- <div class="col-sm-1">
+                    <div class="row">
+                        <h3>Power</h3>
+                    </div>
+                    <div class="row">
+                        <div class="btn-group" data-toggle="buttons" id="power-btns">
+                            <label class="btn btn-secondary" id="power-off">
+                                <input type="radio" autocomplete="off">Off
+                            </label>
+                            <label class="btn btn-secondary" id="power-on">
+                                <input type="radio" autocomplete="off">On
+                            </label>
+                        </div>
+                    </div>    
+                </div> -->
+
+                <div class="col-sm-1">
+                    <div class="row">
+                        <h3>Joystick</h3>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-primary disabled" type="button" id="joystick-status">Disconnected</button>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <section class="col">
+                        <div class="row">
+                            <h3>Drive Mode</h3>
+                        </div>
+                        <div class="row">
+                            <div class="btn-group" data-toggle="buttons" id="drive-btns">
+                                <label class="btn btn-secondary disabled" id="tank-mode">
+                                    <input type="radio" autocomplete="off">Tank
+                                </label>
+                                <!-- <label class="btn btn-secondary disabled" id="crab-mode">
+                                    <input type="radio" autocomplete="off">Crab
+                                </label> -->
+                                <label class="btn btn-secondary disabled" id="spin-mode">
+                                    <input type="radio" autocomplete="off">Spin
+                                </label>
+                                <label class="btn btn-secondary disabled" id="debug-mode">
+                                    <input type="radio" autocomplete="off">Debug
+                                </label>
+                                
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="row">
+                        <h3>Compass</h3>
+                    </div>
+                    <div class="row">
+                        <div id="compass" class="row">
+                        <circle-slider
+                        v-model="val0"
+                        :min="0"
+                        :max="360"
+                        :circle-width="8"
+                        :progress-width="9"
+                        :knob-radius="9"
+                        circle-color="#2c2300"
+                        progress-color="#2c2300"
+                        knob-color="#ffcf00"
+                        @touchmove="$refs.input.blur()"
+                        ></circle-slider>
+                        <input ref="input" type="number" v-model.number="val0" id="heading"/>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="row">
+                        <h4>Speed Divider</h4>
+                        <input id="speed-divider" value=3>
+                    </div>
+                    <div class="row">
+                        <h4>Maximum RPM</h4>
+                        <input id="maximum-rpm" value=50>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Row 4: Speed Sliders, heading options, wheel controls -->
+                <div class="col-sm-8">
+                    <div class="row">
+                        <h2>Video Feed</h2>
+                    </div>
+                    <div class="row">
+                        <img id="video" src="images/temp_background.png" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <h2>Map</h2>
+                    <div clas="row">
+                        <div id="mapid"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" id="lat" placeholder="input lat here"/>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="lng" placeholder="input lng here"/>	
+                        </div>
+                        <div class="col">
+                            <button id="latlng" type="button">Add marker</button>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+    </div>
+    
+    
+</body>
+
+<footer>
+    <script src="../../APIs_Frameworks/jquery/jquery-2.0.3.min.js"></script>
+
+    <script src="../../APIs_Frameworks/bootstrap4/js/bootstrap.bundle.js"></script>
+    <script src="../../APIs_Frameworks/bootstrap_slider/js/bootstrap_slider.js" crossorgin="anonymous"></script>
+    
+	<script type="text/javascript" src="../../APIs_Frameworks/vue/vue.js"></script>
+	<script type="text/javascript" src="../../APIs_Frameworks/vue-circle-slider/vue-circle-slider.browser.js"></script>
+    
+    <script src="../../Core/js/eventemitter.js"></script>
+    <script src="../../Core/js/dial.js"></script>
+
+    <script type="module" src="js/index.js"></script>
+</footer>
+</html>

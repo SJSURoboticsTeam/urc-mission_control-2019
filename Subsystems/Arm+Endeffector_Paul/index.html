@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Arm</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../APIs_Frameworks/bootstrap4/css/bootstrap.css">
+    <link rel="stylesheet" href="../../APIs_Frameworks/fontawesome/css/font-awesome.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <section class="col">
+                <h1>Connection</h1>
+                <span class="ml-5">
+                    <span class="input-group d-inline-flex w-50">
+                        <span class="input-group-addon d-inline-flex">http://</span>
+                        <input type="text" class="form-control" id="host" placeholder="Enter arm ESP32’s network address">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" id="connect">Connect</button>
+                        </span>
+                    </span>
+                </span>
+                <div class="mt-3">
+                    <span class="mr-2">Robot connection status</span>
+                    <i class="icon fa fa-minus-circle icon-red" id="robot-connection-icon"></i>
+                    <span class="ml-4 text-muted d-none" id="robot-connection-error-msg">Check the Developer Tools console for details on connection error.</span>
+                </div>
+                <div class="mt-1">
+                    <span class="mr-2">Mimic connection status</span>
+                    <i class="icon fa fa-minus-circle icon-red" id="mimic-connection-icon"></i>
+                </div>
+            </section>
+        </div>
+        <div class="row">
+            <section class="col-5">
+                <h1>Power</h1>
+                <div class="btn-group ml-5" data-toggle="buttons" id="power-btns">
+                    <label class="btn btn-secondary disabled" id="power-off">
+                        <input type="radio" autocomplete="off">Off
+                    </label>
+                    <label class="btn btn-secondary disabled" id="power-on">
+                        <input type="radio" autocomplete="off">On
+                    </label>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-4">
+                        <label class="mr-2">Camera id</label>
+                    </div>
+                    <div class="col">
+                        <div class="btn-group" data-toggle="buttons" id="cam-id-btns">
+                            <label class="btn btn-secondary disabled" id="cam-id-none">
+                                <input type="radio" autocomplete="off">None
+                            </label>
+                            <label class="btn btn-secondary disabled" id="cam-id-elbow">
+                                <input type="radio" autocomplete="off">Elbow
+                            </label>
+                            <label class="btn btn-secondary disabled" id="cam-id-wrist">
+                                <input type="radio" autocomplete="off">Wrist
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <a href="rtsp://localhost:5000/elbow.mp4">RTSP link</a>
+                <div class="row">
+                    <div class="col" style="text-align: center;">
+                        Shoulder cam
+                        <div id="dial-cam-shoulder"></div>
+                    </div>
+                    <div class="col" style="text-align: center;">
+                        Elbow cam
+                        <div id="dial-cam-elbow"></div>
+                    </div>
+                </div>
+            </section>
+            <section class="col">
+                <h1>Health</h1>
+                <div class="row">
+                    <div class="col">
+                        Current from arm
+                        <div style="height: 10rem;" id="graph">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div style="height: 10rem;">
+                            Debug log from robot and mimic
+                            <textarea cols="35" rows="6" id="log"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="row">
+            <section class="col">
+                <h1>Control</h1>
+                <div class="btn-group ml-5" data-toggle="buttons" id="ctrl-mode-btns">
+                    <label class="btn btn-secondary disabled" id="ctrl-mouse">
+                        <input type="radio" autocomplete="off">Mouse
+                    </label>
+                    <label class="btn btn-secondary disabled" id="ctrl-preview">
+                        <input type="radio" autocomplete="off">Mimic preview
+                    </label>
+                    <label class="btn btn-secondary disabled" id="ctrl-mimic">
+                        <input type="radio" autocomplete="off">Mimic
+                    </label>
+                </div>
+                <div class="btn-group ml-4" data-toggle="buttons" id="ctrl-gimbal-btns">
+                    <label class="btn btn-secondary disabled" id="ctrl-gimbal-off">
+                        <input type="radio" autocomplete="off">Gimbal off
+                    </label>
+                    <label class="btn btn-secondary disabled" id="ctrl-gimbal-on">
+                        <input type="radio" autocomplete="off">Gimbal on
+                    </label>
+                </div>
+                <button class="ml-4 btn btn-secondary disabled" id="ctrl-reset">Reset position</button>
+                <div class="row">
+                    <div class="col" style="text-align: center;">
+                        Base
+                        <div id="dial-base"></div>
+                    </div>
+                    <div class="col" style="text-align: center;">
+                        Shoulder
+                        <div id="dial-shoulder"></div>
+                    </div>
+                    <div class="col" style="text-align: center;">
+                        Elbow
+                        <div id="dial-elbow"></div>
+                    </div>
+                    <div class="col" style="text-align: center;">
+                        Wrist
+                        <div id="dial-wrist"></div>
+                    </div>
+                    <div class="col" style="text-align: center;">
+                        Wrist rotation
+                        <div id="dial-wrist-rot"></div>
+                    </div>
+                    <div class="col" style="text-align: center;">
+                        Claw
+                        <div></div>
+                    </div>
+                    <div class="col" style="text-align: center;">
+                        Claw torque
+                        <div></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="../../APIs_Frameworks/jquery/jquery-2.0.3.min.js"></script>
+    <script src="../../APIs_Frameworks/bootstrap4/js/bootstrap.bundle.js"></script>
+    <script src="../../APIs_Frameworks/highcharts/highcharts.js"></script>
+    <script src="../../Core/js/format.js"></script>
+    <script src="../../Core/js/eventemitter.js"></script>
+    <script src="../../Core/js/dial.js"></script>
+    <script type="module" src="js/dispatcher.js"></script>
+    <script type="module" src="js/handlers.js"></script>
+    <script type="module" src="js/index.js"></script>
+    <script type="module" src="js/model.js"></script>
+    <script type="module" src="js/rendering.js"></script>
+</body>
+</html>

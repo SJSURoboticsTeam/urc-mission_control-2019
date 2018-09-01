@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Pods Control</title>
+		<link rel="stylesheet" href="../../APIs_Frameworks/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" href="../../APIs_Frameworks/fontawesome/css/font-awesome.css">
+		<link rel="stylesheet" href="css/index.css">
+	</head>
+	<body>
+		<div id="page" class="container-fluid">
+			<h1 class="page-header">Pods Control</h1>
+			<div id="ipDiv" class="bordered">
+				<h3>http://<input id="ipInputField" type="text" size="15"></h3>
+				<button id="submitIPButton" type="button" class="btn btn-primary active">Update</button>
+			</div>
+			<div id="choosePodDiv" class="bordered">
+				<h3>Pod Selection: </h3>
+				<div class="btn-group">
+					<button id="podAButton" type="button" class="btn btn-primary disabled">Pod A</button>
+					<button id="podBButton" type="button" class="btn btn-primary active">Pod B</button>
+					<button id="podCButton" type="button" class="btn btn-primary active">Pod C</button>
+				</div>
+				<div>
+					<p id="podConnectionStatus" class="red">Status: Disconnected</p>
+					<p id="currentPod" class="green"></p>
+				</div>
+			</div>
+			<div id="drillProcessDiv" class="bordered">
+				<h3>Drill Process: </h3>
+				<button id="startMainProcessButton" type="button" class="btn btn-primary active">Start Drill Process</button>
+				<p id="drillChangeInHeightStatus" class="red">Process Stopped</p>
+			</div>
+			<div id="outerDrillControlDiv" class="bordered">
+				<h3>Manual Drill Control: </h3>
+				<div id="drillControlDiv">
+					<button id="spinButton" type="button" class="btn btn-primary active">Spin Drill</button>
+					<button id="lowerDrillButton" type="button" class="btn btn-primary active">Lower Drill</button>
+					<button id="raiseDrillButton" type="button" class="btn btn-primary active">Raise Drill</button>
+					<div>
+						<p id="drillSpinStatus" class="red">Drill Stopped</p>
+						<p id="drillMovementStatus" class="red">Drill Stopped</p>
+					</div>
+				</div>
+				<button id="moveServoButton" type="button" class="btn btn-primary active">Open Servo Door</button>
+				<div>
+					<p id="servoStatus" class="red">Currently Closed</p>
+				</div>
+				<div id="encoderValueDiv">
+				  <h5>Drill Encoder Value: <p id ="encoderValueText" class="green" style="display: inline">---</p> </h5>
+				</div>
+			</div>
+			<div>
+				<h3 id="consoleBoxTitle">System Feedback:</h3>
+				<button id="lockScrollBarButton" type="button" class="btn btn-primary active">Unlock Scroll Bar</button>
+				<button id="printFeedbackButton" type="button" class="btn btn-primary active">Stop Print Feedback</button>
+			</div>
+			<div id="consoleBox"></div>
+			<div id="downloadFileBox">
+				<button id="downloadDataButton" type="button" class="btn btn-primary active">Download Sensor Data</button>
+			</div>
+			<div id="temperatureDiv"></div>
+			<div id="humidityDiv"></div>
+		</div>
+		<script src="../../APIs_Frameworks/jquery/jquery-2.0.3.min.js"></script>
+		<script src="js/highcharts.js"></script>
+		<script type="module" src="js/index.js"></script>
+	</body>
+</html>
