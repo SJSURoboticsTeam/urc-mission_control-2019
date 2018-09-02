@@ -1,0 +1,26 @@
+{
+  "name": "missioncontrol2019",
+  "version": "1.0.0",
+  "description": "Mission Control 2019",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SJSURobotics2019/missioncontrol2019.git"
+  },
+  "keywords": [
+    "mocha",
+    "chai"
+  ],
+  "author": "Evan Ugarte",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SJSURobotics2019/missioncontrol2019/issues"
+  },
+  "homepage": "https://github.com/SJSURobotics2019/missioncontrol2019#readme",
+  "dependencies": {
+    "chai": "^4.1.2"
+  }
+}
