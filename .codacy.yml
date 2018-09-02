@@ -1,0 +1,3 @@
+exclude_paths:
+  - 'APIs_Frameworks'
+  - 'README.md'
