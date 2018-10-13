@@ -1,0 +1,21 @@
+.ariWorld {
+  width: 50%;
+  height: 50%;
+  float: left;
+  padding: 3px solid gray;
+}
+.moduleSelect {
+  float: right;
+}
+#module-1 {
+  background: #ddd;
+}
+#module-2 {
+  background: #aaa;
+}
+#module-3 {
+  background: #777;
+}
+#module-4 {
+  background: #444;
+}
