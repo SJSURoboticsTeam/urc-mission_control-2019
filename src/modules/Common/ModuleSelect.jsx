@@ -6,7 +6,7 @@ import {
   DropdownItem
 } from "reactstrap";
 
-import moduleData from "./moduleData";
+import moduleData from "../../lib/moduleData.js";
 
 export default class ModuleSelect extends React.Component {
   state = {

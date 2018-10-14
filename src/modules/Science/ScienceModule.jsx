@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./ScienceStyle.css";
 
 class ScienceModule extends Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class ScienceModule extends Component {
   render() {
     return (
       <div>
-        <h1>Welcome To Science!</h1>
+        <h1 className="header">This is the Science Module!</h1>
       </div>
     );
   }
