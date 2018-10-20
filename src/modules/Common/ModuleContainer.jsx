@@ -3,6 +3,7 @@ import ModuleSelect from "./ModuleSelect.jsx";
 import "../../lib/css/ModuleContainer.css";
 import ScienceModule from "../Science/ScienceModule.jsx";
 import ProtoModule from "../ProtoModule/ProtoModule.jsx";
+import CindyModule from "../CindyModule/CindyModule.jsx";
 
 class ModuleContainer extends Component {
   state = {
@@ -23,6 +24,8 @@ class ModuleContainer extends Component {
         return <ProtoModule />;
       case "science-module":
         return <ScienceModule />;
+      case "cindy-module":
+        return <CindyModule />;
       default:
         return <p>{moduleName} does not exist</p>;
     }
