@@ -7,15 +7,27 @@
 .moduleSelect {
   float: right;
 }
-#module-1 {
-  background: #ddd;
+#window-container{
+  top: 8.7%;
 }
-#module-2 {
-  background: #aaa;
+#window-1 {
+  position: absolute; top: 8.7%; left: 0; right: 50%; bottom: 50%;
 }
-#module-3 {
-  background: #777;
+#window-2 {
+  position: absolute; top: 8.7%; left: 50%; right: 0; bottom: 30%;
 }
-#module-4 {
-  background: #444;
+#window-3 {
+  position: absolute; top: 50%; left: 0; right: 30%; bottom: 0; 
 }
+#window-4 {
+  position: absolute; top: 50%; left: 50%; right: 0; bottom: 0;
+}
+
+/* .tl { position: absolute; top: 0; left: 0; right: 30%; bottom: 30%; 
+  background: red; border:solid #000; border-width: 0 10px 10px 0; }
+.tr { position: absolute; top: 0; left: 70%; right: 0; bottom: 30%; 
+  background: blue; border:solid #000; border-width: 0 0 10px 0; }
+.bl { position: absolute; top: 70%; left: 0; right: 30%; bottom: 0; 
+  background: yellow; border:solid #000; border-width: 0 10px 0 0; }
+.br { position: absolute; top: 70%; left: 70%; right: 0; bottom: 0; 
+  background: green; } */

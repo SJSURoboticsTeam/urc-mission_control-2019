@@ -10,11 +10,11 @@ class GridInterface extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div id="window-container">
         {this.state.modules.windowOrder.map((window) => (
-          <ModuleContainer key={window.id} id={"ok ok ok"} />
+          <ModuleContainer key={window} id={window} />
         ))}
-      </React.Fragment>
+      </div>
     );
   }
 }

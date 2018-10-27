@@ -21,7 +21,7 @@ class AppNavbar extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Navbar color="dark" dark expand="sm">
           <Container>
             <NavbarBrand href="/">Mission Control 2019</NavbarBrand>
@@ -37,7 +37,7 @@ class AppNavbar extends Component {
             </Collapse>
           </Container>
         </Navbar>
-      </div>
+      </React.Fragment>
     );
   }
 }
