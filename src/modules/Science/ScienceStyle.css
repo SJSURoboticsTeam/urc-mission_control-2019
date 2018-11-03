@@ -6,7 +6,7 @@
 .science-container {
     width: 80vh;
     border: 2px solid black;
-    border-radius: 20px;
+    border-radius: 5px;
     padding: 10px;
     height: 49vh;
 }
@@ -17,7 +17,7 @@
 
 .science-header-container {
     border: 2px solid black;
-    border-radius: 20px;
+    border-radius: 5px;
     text-align: center;
 }
 
@@ -34,15 +34,39 @@
     flex-direction: column;
     justify-content: space-around;
     border: 2px solid black;
-    border-radius: 20px;
+    border-radius: 5px;
     padding: 20px;
     height: 60%;
 }
 
-.science-button-depth {
-    
+/* ----------- */
+/* DRILL */
+/* ----------- */
+
+.science-drill-container {
+    display: flex;
+    justify-content: space-around;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    height: 80%;
 }
 
-.science-button-geiger {
-    
+.science-drill-slider {
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
+    width: 8px;
+    height: 175px;
+    padding: 0 5px;
+}
+
+/* -------- */
+/* GRAPH */
+/* -------- */
+
+.science-graph-container {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    height: 80%;
 }
