@@ -70,3 +70,14 @@
     padding: 20px;
     height: 80%;
 }
+
+.science-geiger-graph {
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    height: 80%;
+}
+
+.science-back-container {
+    display: flex;
+    justify-content: flex-end;
+}

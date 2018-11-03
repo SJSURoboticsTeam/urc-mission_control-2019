@@ -43,22 +43,11 @@ class ScienceModule extends Component {
         <div className="science-header-container">
           <h1 className="science-header">Science Module</h1>
         </div>
-        {/* <div className="science-buttons-container">
-          <button className="btn btn-lg btn-primary science-button-depth">Drill Depth</button>
-          <button className="btn btn-lg btn-secondary science-button-geiger">Geiger Graph</button>
-        </div> */}
-        {
-
-          // <ButtonContainer
-          //   handleDrillButton={this.handleDrillButton}
-          //   handleGeigerButton={this.handleGeigerButton}
-          // />
-          <ContainerDisplay
-            container={this.state.container}
-            handleDrillButton={this.handleDrillButton}
-            handleGeigerButton={this.handleGeigerButton}
-          />
-        }
+        <ContainerDisplay
+          container={this.state.container}
+          handleDrillButton={this.handleDrillButton}
+          handleGeigerButton={this.handleGeigerButton}
+        />
       </div>
     );
   }
@@ -85,19 +74,25 @@ const ButtonContainer = (props) => {
 
 const DrillContainer = (props) => {
   return (
-    <div className="science-drill-container">
-      <input
-        className="science-drill-slider"
-        type="range"
-        orient="vertical"
-      >
-      </input>
-      <input
-        className="science-drill-slider"
-        type="range"
-        orient="vertical"
-      >
-      </input>
+    <div>
+      <div className="science-back-container">
+        <button className="btn btn-danger">Back</button>
+      </div>
+      <div className="science-drill-container">
+
+        <input
+          className="science-drill-slider"
+          type="range"
+          orient="vertical"
+        >
+        </input>
+        <input
+          className="science-drill-slider"
+          type="range"
+          orient="vertical"
+        >
+        </input>
+      </div>
     </div>
   );
 }
@@ -105,7 +100,10 @@ const DrillContainer = (props) => {
 const GraphContainer = (props) => {
   return (
     <div className="science-graph-container">
-      Graph
+      <div className="science-back-container">
+        <button className="btn btn-danger">Back</button>
+      </div>
+      <div className="science-geiger-graph"></div>
     </div>
   )
 }
