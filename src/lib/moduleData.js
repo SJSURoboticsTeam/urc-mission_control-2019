@@ -1,3 +1,13 @@
+/**
+ * GIT WORKFLOW
+ * git checkout master
+ * git fetch origin master
+ * git pull origin master
+ * 
+ * go to other branches
+ * git rebase master
+ */
+
 const moduleData = {
   windows: {
     "window-1": { id: "window-1" },
