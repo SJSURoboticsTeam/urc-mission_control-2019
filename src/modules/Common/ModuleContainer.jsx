@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import ModuleSelect from "./ModuleSelect.jsx";
 import "../../lib/css/ModuleContainer.css";
-import ScienceModule from "../Science/ScienceModule.jsx";
 import ProtoModule from "../ProtoModule/ProtoModule.jsx";
+import ScienceModule from "../Science/ScienceModule.jsx";
+import PowerModule from "../Power/PowerModule.jsx";
 
 class ModuleContainer extends Component {
   state = {
@@ -23,6 +24,8 @@ class ModuleContainer extends Component {
         return <ProtoModule />;
       case "science-module":
         return <ScienceModule />;
+      case "power-module":
+        return <PowerModule />;
       default:
         return <p>{moduleName} does not exist</p>;
     }

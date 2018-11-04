@@ -7,6 +7,7 @@ const moduleData = {
   },
   components: {
     "science-module": { id: "science-module", value: "Science" },
+    "power-module": { id: "power-module", value: "Power" },
     "arm-module": { id: "arm-module", value: "Arm" },
     "drive-module": { id: "drive-module", value: "Drive" },
     "map-module": { id: "map-module", value: "map" },
@@ -17,6 +18,7 @@ const moduleData = {
   windowOrder: ["window-1", "window-2", "window-3", "window-4"],
   componentOrder: [
     "science-module",
+    "power-module",
     "arm-module",
     "drive-module",
     "map-module",
