@@ -44,12 +44,17 @@
 /* ----------- */
 
 .science-drill-container {
-    display: flex;
-    justify-content: space-around;
+    /* display: flex;
+    justify-content: space-around; */
     border: 2px solid black;
     border-radius: 5px;
     padding: 20px;
     height: 80%;
+}
+
+.science-slider-container {
+    display: flex;
+    justify-content: space-around;
 }
 
 .science-drill-slider {
@@ -72,9 +77,12 @@
 }
 
 .science-geiger-graph {
-    border-left: 2px solid black;
-    border-bottom: 2px solid black;
-    height: 80%;
+    position: relative;
+    top: -70px;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    /* border: 2px solid black; */
 }
 
 .science-back-container {

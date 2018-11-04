@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./ScienceStyle.css";
+import Plot from 'react-plotly.js';
 
 function ContainerDisplay(props) {
   const container = props.container;
@@ -11,20 +12,32 @@ function ContainerDisplay(props) {
       />
     );
   } else if (container === 1) {
-    return <DrillContainer />;
+    return (
+      <DrillContainer
+        handleBackButton={props.handleBackButton}
+      />
+    );
   } else if (container === 2) {
-    return <GraphContainer />;
+    return (
+      <GraphContainer
+        handleBackButton={props.handleBackButton}
+      />
+    );
   }
 }
 
 class ScienceModule extends Component {
   constructor(props) {
     super(props);
+    this.handleBackButton = this.handleBackButton.bind(this);
     this.handleDrillButton = this.handleDrillButton.bind(this);
     this.handleGeigerButton = this.handleGeigerButton.bind(this);
     this.state = {
       container: 0
     };
+  }
+  handleBackButton() {
+    this.setState(() => ({ container: 0 }));
   }
   handleDrillButton() {
     this.setState(() => ({ container: 1 }));
@@ -45,6 +58,7 @@ class ScienceModule extends Component {
         </div>
         <ContainerDisplay
           container={this.state.container}
+          handleBackButton={this.handleBackButton}
           handleDrillButton={this.handleDrillButton}
           handleGeigerButton={this.handleGeigerButton}
         />
@@ -74,12 +88,12 @@ const ButtonContainer = (props) => {
 
 const DrillContainer = (props) => {
   return (
-    <div>
-      <div className="science-back-container">
-        <button className="btn btn-danger">Back</button>
-      </div>
-      <div className="science-drill-container">
 
+    <div className="science-drill-container">
+      <BackButton
+        handleBackButton={props.handleBackButton}
+      />
+      <div className="science-slider-container">
         <input
           className="science-drill-slider"
           type="range"
@@ -100,12 +114,39 @@ const DrillContainer = (props) => {
 const GraphContainer = (props) => {
   return (
     <div className="science-graph-container">
-      <div className="science-back-container">
-        <button className="btn btn-danger">Back</button>
-      </div>
-      <div className="science-geiger-graph"></div>
+      <BackButton
+        handleBackButton={props.handleBackButton}
+      />
+      {/* <div className="science-geiger-graph"> */}
+        {/* <Plot
+          data={[
+            {
+              x: [1, 2, 3],
+              y: [2, 6, 3],
+              type: 'scatter',
+              mode: 'lines+points',
+              marker: { color: 'red' },
+            },
+            { type: 'bar', x: [1, 2, 3], y: [2, 5, 3] },
+          ]}
+          layout={{ autosize: true, width: 320, height: 200, title: 'A Fancy Plot' }}
+        /> */}
+      {/* </div> */}
     </div>
   )
+}
+
+const BackButton = (props) => {
+  return (
+    <div className="science-back-container">
+      <button
+        className="btn btn-danger"
+        onClick={props.handleBackButton}
+      >
+        Back
+      </button>
+    </div>
+  );
 }
 
 export default ScienceModule;
