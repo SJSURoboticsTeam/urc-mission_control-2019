@@ -4,6 +4,7 @@ import "../../lib/css/ModuleContainer.css";
 import ProtoModule from "../ProtoModule/ProtoModule.jsx";
 import ScienceModule from "../Science/ScienceModule.jsx";
 import PowerModule from "../Power/PowerModule.jsx";
+import IntelligentSystemsModule from "../IntelligentSystems/IntelligentSystemsModule.jsx";
 
 class ModuleContainer extends Component {
   state = {
@@ -26,6 +27,8 @@ class ModuleContainer extends Component {
         return <ScienceModule />;
       case "power-module":
         return <PowerModule />;
+      case "intelligent-systems-module":
+        return <IntelligentSystemsModule />;
       default:
         return <p>{moduleName} does not exist</p>;
     }
