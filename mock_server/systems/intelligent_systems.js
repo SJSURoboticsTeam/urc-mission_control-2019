@@ -1,13 +1,13 @@
-const Delay = require('../delay');
-const system = require('../system');
+const Delay = require("../delay");
+const system = require("../system");
 
 // State
 let state = false;
 
 // Arm API
-const intelligent_systems = new system.System('intelligent_systems');
+const intelligent_systems = new system.System("intelligent_systems");
 
-intelligent_systems.addXHR('/toggle_autonomy', (req, res) => {
+intelligent_systems.addXHR("/toggle_autonomy", (req, res) => {
     state = !state;
 
     res.send({
@@ -16,8 +16,8 @@ intelligent_systems.addXHR('/toggle_autonomy', (req, res) => {
     });
 });
 
-intelligent_systems.addOnConnectSSE('timestamp',  makeTimestamp);
-intelligent_systems.addSSE('timestamp', 1000, makeTimestamp);
+intelligent_systems.addOnConnectSSE("timestamp",  makeTimestamp);
+intelligent_systems.addSSE("timestamp", 1000, makeTimestamp);
 
 function makeTimestamp() {
     return JSON.stringify({

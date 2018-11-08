@@ -1,14 +1,14 @@
-const express = require('express');
-const fs = require('fs');
-const bodyparser = require('simple-bodyparser');
-const SseStream = require('ssestream');
+const express = require("express");
+const fs = require("fs");
+const bodyparser = require("simple-bodyparser");
+const SseStream = require("ssestream");
 
 // Run all the JS files in the "systems/" directory here.
-for (const file of fs.readdirSync('./systems/')) {
+for (const file of fs.readdirSync("./systems/")) {
     require(`./systems/${file}`);
 }
 
-const {systems} = require('./system');
+const {systems} = require("./system");
 
 
 // Given a string containing the JSON-like format of an XHR body, produce an
@@ -26,9 +26,9 @@ function parseXHRBody(body) {
 
     const obj = {};
 
-    const properties = body.split(',');
+    const properties = body.split(",");
     for (const property of properties) {
-        let [key, value] = property.split(':');
+        let [key, value] = property.split(":");
         obj[key] = parseInt(value);
     }
 
@@ -38,19 +38,19 @@ function parseXHRBody(body) {
 
 // Given an Object, produce a JSON-like string that ESP32 controllers emit.
 function formatSSE(data) {
-    if (typeof data === 'object') {
-        let str = '{';
+    if (typeof data === "object") {
+        let str = "{";
         let first = true;
         for (const key in data) {
             const value = data[key];
             if (first) {
                 first = false;
             } else {
-                str += ',';
+                str += ",";
             }
             str += `${key}:${JSON.stringify(value)}`;
         }
-        str += '}';
+        str += "}";
         return str;
     } else {
         return data;
@@ -65,14 +65,14 @@ function makeSystemServer(system, port) {
     for (const xhr of system.xhrs) {
         app.post(xhr.path, (req, res) => {
             req.body = parseXHRBody(req.body);
-            res.set('Access-Control-Allow-Origin', '*');
+            res.set("Access-Control-Allow-Origin", "*");
             xhr.handlerCallback(req, res);
         });
     }
 
-    app.get('/sse', (req, res) => {
+    app.get("/sse", (req, res) => {
         console.log(`SSE connected to ${system.name}`);
-        res.set('Access-Control-Allow-Origin', '*');
+        res.set("Access-Control-Allow-Origin", "*");
 
         const sseStream = new SseStream(req);
         sseStream.pipe(res);
@@ -95,7 +95,7 @@ function makeSystemServer(system, port) {
             intervals.push(interval);
         }
 
-        res.on('close', () => {
+        res.on("close", () => {
             console.log(`SSE disconnected from ${system.name}`);
             for (const interval of intervals) {
                 clearInterval(interval);
@@ -115,7 +115,7 @@ function makeSystemServer(system, port) {
 
 let port = 5000;
 
-// Create one express.js server for each system. This way our XHRs won't
+// Create one express.js server for each system. This way our XHRs won"t
 // overlap even if they have the same paths.
 for (const system of systems) {
     makeSystemServer(system, port);

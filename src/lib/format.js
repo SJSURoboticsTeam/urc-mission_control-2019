@@ -1,5 +1,5 @@
 export default function formatObject(obj) {
-    let str = '{';
+    let str = "{";
     let first = true;
     for (const key in obj) {
         const value = obj[key];
@@ -9,11 +9,11 @@ export default function formatObject(obj) {
         if (first) {
             first = false;
         } else {
-            str += ',';
+            str += ",";
         }
         str += `${key}:${JSON.stringify(value)}`;
     }
-    str += '}';
+    str += "}";
     return str;
 }
 
@@ -30,9 +30,9 @@ function parseObject(str) {
 
     const obj = {};
 
-    const properties = str.split(',');
+    const properties = str.split(",");
     for (const property of properties) {
-        let [key, value] = property.split(':');
+        let [key, value] = property.split(":");
         obj[key] = parseInt(value);
     }
 
