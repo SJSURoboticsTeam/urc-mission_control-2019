@@ -1,5 +1,5 @@
-const Delay = require('../delay');
-const system = require('../system');
+const Delay = require("../delay");
+const system = require("../system");
 
 const SPEED = 10;  // 10 degrees per second or open/close the claw by 10% per second
 
@@ -23,9 +23,9 @@ let stuck = 0;
 let printCounter = 0;
 
 // Arm API
-const arm = new system.System('arm');
+const arm = new system.System("arm");
 
-arm.addXHR('/state', (req, res) => {
+arm.addXHR("/state", (req, res) => {
     const {
         camera_id,
         camera_shoulder_rotation,
@@ -52,14 +52,14 @@ arm.addXHR('/state', (req, res) => {
     clawMotion = claw_motion;
     clawTorque = claw_torque;
 
-    console.log('arm /state');
-    res.send('OK');
+    console.log("arm /state");
+    res.send("OK");
 });
 
-arm.addOnConnectSSE('hello', makeHello);
-arm.addOnConnectSSE('ping',  makePing);
-arm.addSSE('ping',  1000, makePing);
-arm.addSSE('print', 3500, makePrint);
+arm.addOnConnectSSE("hello", makeHello);
+arm.addOnConnectSSE("ping",  makePing);
+arm.addSSE("ping",  1000, makePing);
+arm.addSSE("print", 3500, makePrint);
 
 function makeHello() {
     return {

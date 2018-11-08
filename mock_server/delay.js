@@ -7,6 +7,17 @@
 // 360 back to 0.
 //
 // Velocity is the rate of change in the value per second.
+function wrap(x, min, max) {
+    const range = max - min;
+    while (x < min) {
+        x += range;
+    }
+    while (x > max) {
+        x -= range;
+    }
+    return x;
+}
+
 class Delay {
     constructor(min, max, velocity, circular) {
         this.min = min;
@@ -56,15 +67,5 @@ class Delay {
     }
 }
 
-function wrap(x, min, max) {
-    const range = max - min;
-    while (x < min) {
-        x += range;
-    }
-    while (x > max) {
-        x -= range;
-    }
-    return x;
-}
 
 module.exports = Delay;

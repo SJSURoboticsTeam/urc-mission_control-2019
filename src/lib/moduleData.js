@@ -13,7 +13,8 @@ const moduleData = {
     "map-module": { id: "map-module", value: "map" },
     "camera-module": { id: "camera-module", value: "Camera" },
     "proto-module": { id: "proto-module", value: "ProtoModule" },
-    "intelligent-systems-module": { id: "intelligent-systems-module", value: "IntelligentSystems" }
+    "intelligent-systems-module": { id: "intelligent-systems-module", value: "IntelligentSystems" },
+    "xhr-test-module": { id: "xhr-test-module", value: "XHRTest" }
   },
 
   windowOrder: ["window-1", "window-2", "window-3", "window-4"],
@@ -25,7 +26,8 @@ const moduleData = {
     "map-module",
     "camera-module",
     "proto-module",
-    "intelligent-systems-module"
+    "intelligent-systems-module",
+    "xhr-test-module"
   ]
 };
 
