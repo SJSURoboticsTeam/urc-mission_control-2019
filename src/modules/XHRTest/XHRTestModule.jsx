@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Label, Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
+import { Row, Col, Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
 import sendXHR from "../../lib/sendXHR";
 import "./XHRTestStyle.css";
 
@@ -30,7 +30,7 @@ class XHRTestModule extends Component {
     let input_type = (is_key ? "key" : "value");
     let input_elements = [];
 
-    for (let i=0; i<this.state.key_value_pair_count; i++) {
+    for (let i = 0; i < this.state.key_value_pair_count; i++) {
       input_elements.push(<Input placeholder={`${input_type} ${i}`} id={`${input_type}-${i}`}></Input>);
     }
 
@@ -48,7 +48,7 @@ class XHRTestModule extends Component {
     let key_temp;
     let value_temp;
 
-    for (let i=0; i<this.state.key_value_pair_count; i++) {
+    for (let i = 0; i < this.state.key_value_pair_count; i++) {
       key_temp = document.getElementById(`key-${i}`).value;
       value_temp = document.getElementById(`value-${i}`).value;
       return_obj[key_temp] = value_temp;
@@ -63,7 +63,7 @@ class XHRTestModule extends Component {
       return;
     }
 
-    
+
     let esp_ip_addr = document.getElementById("esp-ip-address").value;
     let endpoint = document.getElementById("endpoint").value;
 
@@ -92,7 +92,7 @@ class XHRTestModule extends Component {
           </Col>
           <Col>
             <h2>Console</h2>
-            <textarea id="console"></textarea>    
+            <textarea id="console"></textarea>
           </Col>
         </Row>
         <Row>

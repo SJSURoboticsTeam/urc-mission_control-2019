@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Row, Col, Label, Button, Input, InputGroup, InputGroupAddon } from 'reactstrap';
-import sendXHR from '../../lib/sendXHR'
+import { Row, Col, Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
+import sendXHR from "../../lib/sendXHR";
 import "./IntelligentSystemsStyle.css";
 
 
@@ -18,7 +18,7 @@ class IntelligentSystemsModule extends Component {
       (e.g. this.state.esp_ip), it will have no idea what you're 
       talking about.  
     */
-    
+
     this.toggleAutonomy = this.toggleAutonomy.bind(this);
     this.connect = this.connect.bind(this);
     this.setupSSE = this.setupSSE.bind(this);
@@ -83,11 +83,11 @@ class IntelligentSystemsModule extends Component {
       throw at you. This example only has the timestamp event though.
   */
   setupSSE() {
-    this.state.event_source.onopen = () => {
+    this.event_source.onopen = () => {
       this.printToConsole("Event Source Added!");
     };
 
-    this.state.event_source.onerror = () => {
+    this.event_source.onerror = () => {
       this.state.event_source.close();
       this.setState({
         event_source: null
@@ -95,7 +95,7 @@ class IntelligentSystemsModule extends Component {
       this.printToConsole("Event Source Closed.");
     };
 
-    this.state.event_source.addEventListener('timestamp', this.onTimestampEvent);
+    this.state.event_source.addEventListener("timestamp", this.onTimestampEvent);
   }
 
   // Adds strings to the textarea element in my module
@@ -127,12 +127,12 @@ class IntelligentSystemsModule extends Component {
         </InputGroup>
         <Row>
           <Col>
-            <h2>Autonomy is {this.stateToText(this.state.autonomy_state)}</h2>  
-            <span>Toggle Autonomy: <input type="radio" id="toggle-autonomy" onClick={this.toggleAutonomy}/></span>
+            <h2>Autonomy is {this.stateToText(this.state.autonomy_state)}</h2>
+            <span>Toggle Autonomy: <input type="radio" id="toggle-autonomy" onClick={this.toggleAutonomy} /></span>
           </Col>
           <Col>
             <h2>Console</h2>
-            <textarea id="console"></textarea>    
+            <textarea id="console"></textarea>
           </Col>
         </Row>
       </div>
