@@ -8,7 +8,6 @@ export default function sendXHR(address_and_port, endpoint, data, callbackFuncti
     const xhr = new XMLHttpRequest();
     xhr.addEventListener("error", xhrError);
     const body = data ? formatObject(data) : undefined;
-    console.log(`http://${address_and_port}/${endpoint}?data=${body}`);
     xhr.open("POST", `http://${address_and_port}/${endpoint}?data=${body}`);
 
     xhr.onreadystatechange = function() {

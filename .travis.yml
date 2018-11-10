@@ -2,8 +2,7 @@ language: node_js
 node_js:
  - "stable"
 install:
- - npm i mocha
- - npm install chai
+ - npm i react-scripts
 script: 
- - mocha
+ - npm run build
 
