@@ -12,7 +12,9 @@ const moduleData = {
     "drive-module": { id: "drive-module", value: "Drive" },
     "map-module": { id: "map-module", value: "map" },
     "camera-module": { id: "camera-module", value: "Camera" },
-    "proto-module": { id: "proto-module", value: "ProtoModule" }
+    "proto-module": { id: "proto-module", value: "ProtoModule" },
+    "intelligent-systems-module": { id: "intelligent-systems-module", value: "IntelligentSystems" },
+    "xhr-test-module": { id: "xhr-test-module", value: "XHRTest" }
   },
 
   windowOrder: ["window-1", "window-2", "window-3", "window-4"],
@@ -23,7 +25,9 @@ const moduleData = {
     "drive-module",
     "map-module",
     "camera-module",
-    "proto-module"
+    "proto-module",
+    "intelligent-systems-module",
+    "xhr-test-module"
   ]
 };
 

@@ -4,6 +4,8 @@ import "../../lib/css/ModuleContainer.css";
 import ProtoModule from "../ProtoModule/ProtoModule.jsx";
 import ScienceModule from "../Science/ScienceModule.jsx";
 import PowerModule from "../Power/PowerModule.jsx";
+import IntelligentSystemsModule from "../IntelligentSystems/IntelligentSystemsModule.jsx";
+import XHRTestModule from "../XHRTest/XHRTestModule.jsx";
 
 class ModuleContainer extends Component {
   state = {
@@ -26,6 +28,10 @@ class ModuleContainer extends Component {
         return <ScienceModule />;
       case "power-module":
         return <PowerModule />;
+      case "intelligent-systems-module":
+        return <IntelligentSystemsModule />;
+      case "xhr-test-module":
+        return <XHRTestModule />;
       default:
         return <p>{moduleName} does not exist</p>;
     }
