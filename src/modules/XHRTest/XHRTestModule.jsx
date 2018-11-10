@@ -71,6 +71,8 @@ class XHRTestModule extends Component {
 
     sendXHR(esp_ip_addr, endpoint, this.getKeyValuePairs(), (res) => {
       this.printToConsole(`result: ${res}`);
+      console.log(res)
+      console.log(res.sum)
     });
   }
 

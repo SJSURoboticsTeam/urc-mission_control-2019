@@ -75,7 +75,7 @@ class IntelligentSystemsModule extends Component {
       */
       this.setupSSE.bind(this)
     );
-  };
+  }
 
   /*
     Does 2 things
