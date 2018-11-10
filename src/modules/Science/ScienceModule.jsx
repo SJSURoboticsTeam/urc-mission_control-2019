@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./ScienceStyle.css";
-import Plot from 'react-plotly.js';
+// import Plot from 'react-plotly.js';
 
 function ContainerDisplay(props) {
   const container = props.container;
