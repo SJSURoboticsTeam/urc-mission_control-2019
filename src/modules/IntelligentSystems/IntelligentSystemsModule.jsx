@@ -9,7 +9,8 @@ class IntelligentSystemsModule extends Component {
     super(props);
     this.state = {
       esp_ip: null,
-      autonomy_state: false
+      autonomy_state: false,
+      event_source: null
     };
 
     /*
@@ -17,7 +18,7 @@ class IntelligentSystemsModule extends Component {
       (e.g. this.state.esp_ip), it will have no idea what you're 
       talking about.  
     */
-    this.event_source = null;
+    
     this.toggleAutonomy = this.toggleAutonomy.bind(this);
     this.connect = this.connect.bind(this);
     this.setupSSE = this.setupSSE.bind(this);
@@ -63,7 +64,7 @@ class IntelligentSystemsModule extends Component {
       //first parameter of setState is an obj with state values you'd like updated
       {
         esp_ip: document.getElementById("esp-ip-address").value,
-
+        event_source: new EventSource(`http://${esp_ip_address}/sse`)
       },
 
       /* 
@@ -74,8 +75,7 @@ class IntelligentSystemsModule extends Component {
       */
       this.setupSSE.bind(this)
     );
-    this.event_source = new EventSource(`http://${esp_ip_address}/sse`);
-  }
+  };
 
   /*
     Does 2 things
@@ -84,17 +84,21 @@ class IntelligentSystemsModule extends Component {
       throw at you. This example only has the timestamp event though.
   */
   setupSSE() {
-    this.event_source.onopen = () => {
+    //Copy event source, add event onOpen/Close, listeners, call setState()
+    let event_source = Object.assign(this.state.event_source);
+    event_source.onopen = () => {
       this.printToConsole("Event Source Added!");
     };
 
-    this.event_source.onerror = () => {
-      this.event_source.close();
-      this.event_source = null;
+    event_source.onerror = () => {
+      event_source.close();
+      event_source = null;
       this.printToConsole("Event Source Closed.");
     };
 
-    this.event_source.addEventListener("timestamp", this.onTimestampEvent);
+    event_source.addEventListener("timestamp", this.onTimestampEvent);
+
+    this.setState({event_source});
   }
 
   // Adds strings to the textarea element in my module
@@ -112,6 +116,7 @@ class IntelligentSystemsModule extends Component {
   onTimestampEvent(evt) {
     let timestamp = JSON.parse(evt.data).timestamp;
     this.printToConsole(`Time: ${timestamp}`);
+    console.log(this.state);
   }
 
   render() {

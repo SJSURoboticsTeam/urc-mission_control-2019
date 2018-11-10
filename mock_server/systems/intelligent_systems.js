@@ -23,6 +23,7 @@ intelligent_systems.addXHR("/xhr_comms_test", (req, res) => {
 });
 
 intelligent_systems.addOnConnectSSE("timestamp", makeTimestamp);
+
 intelligent_systems.addSSE("timestamp", 1000, makeTimestamp);
 
 function makeTimestamp() {
