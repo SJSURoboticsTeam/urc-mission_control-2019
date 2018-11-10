@@ -9,7 +9,8 @@ class IntelligentSystemsModule extends Component {
     super(props);
     this.state = {
       esp_ip: null,
-      autonomy_state: false
+      autonomy_state: false,
+      event_source: null
     };
 
     /*
@@ -17,11 +18,12 @@ class IntelligentSystemsModule extends Component {
       (e.g. this.state.esp_ip), it will have no idea what you're 
       talking about.  
     */
-    this.event_source = null;
+
     this.toggleAutonomy = this.toggleAutonomy.bind(this);
     this.connect = this.connect.bind(this);
     this.setupSSE = this.setupSSE.bind(this);
     this.onTimestampEvent = this.onTimestampEvent.bind(this);
+    this.onHeadingEvent = this.onHeadingEvent.bind(this);
   }
 
   //Invoked when the radio button is clicked
@@ -45,8 +47,9 @@ class IntelligentSystemsModule extends Component {
       see missioncontrol2019/mock_server/systems/intelligent_systems.js
       to see how this is handled
     */
-    sendXHR(this.state.esp_ip, "toggle_autonomy", {}, (res) => {
+    sendXHR(this.state.esp_ip, "toggle_autonomy", {}, (res, url) => {
       let res_obj = JSON.parse(res);
+      this.printToConsole(`URL: ${url}`);
       this.printToConsole(res_obj.message);
     });
   }
@@ -63,7 +66,7 @@ class IntelligentSystemsModule extends Component {
       //first parameter of setState is an obj with state values you'd like updated
       {
         esp_ip: document.getElementById("esp-ip-address").value,
-
+        event_source: new EventSource(`http://${esp_ip_address}/sse`)
       },
 
       /* 
@@ -74,7 +77,6 @@ class IntelligentSystemsModule extends Component {
       */
       this.setupSSE.bind(this)
     );
-    this.event_source = new EventSource(`http://${esp_ip_address}/sse`);
   }
 
   /*
@@ -84,17 +86,22 @@ class IntelligentSystemsModule extends Component {
       throw at you. This example only has the timestamp event though.
   */
   setupSSE() {
-    this.event_source.onopen = () => {
+    //Copy event source, add event onOpen/Close, listeners, call setState()
+    let event_source = Object.assign(this.state.event_source);
+    event_source.onopen = () => {
       this.printToConsole("Event Source Added!");
     };
 
-    this.event_source.onerror = () => {
-      this.event_source.close();
-      this.event_source = null;
+    event_source.onerror = () => {
+      event_source.close();
+      event_source = null;
       this.printToConsole("Event Source Closed.");
     };
 
-    this.event_source.addEventListener("timestamp", this.onTimestampEvent);
+    event_source.addEventListener("timestamp", this.onTimestampEvent);
+    event_source.addEventListener("getHeading", this.onTimestampEvent);
+
+    this.setState({ event_source });
   }
 
   // Adds strings to the textarea element in my module
@@ -112,6 +119,13 @@ class IntelligentSystemsModule extends Component {
   onTimestampEvent(evt) {
     let timestamp = JSON.parse(evt.data).timestamp;
     this.printToConsole(`Time: ${timestamp}`);
+    console.log(this.state);
+  }
+
+  onHeadingEvent(evt) {
+    let heading = JSON.parse(evt.data);
+    this.printToConsole(`Heading: ${heading}`);
+    console.log(this.state);
   }
 
   render() {

@@ -1,5 +1,5 @@
 export default function formatObject(obj) {
-  let str = "{";
+  let str = "";
   let first = true;
   for (const key in obj) {
     const value = obj[key];
@@ -9,11 +9,10 @@ export default function formatObject(obj) {
     if (first) {
       first = false;
     } else {
-      str += ",";
+      str += "&";
     }
-    str += `${key}:${JSON.stringify(value)}`;
+    str += `${key}=${JSON.stringify(value)}`;
   }
-  str += "}";
   return str;
 }
 
