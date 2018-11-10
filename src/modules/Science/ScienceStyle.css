@@ -60,7 +60,6 @@
 .science-drill-slider {
     writing-mode: bt-lr;
     -webkit-appearance: slider-vertical;
-    background: red;
     width: 8px;
     height: 155px;
     padding: 0 5px;

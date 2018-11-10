@@ -138,8 +138,8 @@ const GraphContainer = (props) => {
             { type: 'bar', x: [1, 2, 3], y: [2, 5, 3] },
           ]}
           layout={{ autosize: true, width: 320, height: 200, title: 'A Fancy Plot' }}
-        /> */}
-      {/* </div> */}
+        />
+      </div> */}
     </div>
   )
 }
