@@ -26,90 +26,95 @@ let printCounter = 0;
 const arm = new system.System("arm");
 
 arm.addXHR("/state", (req, res) => {
-    const {
-        camera_id,
-        camera_shoulder_rotation,
-        camera_elbow_rotation,
-        gimbal,
-        base,
-        shoulder,
-        elbow,
-        wrist,
-        wrist_rot,
-        claw_motion,
-        claw_torque,
-    } = req.body;
+  const {
+    camera_id,
+    camera_shoulder_rotation,
+    camera_elbow_rotation,
+    gimbal,
+    base,
+    shoulder,
+    elbow,
+    wrist,
+    wrist_rot,
+    claw_motion,
+    claw_torque,
+  } = req.body;
 
-    cameraId = camera_id;
-    cameraShoulder.set(camera_shoulder_rotation);
-    cameraElbow.set(camera_elbow_rotation);
-    gimbalState = gimbal;
-    baseDelay.set(base);
-    shoulderDelay.set(shoulder);
-    elbowDelay.set(elbow);
-    wristDelay.set(wrist);
-    wristRotDelay.set(wrist_rot);
-    clawMotion = claw_motion;
-    clawTorque = claw_torque;
+  cameraId = camera_id;
+  cameraShoulder.set(camera_shoulder_rotation);
+  cameraElbow.set(camera_elbow_rotation);
+  gimbalState = gimbal;
+  baseDelay.set(base);
+  shoulderDelay.set(shoulder);
+  elbowDelay.set(elbow);
+  wristDelay.set(wrist);
+  wristRotDelay.set(wrist_rot);
+  clawMotion = claw_motion;
+  clawTorque = claw_torque;
 
-    console.log("arm /state");
-    res.send("OK");
+  console.log("arm /state");
+  res.send("OK");
 });
 
 arm.addOnConnectSSE("hello", makeHello);
-arm.addOnConnectSSE("ping",  makePing);
-arm.addSSE("ping",  1000, makePing);
+arm.addOnConnectSSE("ping", makePing);
+arm.addSSE("ping", 1000, makePing);
 arm.addSSE("print", 3500, makePrint);
 
 function makeHello() {
-    return {
-        camera_id: cameraId,
+  return {
+    camera_id: cameraId,
 
-        camera_shoulder_rotation_desired: cameraShoulder.destination,
-        camera_elbow_rotation_desired: cameraElbow.destination,
+    camera_shoulder_rotation_desired: cameraShoulder.destination,
+    camera_elbow_rotation_desired: cameraElbow.destination,
 
-        gimbal: gimbalState,
+    gimbal: gimbalState,
 
-        base_desired: baseDelay.destination,
-        shoulder_desired: shoulderDelay.destination,
-        elbow_desired: elbowDelay.destination,
-        wrist_desired: wristDelay.destination,
-        wrist_rot_desired: wristRotDelay.destination,
+    base_desired: baseDelay.destination,
+    shoulder_desired: shoulderDelay.destination,
+    elbow_desired: elbowDelay.destination,
+    wrist_desired: wristDelay.destination,
+    wrist_rot_desired: wristRotDelay.destination,
 
-        claw_torque: clawTorque,
-    };
+    claw_torque: clawTorque,
+  };
 }
 
 function makePing() {
-    const getPosition = (delay) => { delay.update(1000); return delay.position; };
+  const getPosition = (delay) => { delay.update(1000); return delay.position; };
 
-    const isMoving = (delay) => delay.position !== delay.destination;
+  const isMoving = (delay) => delay.position !== delay.destination;
 
-    const current = 1
-                  + (cameraId !== 0 ? 4 : 0)
-                  + (isMoving(cameraShoulder) ? 1 : 0)
-                  + (isMoving(cameraElbow) ? 1 : 0)
-                  + (isMoving(baseDelay) ? 5 : 0)
-                  + (isMoving(shoulderDelay) ? 5 : 0)
-                  + (isMoving(elbowDelay) ? 5 : 0)
-                  + (isMoving(wristDelay) ? 5 : 0)
-                  + (isMoving(wristRotDelay) ? 5 : 0)
-                  + (clawMotion !== 0 ? 5 : 0);
+  const current = 1
+    + (cameraId !== 0 ? 4 : 0)
+    + (isMoving(cameraShoulder) ? 1 : 0)
+    + (isMoving(cameraElbow) ? 1 : 0)
+    + (isMoving(baseDelay) ? 5 : 0)
+    + (isMoving(shoulderDelay) ? 5 : 0)
+    + (isMoving(elbowDelay) ? 5 : 0)
+    + (isMoving(wristDelay) ? 5 : 0)
+    + (isMoving(wristRotDelay) ? 5 : 0)
+    + (clawMotion !== 0 ? 5 : 0);
 
-    return {
-        current,
+  return {
+    current,
 
-        camera_shoulder_rotation: getPosition(cameraShoulder),
-        camera_elbow_rotation: getPosition(cameraElbow),
+    camera_shoulder_rotation: getPosition(cameraShoulder),
+    camera_elbow_rotation: getPosition(cameraElbow),
 
-        base: getPosition(baseDelay),
-        shoulder: getPosition(shoulderDelay),
-        elbow: getPosition(elbowDelay),
-        wrist: getPosition(wristDelay),
-        wrist_rot: getPosition(wristRotDelay),
-    };
+    base: getPosition(baseDelay),
+    shoulder: getPosition(shoulderDelay),
+    elbow: getPosition(elbowDelay),
+    wrist: getPosition(wristDelay),
+    wrist_rot: getPosition(wristRotDelay),
+  };
 }
 
 function makePrint() {
-   return `Example print message #${printCounter++}`;
+  return `Example print message #${printCounter++}`;
 }
+
+arm.addOnConnectSSE("hello", makeHello);
+arm.addOnConnectSSE("ping", makePing);
+arm.addSSE("ping", 1000, makePing);
+arm.addSSE("print", 3500, makePrint);
