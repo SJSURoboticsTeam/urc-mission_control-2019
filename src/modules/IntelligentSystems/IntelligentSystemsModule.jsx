@@ -9,8 +9,7 @@ class IntelligentSystemsModule extends Component {
     super(props);
     this.state = {
       esp_ip: null,
-      autonomy_state: false,
-      event_source: null
+      autonomy_state: false
     };
 
     /*
@@ -18,7 +17,7 @@ class IntelligentSystemsModule extends Component {
       (e.g. this.state.esp_ip), it will have no idea what you're 
       talking about.  
     */
-
+    this.event_source = null;
     this.toggleAutonomy = this.toggleAutonomy.bind(this);
     this.connect = this.connect.bind(this);
     this.setupSSE = this.setupSSE.bind(this);
@@ -64,8 +63,9 @@ class IntelligentSystemsModule extends Component {
       //first parameter of setState is an obj with state values you'd like updated
       {
         esp_ip: document.getElementById("esp-ip-address").value,
-        event_source: new EventSource(`http://${esp_ip_address}/sse`)
+
       },
+
       /* 
         this second parameter is the callback function you want to invoke after
         the state has been updated. If you instead just try to call the function
@@ -74,6 +74,7 @@ class IntelligentSystemsModule extends Component {
       */
       this.setupSSE.bind(this)
     );
+    this.event_source = new EventSource(`http://${esp_ip_address}/sse`);
   }
 
   /*
@@ -88,14 +89,12 @@ class IntelligentSystemsModule extends Component {
     };
 
     this.event_source.onerror = () => {
-      this.state.event_source.close();
-      this.setState({
-        event_source: null
-      });
+      this.event_source.close();
+      this.event_source = null;
       this.printToConsole("Event Source Closed.");
     };
 
-    this.state.event_source.addEventListener("timestamp", this.onTimestampEvent);
+    this.event_source.addEventListener("timestamp", this.onTimestampEvent);
   }
 
   // Adds strings to the textarea element in my module

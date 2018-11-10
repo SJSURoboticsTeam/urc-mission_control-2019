@@ -9,7 +9,7 @@ function xhrError() {
   console.log("Error: sending XHR Failed.");
 }
 
-export default function sendXHR(address_and_port, endpoint, data, callbackFunction = blankFunction) {
+export default function sendXHR(address_and_port, endpoint, data, callbackFunction = () => { }) {
   const xhr = new XMLHttpRequest();
   xhr.addEventListener("error", xhrError);
   const body = data ? formatObject(data) : undefined;
@@ -22,10 +22,4 @@ export default function sendXHR(address_and_port, endpoint, data, callbackFuncti
   };
 
   xhr.send();
-}
-
-
-//Blank function, in case use of XHR does not require response.
-function blankFunction(param) {
-  //
 }
