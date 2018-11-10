@@ -16,6 +16,12 @@ intelligent_systems.addXHR("/toggle_autonomy", (req, res) => {
     });
 });
 
+intelligent_systems.addXHR("/xhr_comms_test", (req, res) => {
+	let new_req = JSON.parse(req)
+	console.log(new_req);
+	console.log(typeof new_req);
+})
+
 intelligent_systems.addOnConnectSSE("timestamp",  makeTimestamp);
 intelligent_systems.addSSE("timestamp", 1000, makeTimestamp);
 
