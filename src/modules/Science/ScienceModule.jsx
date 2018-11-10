@@ -94,18 +94,26 @@ const DrillContainer = (props) => {
         handleBackButton={props.handleBackButton}
       />
       <div className="science-slider-container">
-        <input
-          className="science-drill-slider"
-          type="range"
-          orient="vertical"
-        >
-        </input>
-        <input
-          className="science-drill-slider"
-          type="range"
-          orient="vertical"
-        >
-        </input>
+        <div className="science-slider-indiv">
+          <input
+            className="science-drill-slider"
+            type="range"
+            orient="vertical"
+          >
+          </input>
+          Input Position
+        </div>
+
+        <div className="science-slider-indiv">
+          <input
+            className="science-drill-slider"
+            type="range"
+            orient="vertical"
+            disabled="true"
+          >
+          </input>
+          Current Position
+        </div>
       </div>
     </div>
   );
@@ -118,7 +126,7 @@ const GraphContainer = (props) => {
         handleBackButton={props.handleBackButton}
       />
       {/* <div className="science-geiger-graph"> */}
-        {/* <Plot
+      {/* <Plot
           data={[
             {
               x: [1, 2, 3],

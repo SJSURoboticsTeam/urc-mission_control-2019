@@ -60,9 +60,16 @@
 .science-drill-slider {
     writing-mode: bt-lr;
     -webkit-appearance: slider-vertical;
+    background: red;
     width: 8px;
-    height: 175px;
+    height: 155px;
     padding: 0 5px;
+}
+
+.science-slider-indiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* -------- */
