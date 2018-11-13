@@ -15,6 +15,9 @@ class ScienceModule extends Component {
   handleGeigerButton = () => {
     this.setState(() => ({ container: 2 }));
   };
+  handlePodsButton = () => {
+    this.setState(() => ({ container: 3 }));
+  };
   render() {
     return (
       <div className="science-container">
@@ -29,6 +32,7 @@ class ScienceModule extends Component {
         <ContainerDisplay
           container={this.state.container}
           handleBackButton={this.handleBackButton}
+          handlePodsButton={this.handlePodsButton}
           handleDrillButton={this.handleDrillButton}
           handleGeigerButton={this.handleGeigerButton}
         />

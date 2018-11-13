@@ -13,7 +13,13 @@ const ButtonContainer = (props) => (
             onClick={props.handleGeigerButton}
         >
             Geiger Graph
-            </button>
+        </button>
+        <button
+            className="btn btn-lg btn-info"
+            onClick={props.handlePodsButton}
+        >
+            PODS Management
+        </button>
     </div>
 );
 
