@@ -13,6 +13,7 @@ export default function sendXHR(address_and_port, endpoint, data, callbackFuncti
   const xhr = new XMLHttpRequest();
   xhr.addEventListener("error", xhrError);
   const params = data ? formatObject(data) : undefined;
+  
   xhr.open("POST", `http://${address_and_port}/${endpoint}?${params}`);
 
   xhr.onreadystatechange = function () {

@@ -17,10 +17,10 @@ intelligent_systems.addXHR("/toggle_autonomy", (req, res) => {
 });
 
 intelligent_systems.addXHR("/xhr_comms_test", (req, res) => {
-  let new_req = eval('(' + req.query.data + ')');
+  let new_req = req.query;
   console.log(new_req);
   console.log(typeof new_req);
-  console.log(parseInt(new_req.val_1) + parseInt(new_req.val_2) + parseInt(new_req.val_3))
+  console.log(parseInt(new_req.val_1) + parseInt(new_req.val_2) + parseInt(new_req.val_3));
 
   res.send({
     sum: parseInt(new_req.val_1) + parseInt(new_req.val_2) + parseInt(new_req.val_3)
