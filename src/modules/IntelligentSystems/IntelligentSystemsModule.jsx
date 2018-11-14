@@ -46,8 +46,9 @@ class IntelligentSystemsModule extends Component {
       see missioncontrol2019/mock_server/systems/intelligent_systems.js
       to see how this is handled
     */
-    sendXHR(this.state.esp_ip, "toggle_autonomy", {}, (res) => {
+    sendXHR(this.state.esp_ip, "toggle_autonomy", {}, (res, url) => {
       let res_obj = JSON.parse(res);
+      this.printToConsole(`URL: ${url}`);
       this.printToConsole(res_obj.message);
     });
   }
