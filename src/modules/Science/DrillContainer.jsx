@@ -15,7 +15,7 @@ const DrillContainer = (props) => (
                 >
                 </input>
                 Input Position
-                </div>
+            </div>
             <div className="science-slider-indiv">
                 <input
                     className="science-drill-slider"
@@ -25,7 +25,7 @@ const DrillContainer = (props) => (
                 >
                 </input>
                 Current Position
-                </div>
+            </div>
         </div>
     </div>
 );
