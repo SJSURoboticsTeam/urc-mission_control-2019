@@ -14,8 +14,10 @@ const moduleData = {
     "camera-module": { id: "camera-module", value: "Camera" },
     "proto-module": { id: "proto-module", value: "ProtoModule" },
     "intelligent-systems-module": { id: "intelligent-systems-module", value: "IntelligentSystems" },
-    "xhr-test-module": { id: "xhr-test-module", value: "XHRTest" }
+    "xhr-test-module": { id: "xhr-test-module", value: "XHRTest" },
+    "compass-module": { id: "compass-module", value: "CompassModule" }
   },
+
 
   windowOrder: ["window-1", "window-2", "window-3", "window-4"],
   componentOrder: [
@@ -27,7 +29,8 @@ const moduleData = {
     "camera-module",
     "proto-module",
     "intelligent-systems-module",
-    "xhr-test-module"
+    "xhr-test-module",
+    "compass-module"
   ]
 };
 
