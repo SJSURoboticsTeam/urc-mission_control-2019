@@ -7,6 +7,7 @@ import ScienceModule from "../Science/ScienceModule.jsx";
 import PowerModule from "../Power/PowerModule.jsx";
 import IntelligentSystemsModule from "../IntelligentSystems/IntelligentSystemsModule.jsx";
 import XHRTestModule from "../XHRTest/XHRTestModule.jsx";
+import CompassModule from "../CompassModule/CompassModule.jsx";
 
 class ModuleContainer extends Component {
   constructor(props) {
@@ -43,6 +44,8 @@ class ModuleContainer extends Component {
         return <IntelligentSystemsModule />;
       case "xhr-test-module":
         return <XHRTestModule />;
+      case "compass-module":
+        return <CompassModule />;
       default:
         return <p>{moduleName} does not exist</p>;
     }
