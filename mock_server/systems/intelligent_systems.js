@@ -23,7 +23,7 @@ intelligent_systems.addXHR("/xhr_comms_test", (req, res) => {
   console.log(parseInt(new_req.val_1) + parseInt(new_req.val_2) + parseInt(new_req.val_3));
 
   res.send({
-    sum: parseInt(new_req.val_1) + parseInt(new_req.val_2) + parseInt(new_req.val_3)
+    message: parseInt(new_req.val_1) + parseInt(new_req.val_2) + parseInt(new_req.val_3)
   });
 });
 

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { 
-  Row, 
-  Col, 
-  Button, 
+import {
+  Row,
+  Col,
+  Button,
   ButtonGroup,
-  Input, 
-  InputGroup, 
-  InputGroupAddon, 
+  Input,
+  InputGroup,
+  InputGroupAddon,
 } from "reactstrap";
 import sendXHR from "../../lib/sendXHR";
 import "./XHRTestStyle.css";
@@ -70,7 +70,7 @@ class XHRTestModule extends Component {
   //Radio buttons are used to specify if key is a int or string.
   generateRadioButtons() {
     let radio_button_elements = [];
-    
+
     for (let i = 0; i < this.state.key_value_pair_count; i++) {
       //generate UI elements
       radio_button_elements.push(
@@ -134,7 +134,7 @@ class XHRTestModule extends Component {
 
     sendXHR(esp_ip_addr, endpoint, this.getKeyValuePairs(), (res) => {
       res = JSON.parse(res)
-      this.printToConsole(`result: ${res.sum}`);
+      this.printToConsole(`result: ${res.message}`);
     });
   }
 
@@ -172,7 +172,7 @@ class XHRTestModule extends Component {
             {this.generateKeyOrValueInputs(0)}
           </Col>
           <Col>
-            {this.generateRadioButtons()} 
+            {this.generateRadioButtons()}
           </Col>
         </Row>
         <Row>
