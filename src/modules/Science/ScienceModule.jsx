@@ -8,15 +8,18 @@ class ScienceModule extends Component {
   };
   handleBackButton = () => {
     this.setState(() => ({ container: 0 }));
+    console.log("Back Button clicked");
   };
   handleDrillButton = () => {
     this.setState(() => ({ container: 1 }));
   };
   handleGeigerButton = () => {
     this.setState(() => ({ container: 2 }));
+    console.log("Geiger Button clicked");
   };
   handlePodsButton = () => {
     this.setState(() => ({ container: 3 }));
+    console.log("PODS button clicked");
   };
   render() {
     return (

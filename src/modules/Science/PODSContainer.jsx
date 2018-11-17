@@ -1,14 +1,16 @@
 import React from 'react';
 import BackButton from './BackButton';
 
+const logger = () => console.log("POD 1 clicked");
+
 const PODSContainer = (props) => (
     <div className="science-pods-container">
         <div className="science-pods-header">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div className="dropdown">
+                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown button
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {/* <a class="dropdown-item" href="#">Action</a>
                     <a class="dropdown-item" href="#">Another action</a>
                     <a class="dropdown-item" href="#">Something else here</a> */}
@@ -20,7 +22,10 @@ const PODSContainer = (props) => (
         </div>
 
         <div className="science-pod-container">
-            <button className="btn btn-info">POD 1</button>
+            <button 
+                onClick={logger}
+                className="btn btn-info"
+            >POD 1</button>
         </div>
     </div>
 );
