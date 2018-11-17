@@ -14,13 +14,12 @@ power_systems.addXHR("/toggle_power", (req, res) => {
   });
 });
 
-
-power_systems.addOnConnectSSE("timestamp", makeTimestamp);
-
-power_systems.addSSE("timestamp", 1000, makeTimestamp);
-
 function makeTimestamp() {
   return JSON.stringify({
     timestamp: Date.now()
   });
 }
+
+power_systems.addOnConnectSSE("timestamp", makeTimestamp);
+
+power_systems.addSSE("timestamp", 1000, makeTimestamp);

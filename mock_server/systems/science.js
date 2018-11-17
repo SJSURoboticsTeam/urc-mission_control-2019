@@ -16,12 +16,12 @@ science_systems.addXHR("/set_something", (req, res) => {
   });
 });
 
-science_systems.addOnConnectSSE("timestamp", makeTimestamp);
-
-science_systems.addSSE("timestamp", 1000, makeTimestamp);
-
 function makeTimestamp() {
   return JSON.stringify({
     timestamp: Date.now()
   });
 }
+
+science_systems.addOnConnectSSE("timestamp", makeTimestamp);
+
+science_systems.addSSE("timestamp", 1000, makeTimestamp);

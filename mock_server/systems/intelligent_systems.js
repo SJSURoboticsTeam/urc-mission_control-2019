@@ -18,20 +18,21 @@ intelligent_systems.addXHR("/toggle_autonomy", (req, res) => {
 
 intelligent_systems.addXHR("/xhr_comms_test", (req, res) => {
   let new_req = req.query;
-  console.log(new_req);
-  console.log(typeof new_req);
-  console.log(parseInt(new_req.val_1) + parseInt(new_req.val_2) + parseInt(new_req.val_3));
+  // console.log(new_req);
+  // console.log(typeof new_req);
+  // console.log(parseInt(new_req.val_1) + parseInt(new_req.val_2) + parseInt(new_req.val_3));
 
   res.send({
     message: parseInt(new_req.val_1) + parseInt(new_req.val_2) + parseInt(new_req.val_3)
   });
 });
 
-intelligent_systems.addOnConnectSSE("timestamp", makeTimestamp);
-intelligent_systems.addSSE("timestamp", 1000, makeTimestamp);
-
 function makeTimestamp() {
   return JSON.stringify({
     timestamp: Date.now()
   });
 }
+
+intelligent_systems.addOnConnectSSE("timestamp", makeTimestamp);
+
+intelligent_systems.addSSE("timestamp", 1000, makeTimestamp);

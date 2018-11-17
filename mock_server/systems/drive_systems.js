@@ -16,12 +16,13 @@ drive_systems.addXHR("/drive_mode", (req, res) => {
   });
 });
 
-drive_systems.addOnConnectSSE("timestamp", makeTimestamp);
-
-drive_systems.addSSE("timestamp", 1000, makeTimestamp);
 
 function makeTimestamp() {
   return JSON.stringify({
     timestamp: Date.now()
   });
 }
+
+drive_systems.addOnConnectSSE("timestamp", makeTimestamp);
+
+drive_systems.addSSE("timestamp", 1000, makeTimestamp);

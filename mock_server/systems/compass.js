@@ -15,12 +15,13 @@ compass.addXHR("/heading", (req, res) => {
   });
 });
 
-compass.addOnConnectSSE("getHeading", getHeading);
-
-compass.addSSE("getHeading", 1000, getHeading);
 
 function getHeading() {
   return JSON.stringify({
     heading: Math.floor(Math.random() * Math.floor(360))
   });
 }
+
+compass.addOnConnectSSE("getHeading", getHeading);
+
+compass.addSSE("getHeading", 1000, getHeading);

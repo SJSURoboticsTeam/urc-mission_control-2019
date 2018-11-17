@@ -20,7 +20,7 @@ class XHRTestModule extends Component {
     };
 
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.generateRadioButtons = this.generateRadioButtons.bind(this)
+    this.generateRadioButtons = this.generateRadioButtons.bind(this);
     this.generateKeyOrValueInputs = this.generateKeyOrValueInputs.bind(this);
     this.addKeyValuePair = this.addKeyValuePair.bind(this);
     this.getKeyValuePairs = this.getKeyValuePairs.bind(this);
@@ -111,7 +111,7 @@ class XHRTestModule extends Component {
 
       //parseInt if value_type is specified as int, if not, leave as string
       if (this.state.value_data_types[i] === 1) {
-        value_temp = parseInt(value_temp);
+        value_temp = parseInt(value_temp, 10);
       }
 
       return_obj[key_temp] = value_temp;
@@ -133,12 +133,8 @@ class XHRTestModule extends Component {
     this.printToConsole(`Sending XHR to http://${esp_ip_addr}/${endpoint}`);
 
     sendXHR(esp_ip_addr, endpoint, this.getKeyValuePairs(), (res) => {
-      res = JSON.parse(res)
-<<<<<<< HEAD
+      res = JSON.parse(res);
       this.printToConsole(`result: ${res.message}`);
-=======
-      this.printToConsole(`result: ${res.sum}`);
->>>>>>> 8ee3dba... Removed parseXHRBody because unnecessary
     });
   }
 
