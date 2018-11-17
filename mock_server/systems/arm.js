@@ -25,6 +25,40 @@ let printCounter = 0;
 // Arm API
 const arm = new system.System("arm");
 
+arm.addXHR("/set_arm", (req, res) => {
+  let new_req = req.query;
+  let resText = "";
+  // console.log(new_req);
+  // console.log(typeof new_req);
+  //rtda = rotounda
+  if (new_req.rtda) {
+    resText += `rotunda set to ${new_req.rtda}\n`;
+  }
+  //sldr = shoulder
+  if (new_req.sldr) {
+    resText += `shoulder set to ${new_req.sldr}\n`;
+  }
+  //wrll = wrist roll
+  if (new_req.wrll) {
+    resText += `wrist roll set to ${new_req.wrll}\n`;
+  }
+  //wpch = wrist pitch
+  if (new_req.wpch) {
+    resText += `wrist roll set to ${new_req.wpch}\n`;
+  }
+  //claw = claw open close
+  if (new_req.claw) {
+    resText += `claw is ${new_req.claw}\n`;
+  }
+  //lasr = toggle laser
+  if (new_req.lasr) {
+    resText += `laser is ${new_req.lasr}\n`;
+  }
+  res.send({
+    sum: resText
+  });
+});
+
 arm.addXHR("/state", (req, res) => {
   const {
     camera_id,
@@ -52,7 +86,7 @@ arm.addXHR("/state", (req, res) => {
   clawMotion = claw_motion;
   clawTorque = claw_torque;
 
-  console.log("arm /state");
+  // console.log("arm /state");
   res.send("OK");
 });
 

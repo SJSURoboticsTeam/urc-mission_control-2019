@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Row, Col, Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
+import {
+  Row,
+  Col,
+  Button,
+  ButtonGroup,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+} from "reactstrap";
 import sendXHR from "../../lib/sendXHR";
 import "./XHRTestStyle.css";
 
@@ -7,19 +15,41 @@ class XHRTestModule extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      key_value_pair_count: 1
+      key_value_pair_count: 1,
+      value_data_types: []
     };
 
-    this.onXHRSend = this.onXHRSend.bind(this);
-    this.addKeyValuePair = this.addKeyValuePair.bind(this);
+    this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
+    this.generateRadioButtons = this.generateRadioButtons.bind(this);
     this.generateKeyOrValueInputs = this.generateKeyOrValueInputs.bind(this);
+    this.addKeyValuePair = this.addKeyValuePair.bind(this);
     this.getKeyValuePairs = this.getKeyValuePairs.bind(this);
+    this.onXHRSend = this.onXHRSend.bind(this);
   }
 
   // Adds strings to the textarea element in my module
   printToConsole(string_out) {
     let text_console = document.getElementById("console");
     text_console.value += `${string_out} \n`;
+  }
+
+  /* 
+    Updates value_data type, a array storing the data type of each value
+    value_type = 1: int
+    value_type = 2: string
+
+    This data will be used when generating the object passed to sendXHR
+      by formatting the key to be a string or int. Makes control systems
+      easier.
+  */
+  onRadioBtnClick(pair_index, value_type) {
+    //copy array from state, since you can't modify it directly
+    let value_data_types_temp = this.state.value_data_types;
+    value_data_types_temp[pair_index] = value_type;
+
+    this.setState({
+      value_data_types: value_data_types_temp
+    });
   }
 
   /*
@@ -37,9 +67,36 @@ class XHRTestModule extends Component {
     return input_elements;
   }
 
+  //Radio buttons are used to specify if key is a int or string.
+  generateRadioButtons() {
+    let radio_button_elements = [];
+
+    for (let i = 0; i < this.state.key_value_pair_count; i++) {
+      //generate UI elements
+      radio_button_elements.push(
+        <Row>
+          <ButtonGroup>
+            <Button color="primary" onClick={() => this.onRadioBtnClick(i, 1)} active={this.state.value_data_types[i] === 1}>Int</Button>
+            <Button color="primary" onClick={() => this.onRadioBtnClick(i, 2)} active={this.state.value_data_types[i] === 2}>String</Button>
+          </ButtonGroup>
+        </Row>
+      );
+    }
+
+    return radio_button_elements;
+  }
+
   addKeyValuePair() {
+    let radio_state_temp_arr = []; //will store value of each button
+    for (let i = 0; i < this.state.key_value_pair_count + 1; i++) {
+      //initialize radio state arr. All values are initially int's (AKA value_data_types = 1)
+      radio_state_temp_arr.push(1);
+    }
+
+    //increment # of k-v pairs in state
     this.setState({
-      key_value_pair_count: this.state.key_value_pair_count + 1
+      key_value_pair_count: this.state.key_value_pair_count + 1,
+      value_data_types: radio_state_temp_arr
     });
   }
 
@@ -51,6 +108,12 @@ class XHRTestModule extends Component {
     for (let i = 0; i < this.state.key_value_pair_count; i++) {
       key_temp = document.getElementById(`key-${i}`).value;
       value_temp = document.getElementById(`value-${i}`).value;
+
+      //parseInt if value_type is specified as int, if not, leave as string
+      if (this.state.value_data_types[i] === 1) {
+        value_temp = parseInt(value_temp, 10);
+      }
+
       return_obj[key_temp] = value_temp;
     }
 
@@ -70,7 +133,8 @@ class XHRTestModule extends Component {
     this.printToConsole(`Sending XHR to http://${esp_ip_addr}/${endpoint}`);
 
     sendXHR(esp_ip_addr, endpoint, this.getKeyValuePairs(), (res) => {
-      this.printToConsole(`result: ${res}`);
+      res = JSON.parse(res);
+      this.printToConsole(`result: ${res.message}`);
     });
   }
 
@@ -106,6 +170,9 @@ class XHRTestModule extends Component {
           </Col>
           <Col>
             {this.generateKeyOrValueInputs(0)}
+          </Col>
+          <Col>
+            {this.generateRadioButtons()}
           </Col>
         </Row>
         <Row>
