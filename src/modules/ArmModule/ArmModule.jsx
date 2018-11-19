@@ -5,31 +5,32 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-import SliderView from "./SliderView";
 import TextInput from "./TextInput";
-import Presets from "./Presets"
+import Presets from "./Presets";
 
 class ArmModule extends Component {
   state = {
     dropdownOpen: false,
-    currentModule: "nothing"
-  }
+    currentModule: "nothing",
+    views: [
+      { name: "Input Values", value: "input" },
+      { name: "Buttons + Presets", value: "preset" }
+    ]
+  };
 
-  onChange = (e) => {
+  onChange = ((e) => {
     this.setState({
       currentModule: e.target.value
     });
-    console.log(this.state.currentModule);
-  };
+    console.log(e.target.value);
+  });
 
   chooseModule(moduleName) {
     switch (moduleName) {
-      case "slider":
-        return <SliderView />;
       case "input":
         return <TextInput />;
       case "preset":
-        return <Presets />
+        return <Presets />;
       default:
         return <h1>Arm Module!</h1>;
     }
@@ -48,23 +49,31 @@ class ArmModule extends Component {
           isOpen={this.state.dropdownOpen}
           toggle={this.toggle}
           className="controlSelect"
+          key="controlSelect"
           onChange={this.changeValue}
         >
           <DropdownToggle caret>Control Select</DropdownToggle>
           <DropdownMenu>
-            <DropdownItem onClick={this.onChange} key="slider" value="slider">
-              Sliders
-          </DropdownItem>
-            <DropdownItem onClick={this.onChange} key="input" value="input">
+            {this.state.views.map((view) => {
+              return (<DropdownItem
+                onClick={this.onChange}
+                key={view.value}
+                value={view.value}
+              >
+                {view.name}
+              </DropdownItem>);
+            })}
+            {/* <DropdownItem onClick={this.onChange} key="input" value="input">
               Input Values
-          </DropdownItem>
+            </DropdownItem>
             <DropdownItem onClick={this.onChange} key="preset" value="preset">
               Buttons + Presets
-          </DropdownItem>
+            </DropdownItem> */}
           </DropdownMenu>
         </ButtonDropdown>
         {this.chooseModule(this.state.currentModule)}
-      </div>);
+      </div>
+    );
   }
 }
 

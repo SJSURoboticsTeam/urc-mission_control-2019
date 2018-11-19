@@ -25,19 +25,36 @@ let printCounter = 0;
 // Arm API
 const arm = new system.System("arm");
 
-arm.addXHR("/set_arm", (req, res) => {
+arm.addXHR()
+
+
+arm.addXHR("/set_rotunda", (req, res) => {
   let new_req = req.query;
   let resText = "";
-  // console.log(new_req);
-  // console.log(typeof new_req);
   //rtda = rotounda
   if (new_req.rtda) {
     resText += `rotunda set to ${new_req.rtda}\n`;
   }
+  res.send({
+    message: resText
+  });
+});
+
+arm.addXHR("/set_shoulder", (req, res) => {
+  let new_req = req.query;
+  let resText = "";
   //sldr = shoulder
   if (new_req.sldr) {
     resText += `shoulder set to ${new_req.sldr}\n`;
   }
+  res.send({
+    message: resText
+  });
+});
+
+arm.addXHR("/set_wrist", (req, res) => {
+  let new_req = req.query;
+  let resText = "";
   //wrll = wrist roll
   if (new_req.wrll) {
     resText += `wrist roll set to ${new_req.wrll}\n`;
@@ -46,16 +63,32 @@ arm.addXHR("/set_arm", (req, res) => {
   if (new_req.wpch) {
     resText += `wrist roll set to ${new_req.wpch}\n`;
   }
+  res.send({
+    message: resText
+  });
+});
+
+arm.addXHR("/set_claw", (req, res) => {
+  let new_req = req.query;
+  let resText = "";
   //claw = claw open close
   if (new_req.claw) {
     resText += `claw is ${new_req.claw}\n`;
   }
+  res.send({
+    message: resText
+  });
+});
+
+arm.addXHR("/set_laser", (req, res) => {
+  let new_req = req.query;
+  let resText = "";
   //lasr = toggle laser
   if (new_req.lasr) {
     resText += `laser is ${new_req.lasr}\n`;
   }
   res.send({
-    sum: resText
+    message: resText
   });
 });
 
