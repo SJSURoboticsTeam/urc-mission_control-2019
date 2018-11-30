@@ -90,7 +90,7 @@ export default class PODSContainer extends React.Component {
                         <button
                             className="btn btn-danger"
                         >
-                            Kill
+                            Kill {this.state.currentPOD}
                     </button>
                     </div>
                     <div
