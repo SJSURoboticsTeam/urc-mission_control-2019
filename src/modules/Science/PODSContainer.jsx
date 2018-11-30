@@ -27,14 +27,16 @@ export default class PODSContainer extends React.Component {
         }));
     };
     handleChange = (e) => {
-        this.setState({currentPOD: e.target.value});
+        this.setState({ currentPOD: e.target.value });
     };
     handlePODClicked = (e) => {
-        const currentId = e.target.id;
-        console.log(`${this.state.currentPOD} clicked`);
-        // this.setState((prevState) => ({pods[currentId].isActive: !prevState.pods[currentId].isActive}));
-        this.setState((prevState) => ({pods: prevState.pods.map((pod) => pod.isActive = true), currentPOD: "POD 1"}));
-        console.log(currentId);
+        const currentPOD = this.state.currentPOD;
+        const currentId = this.state.pods.find((pod) => pod.name === currentPOD).id;
+        const pods = this.state.pods;
+        pods[currentId].isActive = true;
+        console.log(`${currentPOD} clicked`);
+        console.log(`${currentId} clicked`);
+        this.setState(() => ({ pods }));
     };
     findPODIndex = () => {
         return this.state.pods.find(pod => pod.name === this.state.currentPOD).id;
@@ -48,31 +50,58 @@ export default class PODSContainer extends React.Component {
                             Current POD: {this.state.currentPOD}
                         </DropdownToggle>
                         <DropdownMenu>
-                            {this.state.pods.map((pod) => 
-                            <DropdownItem
-                                onClick={this.handleChange}
-                                value={pod.name}
-                                key={pod.id}
-                            >
-                                {pod.name}
-                            </DropdownItem>)
+                            {this.state.pods.map((pod) =>
+                                <DropdownItem
+                                    onClick={this.handleChange}
+                                    value={pod.name}
+                                    key={pod.id}
+                                >
+                                    {pod.name}
+                                </DropdownItem>)
                             }
                         </DropdownMenu>
                     </Dropdown>
-                    <BackButton
-                        handleBackButton={this.props.handleBackButton}
-                    />
+                    <div
+                        className="science-topbuttons-container"
+                    >
+                        <button
+                            className="btn btn-dark"
+                        >
+                            Kill All
+                    </button>
+                        <BackButton
+                            handleBackButton={this.props.handleBackButton}
+                        />
+                    </div>
                 </div>
 
                 <div className="science-pod-container">
-                    <button
-                        onClick={this.handlePODClicked}
-                        id={this.findPODIndex}
-                        className="btn btn-info"
+                    <div
+                        className="science-pod-buttons"
                     >
-                        {this.state.currentPOD}
-                        {this.state.pods[this.findPODIndex()].isActive ? "active" : "not-active"}
+                        <button
+                            onClick={this.handlePODClicked}
+                            id={this.findPODIndex}
+                            className="btn btn-info"
+                        >
+                            {this.state.currentPOD}
+                            {this.state.pods[this.findPODIndex()].isActive ? " active" : " not-active"}
+                        </button>
+                        <button
+                            className="btn btn-danger"
+                        >
+                            Kill
                     </button>
+                    </div>
+                    <div
+                        className="science-graph-container"
+                    >
+                        <button
+                            className="btn btn-alert"
+                        >
+                            Graph Filler
+                        </button>
+                    </div>
                 </div>
             </div>
         );
