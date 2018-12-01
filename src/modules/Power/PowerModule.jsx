@@ -1,29 +1,57 @@
-import React, { Component } from "react";
-import "./PowerStyle.css";
+import React, { Component, Fragment } from 'react';
+import { Button } from 'reactstrap';
+import PowerButtons from './PowerButtons';
+import PowerGraph from './PowerGraph';
 
-class ProtoModule extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    return (
-      <div id="power">
-        <h1 className="header">This is the Power Module!</h1>
-        <p>Nhat is tasked with power module</p>
-        <p>Control:</p>
-        <ul>
-          <li>Main Power on/off</li>
-          <li>Individual Component Power on/off</li>
-        </ul>
-        <p>Feedback:</p>
-        <ul>
-          <li>Current Levels of Individual Output Channels</li>
-          <li>Battery Voltage</li>
-        </ul>
-      </div>
-    );
-  }
+class PowerModule extends Component {
+	state = {
+		displayCompenent: 0,
+		modules: [
+			{ key: 0, name: 'Arm', id: 'arm', isChecked: false },
+			{ key: 1, name: 'Wheel', id: 'wheel', isChecked: false },
+			{ key: 2, name: 'Drive', id: 'drive', isChecked: false },
+			{ key: 3, name: 'Mast Camera', id: 'camera', isChecked: false },
+			{ key: 4, name: 'Control System', id: 'control-system', isChecked: false },
+			{ key: 5, name: 'Intelligent System', id: 'intelligent-system', isChecked: false }
+		]
+	};
+
+	/**
+   * Goes to button module by changing states
+   */
+	handleChange = (value) => {
+		this.setState({ displayCompenent: value });
+	};
+
+	/**
+   * Conditional rendering
+   */
+	displanyComponent = () => {
+		if (this.state.displayCompenent === 0) {
+			return <PowerButtons modules={this.state.modules} />;
+		} else if (this.state.displayCompenent === 1) {
+			return <PowerGraph />;
+		}
+	};
+
+	render() {
+		return (
+			<Fragment>
+				{/* Button Menu */}
+				<div id="power-menu">
+					<Button className="menu-button" color="primary" onClick={() => this.handleChange(0)}>
+						Button Module
+					</Button>
+					<Button className="menu-button" color="primary" onClick={() => this.handleChange(1)}>
+						Graph Module
+					</Button>
+				</div>
+
+				{/* Conditional rendering */}
+				{this.displanyComponent()}
+			</Fragment>
+		);
+	}
 }
 
-export default ProtoModule;
+export default PowerModule;
