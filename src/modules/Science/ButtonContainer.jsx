@@ -8,12 +8,12 @@ const ButtonContainer = (props) => (
         >
             Drill Depth
         </button> */}
-        <button
+        {/* <button
             className="btn btn-lg btn-secondary science-button-geiger"
             onClick={props.handleGeigerButton}
         >
             Geiger Graph
-        </button>
+        </button> */}
         <button
             className="btn btn-lg btn-info"
             onClick={props.handlePodsButton}

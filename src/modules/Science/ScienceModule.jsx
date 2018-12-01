@@ -24,11 +24,11 @@ class ScienceModule extends Component {
   render() {
     return (
       <div className="science-container">
-        {this.state.container === 0 &&
+        {/* {this.state.container === 0 &&
           <div className="alert alert-warning science-geiger-alert" role="alert">
             A geiger sensor has spiked!
           </div>
-        }
+        } */}
         <div className="science-header-container">
           <h1 className="science-header">Science Module</h1>
         </div>
