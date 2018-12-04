@@ -11,7 +11,7 @@ export default function formatObject(obj) {
     } else {
       str += "&";
     }
-    str += `${key}=${JSON.stringify(value)}`;
+    str += `${key}=${value}`;
   }
   return str;
 }
