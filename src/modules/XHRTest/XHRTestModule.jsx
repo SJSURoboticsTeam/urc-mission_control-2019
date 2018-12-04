@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { 
-  Row, 
-  Col, 
-  Button, 
+import {
+  Row,
+  Col,
+  Button,
   ButtonGroup,
-  Input, 
-  InputGroup, 
-  InputGroupAddon, 
+  Input,
+  InputGroup,
+  InputGroupAddon,
 } from "reactstrap";
 import sendXHR from "../../lib/sendXHR";
 import "./XHRTestStyle.css";
@@ -20,7 +20,7 @@ class XHRTestModule extends Component {
     };
 
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.generateRadioButtons = this.generateRadioButtons.bind(this)
+    this.generateRadioButtons = this.generateRadioButtons.bind(this);
     this.generateKeyOrValueInputs = this.generateKeyOrValueInputs.bind(this);
     this.addKeyValuePair = this.addKeyValuePair.bind(this);
     this.getKeyValuePairs = this.getKeyValuePairs.bind(this);
@@ -70,7 +70,7 @@ class XHRTestModule extends Component {
   //Radio buttons are used to specify if key is a int or string.
   generateRadioButtons() {
     let radio_button_elements = [];
-    
+
     for (let i = 0; i < this.state.key_value_pair_count; i++) {
       //generate UI elements
       radio_button_elements.push(
@@ -111,7 +111,7 @@ class XHRTestModule extends Component {
 
       //parseInt if value_type is specified as int, if not, leave as string
       if (this.state.value_data_types[i] === 1) {
-        value_temp = parseInt(value_temp);
+        value_temp = parseInt(value_temp, 10);
       }
 
       return_obj[key_temp] = value_temp;
@@ -173,7 +173,7 @@ class XHRTestModule extends Component {
             {this.generateKeyOrValueInputs(0)}
           </Col>
           <Col>
-            {this.generateRadioButtons()} 
+            {this.generateRadioButtons()}
           </Col>
         </Row>
         <Row>

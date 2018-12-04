@@ -18,11 +18,12 @@ class IntelligentSystemsModule extends Component {
       (e.g. this.state.esp_ip), it will have no idea what you're 
       talking about.  
     */
-    
+
     this.toggleAutonomy = this.toggleAutonomy.bind(this);
     this.connect = this.connect.bind(this);
     this.setupSSE = this.setupSSE.bind(this);
     this.onTimestampEvent = this.onTimestampEvent.bind(this);
+    this.onHeadingEvent = this.onHeadingEvent.bind(this);
   }
 
   //Invoked when the radio button is clicked
@@ -98,8 +99,9 @@ class IntelligentSystemsModule extends Component {
     };
 
     event_source.addEventListener("timestamp", this.onTimestampEvent);
+    event_source.addEventListener("getHeading", this.onTimestampEvent);
 
-    this.setState({event_source});
+    this.setState({ event_source });
   }
 
   // Adds strings to the textarea element in my module
@@ -117,6 +119,12 @@ class IntelligentSystemsModule extends Component {
   onTimestampEvent(evt) {
     let timestamp = JSON.parse(evt.data).timestamp;
     this.printToConsole(`Time: ${timestamp}`);
+    console.log(this.state);
+  }
+
+  onHeadingEvent(evt) {
+    let heading = JSON.parse(evt.data);
+    this.printToConsole(`Heading: ${heading}`);
     console.log(this.state);
   }
 
