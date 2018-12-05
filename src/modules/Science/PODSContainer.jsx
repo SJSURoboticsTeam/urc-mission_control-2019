@@ -5,7 +5,9 @@ import {
     DropdownMenu,
     DropdownToggle
 } from 'reactstrap';
+import Plot from 'react-plotly.js';
 import BackButton from './BackButton';
+import sendXHR from '../../lib/sendXHR';
 
 export default class PODSContainer extends React.Component {
     state = {
@@ -19,7 +21,11 @@ export default class PODSContainer extends React.Component {
             { name: "POD 6", id: 5, isActive: false },
             { name: "Sterilized POD", id: 6, isActive: false },
         ],
-        currentPOD: "POD 1"
+        currentPOD: "POD 1",
+        x1: [],
+        y1: [],
+        xrange: [-20, 1],
+        seconds: 0
     };
     toggle = () => {
         this.setState((prevState) => ({
@@ -28,6 +34,7 @@ export default class PODSContainer extends React.Component {
     };
     handleChange = (e) => {
         this.setState({ currentPOD: e.target.value });
+        this.interval = setInterval(() => this.tick(), 1000);
     };
     handlePODClicked = (e) => {
         const currentPOD = this.state.currentPOD;
@@ -37,11 +44,52 @@ export default class PODSContainer extends React.Component {
         console.log(`${currentPOD} clicked`);
         console.log(`${currentId} clicked`);
         this.setState(() => ({ pods }));
+        this.props.onXHRSend('toggle_pod', { pod: currentId });
     };
     findPODIndex = () => {
         return this.state.pods.find(pod => pod.name === this.state.currentPOD).id;
     };
+    tick() {
+        this.setState({ x1: [ ...this.state.x1, this.state.seconds ] });
+        this.setState({ y1: [ ...this.state.y1, Math.floor(Math.random() * (29 - 21 + 1)) + 21 ] });
+
+        let lowerXRange = this.state.xrange[0] + 1;
+        let upperXRange = this.state.xrange[1] + 1;
+        this.setState({ xrange: [ lowerXRange, upperXRange ] });
+        this.setState({ seconds: this.state.seconds + 1 });
+    }
     render() {
+
+        const data = [
+            {
+                x: this.state.x1,
+                y: this.state.y1,
+                name: `${this.state.currentPOD} Graph`,
+                type: 'scatter'
+            }
+        ];
+
+        const layout = {
+            width: 350,
+            height: 250,
+            showlegend: false,
+            title: `${this.state.currentPOD} Geiger Graph`,
+            xaxis: {
+                title: 'Time (s)',
+                autotick: false,
+                dtick: 2,
+                range: this.state.xrange,
+                showgrid: false,
+                zeroline: false
+            },
+            yaxis: {
+                title: 'Something (S)',
+                range: [20, 29.4],
+                showline: false,
+                zeroline: false
+            }
+        };
+
         return (
             <div className="science-pods-container">
                 <div className="science-pods-header">
@@ -91,16 +139,12 @@ export default class PODSContainer extends React.Component {
                             className="btn btn-danger"
                         >
                             Kill {this.state.currentPOD}
-                    </button>
+                        </button>
                     </div>
                     <div
                         className="science-graph-container"
                     >
-                        <button
-                            className="btn btn-alert"
-                        >
-                            Graph Filler
-                        </button>
+                        <Plot data={data} layout={layout} />
                     </div>
                 </div>
             </div>

@@ -76,9 +76,9 @@
 /* -------- */
 
 .science-graph-container {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     border-radius: 5px;
-    padding: 20px;
+    padding: 5px;
     height: 95%;
     flex: 1;
 }
@@ -104,16 +104,21 @@
 .science-pods-container {
     border: 2px solid black;
     border-radius: 5px;
-    padding: 20px;
-    height: 80%;
+    overflow: hidden;
+    padding: 5px;
+    height: 100%;
+    width: 100%;
 }
 
 .science-pod-container {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     display: flex;
     justify-content: space-evenly;
+    /* overflow: hidden; */
+    padding-left: 20px;
     align-items: center;
-    height: 90%;
+    height: 100%;
+    width: 100%;
     border-radius: 5px;
 }
 
@@ -124,13 +129,13 @@
 }
 
 .science-pod-buttons {
-    border: 2px solid black;
+    /* border: 2px solid black; */
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     padding: 20px;
-    height: 80%;
+    height: 50%;
 }
 
 .science-pods-header {
