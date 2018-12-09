@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Button,
     Dropdown,
     DropdownItem,
     DropdownMenu,
@@ -7,7 +8,6 @@ import {
 } from 'reactstrap';
 import Plot from 'react-plotly.js';
 import BackButton from './BackButton';
-import sendXHR from '../../lib/sendXHR';
 
 export default class PODSContainer extends React.Component {
     state = {
@@ -36,7 +36,7 @@ export default class PODSContainer extends React.Component {
         this.setState({ currentPOD: e.target.value });
         this.interval = setInterval(() => this.tick(), 1000);
     };
-    handlePODClicked = (e) => {
+    handlePODClicked = () => {
         const currentPOD = this.state.currentPOD;
         const currentId = this.state.pods.find((pod) => pod.name === currentPOD).id;
         const pods = this.state.pods;
@@ -44,18 +44,18 @@ export default class PODSContainer extends React.Component {
         console.log(`${currentPOD} clicked`);
         console.log(`${currentId} clicked`);
         this.setState(() => ({ pods }));
-        this.props.onXHRSend('toggle_pod', { pod: currentId });
+        this.props.handlePodClick(currentId + 1);
     };
     findPODIndex = () => {
         return this.state.pods.find(pod => pod.name === this.state.currentPOD).id;
     };
     tick() {
-        this.setState({ x1: [ ...this.state.x1, this.state.seconds ] });
-        this.setState({ y1: [ ...this.state.y1, Math.floor(Math.random() * (29 - 21 + 1)) + 21 ] });
+        this.setState({ x1: [...this.state.x1, this.state.seconds] });
+        this.setState({ y1: [...this.state.y1, Math.floor(Math.random() * (29 - 21 + 1)) + 21] });
 
         let lowerXRange = this.state.xrange[0] + 1;
         let upperXRange = this.state.xrange[1] + 1;
-        this.setState({ xrange: [ lowerXRange, upperXRange ] });
+        this.setState({ xrange: [lowerXRange, upperXRange] });
         this.setState({ seconds: this.state.seconds + 1 });
     }
     render() {
@@ -114,9 +114,10 @@ export default class PODSContainer extends React.Component {
                     >
                         <button
                             className="btn btn-dark"
+                            onClick={this.props.handleStopAllButton}
                         >
                             Kill All
-                    </button>
+                        </button>
                         <BackButton
                             handleBackButton={this.props.handleBackButton}
                         />
@@ -127,19 +128,19 @@ export default class PODSContainer extends React.Component {
                     <div
                         className="science-pod-buttons"
                     >
-                        <button
-                            onClick={this.handlePODClicked}
+                        <Button
+                            onClick={this.handlePODClicked.bind(this)}
                             id={this.findPODIndex}
-                            className="btn btn-info"
+                            color={this.state.pods[this.findPODIndex()].isActive ? "danger" : "info"}
                         >
+                            {this.state.pods[this.findPODIndex()].isActive ? "Kill " : "Activate "}
                             {this.state.currentPOD}
-                            {this.state.pods[this.findPODIndex()].isActive ? " active" : " not-active"}
-                        </button>
-                        <button
+                        </Button>
+                        {/* <button
                             className="btn btn-danger"
                         >
                             Kill {this.state.currentPOD}
-                        </button>
+                        </button> */}
                     </div>
                     <div
                         className="science-graph-container"

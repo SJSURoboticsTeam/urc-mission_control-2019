@@ -2,8 +2,8 @@ const Delay = require("../delay");
 const system = require("../system");
 
 // State
-let state = [];
-state.length = 7;
+let state = [false, false, false, false, false, false, false];
+// state.length = 7;
 
 // Arm API
 const science_systems = new system.System("science_systems");
@@ -14,8 +14,8 @@ science_systems.addXHR("/toggle_pod", (req, res) => {
   let pod = req.query.pod;
 
   if (parseInt(pod) > 0 && parseInt(pod) < 8) {
-    response = `${pod < 7 ? `POD #${pod}` : `STERILIZED POD`} IS ${state[pod - 1] !== true ? "ON" : "OFF"}`;
     state[pod - 1] = !state[pod - 1];
+    response = `${pod < 7 ? `POD #${pod}` : `STERILIZED POD`} IS ${state[pod - 1] === true ? "ON" : "OFF"}`;
   } else {
     response = "INVALID POD NUMBER ENTERED";
   }

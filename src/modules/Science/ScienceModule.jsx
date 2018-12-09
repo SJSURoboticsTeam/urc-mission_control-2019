@@ -12,6 +12,12 @@ class ScienceModule extends Component {
     connectIP: "0",
     inputToggled: false
   };
+  onXHRSend = (endpoint, data) => {
+    sendXHR(this.state.connectIP, endpoint, data, (res) => {
+      const res_obj = JSON.parse(res);
+      console.log(res_obj.message);
+    }); 
+  };
   toggleInput = () => {
     this.setState({
       inputToggled: !this.state.inputToggled
@@ -42,6 +48,12 @@ class ScienceModule extends Component {
     this.setState(() => ({ container: 3 }));
     console.log("PODS button clicked");
   };
+  handleStopAllButton = () => {
+    this.onXHRSend("stop_all", {});
+  };
+  handlePodClick = (podId) => {
+    this.onXHRSend("toggle_pod", { pod: podId });
+  };
   render() {
     return (
       <React.Fragment>
@@ -54,12 +66,14 @@ class ScienceModule extends Component {
           {/* <div className="science-header-container">
         </div> */}
           <ContainerDisplay
+            connectIP={this.state.connectIP}
             container={this.state.container}
+            handlePodClick={this.handlePodClick}
             handleBackButton={this.handleBackButton}
             handlePodsButton={this.handlePodsButton}
             handleDrillButton={this.handleDrillButton}
             handleGeigerButton={this.handleGeigerButton}
-            connectIP={this.state.connectIP}
+            handleStopAllButton={this.handleStopAllButton}
           />
 
         </div>
@@ -72,7 +86,7 @@ class ScienceModule extends Component {
 
           >
             Hey
-        </Button>
+          </Button>
           <div>
             {this.state.inputToggled ?
               <input

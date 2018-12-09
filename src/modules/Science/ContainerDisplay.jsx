@@ -3,19 +3,8 @@ import PODSContainer from './PODSContainer';
 import DrillContainer from './DrillContainer';
 import GraphContainer from './GraphContainer';
 import ButtonContainer from './ButtonContainer';
-import sendXHR from "../../lib/sendXHR";
 
 class ContainerDisplay extends Component {
-    onXHRSend = (endpoint, data) => {
-        if (this.props.connectIP !== "") {
-            alert("ERROR: Missing ESP IP Address.");
-        } else {
-            sendXHR(this.props.connectIP, endpoint, data, (res) => {
-                res = JSON.parse(res);
-                console.log(`result ${res.message}`);
-            });
-        }
-    };
     render() {
         const container = this.props.container;
 
@@ -43,9 +32,9 @@ class ContainerDisplay extends Component {
             case 3:
                 return (
                     <PODSContainer
+                        handlePodClick={this.props.handlePodClick}
                         handleBackButton={this.props.handleBackButton}
-                        connectIP={this.props.connectIP}
-                        onXHRSend={this.onXHRSend}
+                        handleStopAllButton={this.props.handleStopAllButton}
                     />
                 );
             default:
