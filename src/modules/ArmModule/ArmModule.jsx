@@ -7,11 +7,13 @@ import {
 } from "reactstrap";
 import TextInput from "./TextInput";
 import Presets from "./Presets";
+import ArmHome from "./ArmHome";
 
 class ArmModule extends Component {
   state = {
     dropdownOpen: false,
     currentModule: "nothing",
+    espIP: 0,
     views: [
       { name: "Input Values", value: "input" },
       { name: "Buttons + Presets", value: "preset" }
@@ -32,7 +34,7 @@ class ArmModule extends Component {
       case "preset":
         return <Presets />;
       default:
-        return <h1>Arm Module!</h1>;
+        return <ArmHome />;
     }
   }
 
