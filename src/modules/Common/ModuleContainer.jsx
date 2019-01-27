@@ -14,8 +14,13 @@ class ModuleContainer extends Component {
     this.moduleCookie = new Cookies();
     this.state = {
       id: this.props.id,
-      currentModule: this.moduleCookie.get(`${this.props.id}-choice`)
+      currentModule: this.checkCookie()
     };
+  }
+
+  checkCookie = () => {
+    let cookie = this.moduleCookie.get(`${this.props.id}-choice`);
+    return typeof cookie !== "undefined" ? cookie : "proto-module";
   }
 
   onChange = (e) => {
