@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Cookies from "universal-cookie";
 import ModuleSelect from "./ModuleSelect.jsx";
 import "../../lib/css/ModuleContainer.css";
 import ProtoModule from "../ProtoModule/ProtoModule.jsx";
@@ -8,10 +9,14 @@ import IntelligentSystemsModule from "../IntelligentSystems/IntelligentSystemsMo
 import XHRTestModule from "../XHRTest/XHRTestModule.jsx";
 
 class ModuleContainer extends Component {
-  state = {
-    id: this.props.id,
-    currentModule: "proto-module"
-  };
+  constructor(props) {
+    super(props);
+    this.moduleCookie = new Cookies();
+    this.state = {
+      id: this.props.id,
+      currentModule: this.moduleCookie.get(`${this.props.id}-choice`)
+    };
+  }
 
   onChange = (e) => {
     this.setState({
@@ -21,6 +26,7 @@ class ModuleContainer extends Component {
   };
 
   chooseModule(moduleName) {
+    this.moduleCookie.set(`${this.props.id}-choice`, moduleName, { path: "/" });
     switch (moduleName) {
       case "proto-module":
         return <ProtoModule />;
