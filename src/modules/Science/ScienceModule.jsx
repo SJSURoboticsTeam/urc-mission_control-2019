@@ -10,13 +10,36 @@ class ScienceModule extends Component {
   state = {
     container: 0,
     connectIP: "0",
-    inputToggled: false
+    inputToggled: false,
+    event_source: null
   };
   onXHRSend = (endpoint, data) => {
     sendXHR(this.state.connectIP, endpoint, data, (res) => {
       const res_obj = JSON.parse(res);
       console.log(res_obj.message);
-    }); 
+    });
+  };
+  setupSSE() {
+    //Copy event source, add event onOpen/Close, listeners, call setState()
+    let event_source = Object.assign(this.state.event_source);
+    event_source.onopen = () => {
+      console.log("Event Source Added!");
+    };
+
+    event_source.onerror = () => {
+      event_source.close();
+      event_source = null;
+      console.log("Event Source Closed.");
+    };
+
+    event_source.addEventListener("executePod", this.onPodEvent);
+
+    this.setState({ event_source });
+  };
+  onPodEvent(evt) {
+    let podStatus = JSON.parse(evt.data).podStatus;
+    console.log(`Pod Status: ${podStatus}`);
+    console.log(this.state);
   };
   toggleInput = () => {
     this.setState({
@@ -25,13 +48,21 @@ class ScienceModule extends Component {
   };
   connectESP = (e) => {
     if (e.which === 13) {
+      let esp_ip_address = e.target.value;
+
+      this.setState(
+        {
+          connectIP: e.target.value,
+          event_source: new EventSource(`http://${esp_ip_address}/sse`)
+        },
+
+        this.setupSSE.bind(this)
+      );
+
       alert(`You entered: ${this.state.connectIP}`);
+
+      this.setupSSE.bind(this)
     }
-  };
-  handleChange = (e) => {
-    this.setState({
-      connectIP: e.target.value
-    });
   };
   handleBackButton = () => {
     this.setState(() => ({ container: 0 }));
@@ -58,13 +89,6 @@ class ScienceModule extends Component {
     return (
       <React.Fragment>
         <div className="science-container">
-          {/* {this.state.container === 0 &&
-          <div className="alert alert-warning science-geiger-alert" role="alert">
-            A geiger sensor has spiked!
-          </div>
-        } */}
-          {/* <div className="science-header-container">
-        </div> */}
           <ContainerDisplay
             connectIP={this.state.connectIP}
             container={this.state.container}
@@ -90,7 +114,7 @@ class ScienceModule extends Component {
           <div>
             {this.state.inputToggled ?
               <input
-                onChange={this.handleChange}
+                // onChange={this.handleChange}
                 onKeyDown={this.connectESP}
               ></input> :
               <p>yes</p>
