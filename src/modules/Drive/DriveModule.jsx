@@ -12,7 +12,12 @@ import {
   Alert,
   Badge,
   Button, 
-  ButtonGroup 
+  ButtonGroup,
+  Col,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  Row
 } from "reactstrap";
 
 class DriveModule extends Component {
@@ -22,8 +27,10 @@ class DriveModule extends Component {
       joystick_connected: false, 
       esp_connected: false,
       drive_mode: null,
+      esp_ip: "192.168.4.1",
       
-      speed: 0
+      speed: 0,
+      heading: 0
     };
 
     this.onJoystickConnect = this.onJoystickConnect.bind(this);
@@ -32,8 +39,10 @@ class DriveModule extends Component {
     this.driveModeClicked = this.driveModeClicked.bind(this);
     this.joystickButtonPressed = this.joystickButtonPressed.bind(this);
     this.updateSpeed = this.updateSpeed.bind(this);
+    this.updateHeading = this.updateHeading.bind(this);
+    this.updateESPIP = this.updateESPIP.bind(this);
 
-    joystick.init(this.getDriveState, this.joystickButtonPressed, this.updateSpeed);
+    joystick.init(this.getDriveState, this.joystickButtonPressed, this.updateSpeed, this.updateHeading);
   }
 
   componentWillMount() {
@@ -45,7 +54,6 @@ class DriveModule extends Component {
     this.setState({ 
       joystick_connected: true 
     });
-    console.log(this.state);
   }
 
   onJoystickDisconnect() {
@@ -53,8 +61,6 @@ class DriveModule extends Component {
       joystick_connected: false,
       drive_mode: null
     });
-    console.log(this.state);
-    
   }
 
   joystickButtonPressed(newDriveMode) {
@@ -69,6 +75,14 @@ class DriveModule extends Component {
     });
   }
 
+  updateHeading(newHeading) {
+    newHeading = (newHeading === undefined ? 0 : newHeading);
+
+    this.setState({
+      heading: newHeading
+    });
+  }
+
   getDriveState() {
     return this.state;
   }
@@ -76,13 +90,13 @@ class DriveModule extends Component {
   driveModeClicked(e) {
     this.setState({
       drive_mode: parseInt(e.target.value)
-    })
+    });
   }
 
   modeButtonColor(mode) {
     if(this.state.drive_mode != null && this.state.drive_mode === mode){
       return "primary";
-    }else{
+    } else{
       return "secondary"
     }
   }
@@ -108,14 +122,63 @@ class DriveModule extends Component {
     }
   }
 
+  updateESPIP() {
+    this.setState({
+      esp_ip: document.getElementById("esp_ip_input").value
+    });
+  }
+
   render() {
     return (
       <div>
-        <h1 className="header">This is the DriveModule!</h1>
-        { this.renderJoystickStatus() }
-        <Badge color="success">{this.state.speed}</Badge>
-        <br/>
-        { this.renderDriveModes() }
+        <h1 className="header">Drive Module</h1>
+        <Row>
+            <h2>ESP IP</h2>
+            <InputGroup >
+              <Input id="esp_ip_input" placeholder="192.168.4.1"/>
+              <InputGroupAddon addonType="append"> <Button onClick={ this.updateESPIP }>Click me</Button> </InputGroupAddon>
+            </InputGroup>
+        </Row>
+        
+        <Row>
+          <Col>
+            <Row>
+              <h2>Mode</h2>
+            </Row>
+            <Row>
+              { this.renderDriveModes() }
+            </Row>
+          </Col>
+          
+          <Col>
+            <Row>
+              <h2>Joystick Status</h2>
+            </Row>
+            <Row>
+              { this.renderJoystickStatus() }
+            </Row>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Row>
+              <h2>Speed</h2>
+            </Row>
+            <Row>
+              <Badge color="secondary">{this.state.speed}</Badge>
+            </Row>
+          </Col>
+
+          <Col>
+            <Row>
+              <h2>Heading</h2>
+            </Row>
+            <Row>
+              <Badge color="secondary">{this.state.heading}°</Badge>
+            </Row>
+          </Col>
+          
+        </Row>
         
       </div>
     );

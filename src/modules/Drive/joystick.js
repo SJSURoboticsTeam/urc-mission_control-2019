@@ -6,10 +6,12 @@ import {
 	DM_DEBUG
 } from './model.js';
 
+import sendXHR from "../../lib/sendXHR";
+
 class Joystick {
 
-	init(getDriveState, joyStickButtonPressed, updateSpeed) {
-		window.setInterval(this.retrieveGamepadState.bind(this, getDriveState, joyStickButtonPressed, updateSpeed), 300);
+	init(getDriveState, joyStickButtonPressed, updateSpeed, updateHeading) {
+		window.setInterval(this.retrieveGamepadState.bind(this, getDriveState, joyStickButtonPressed, updateSpeed, updateHeading), 300);
 	}
 
 	/*
@@ -39,7 +41,7 @@ class Joystick {
 		return joystick_indices;
 	}
 
-	retrieveGamepadState(getDriveState, joystickButtonPressed, updateSpeed) {
+	retrieveGamepadState(getDriveState, joystickButtonPressed, updateSpeed, updateHeading) {
 		let gp = navigator.getGamepads()[0];
 		let drive_module_state = getDriveState();
 
@@ -145,12 +147,6 @@ class Joystick {
 			//drive_module_state.drive_mode = DM_DEBUG;
 			//renderDriveModes();
 		//}
-		var piezo = 0;
-		if(buttons[3].value === 1)
-		{
-			piezo = 1;
-		}
-
 		if(buttons[1].value === 1) {
 			brake = 1;
 		}
@@ -162,33 +158,32 @@ class Joystick {
 			heading = drive_module_state.previous_heading;
 		}
 
-		let drive_data = this.generateDriveData(magnitude, heading, brake, piezo);
+		let drive_data = this.generateDriveData(getDriveState, magnitude, heading, brake);
 
 		//Update UI
 		updateSpeed(magnitude);
+		updateHeading(heading);
 		// updateDials(heading);
 		// updateSliders(magnitude);
 
 		//Send to ESP
-		if (drive_module_state.host !== "http://localhost:5001") {
-			// sendMovement(drive_data);
+		if (drive_module_state.esp_ip !== null || drive_module_state.esp_ip !== "localhost:5001") {
+			sendXHR(drive_module_state.esp_ip, "update_drive", drive_data);
 		}
 	}
 
-	generateDriveData(drive_module_state, magnitude, heading, brake, piezo) { 
+	generateDriveData(getDriveState, magnitude, heading, brake) { 
+		let drive_module_state = getDriveState();
 		let drive_data = {
 			MS1: magnitude,
 			MS2: magnitude,
 			MS3: magnitude,
-			MS4: magnitude,
 			SA1: heading,
 			SA2: heading,
 			SA3: heading,
-			SA4: heading,
 			M: drive_module_state.drive_mode,
-			DW:0,
+			DW: 0,
 			BRAKE: brake,
-			PIEZO:piezo,
 			// SPEED_DIVIDER: parseInt(document.getElementById("speed-divider").value),
 			// MAX_RPM: parseInt(document.getElementById("maximum-rpm").value),
 			// timestamp: drive_module_state.timestamp++,
@@ -198,7 +193,6 @@ class Joystick {
 			drive_data.SA1 = 45;
 			drive_data.SA2 = 135;
 			drive_data.SA3 = 45;
-			drive_data.SA4 = 135;
 		}
 		return drive_data;
 	}
