@@ -5,12 +5,15 @@ import {
   DM_SPIN,
   DM_CRAB,
   DM_DRIVE,
-  DM_DEBUG
+  DM_DEBUG,
+  DRIVE_MODES
 } from './model.js';
 import { 
   Alert,
+  Badge,
   Button, 
-  ButtonGroup } from "reactstrap";
+  ButtonGroup 
+} from "reactstrap";
 
 class DriveModule extends Component {
   constructor(props) {
@@ -19,12 +22,8 @@ class DriveModule extends Component {
       joystick_connected: false, 
       esp_connected: false,
       drive_mode: null,
-      drive_modes: [ 
-        {name: "Spin", id:"spin", value: DM_SPIN}, 
-        {name: "Crab", id: "crab", value: DM_CRAB}, 
-        {name: "Drive", id: "drive", value: DM_DRIVE},
-        {name: "Debug", id: "debug", value: DM_DEBUG}
-      ]
+      
+      speed: 0
     };
 
     this.onJoystickConnect = this.onJoystickConnect.bind(this);
@@ -32,8 +31,9 @@ class DriveModule extends Component {
     this.getDriveState = this.getDriveState.bind(this);
     this.driveModeClicked = this.driveModeClicked.bind(this);
     this.joystickButtonPressed = this.joystickButtonPressed.bind(this);
+    this.updateSpeed = this.updateSpeed.bind(this);
 
-    joystick.init(this.getDriveState, this.joystickButtonPressed);
+    joystick.init(this.getDriveState, this.joystickButtonPressed, this.updateSpeed);
   }
 
   componentWillMount() {
@@ -63,6 +63,12 @@ class DriveModule extends Component {
     });
   }
 
+  updateSpeed(newSpeed) {
+    this.setState({
+      speed: newSpeed
+    });
+  }
+
   getDriveState() {
     return this.state;
   }
@@ -84,7 +90,7 @@ class DriveModule extends Component {
   renderDriveModes() {
     return (
       <ButtonGroup>
-        {this.state.drive_modes.map((mode) => {
+        {DRIVE_MODES.map((mode) => {
           return (
             <Button onClick={this.driveModeClicked} id={mode.id} value={mode.value} color={this.modeButtonColor(mode.value)} >{mode.name}</Button>
           );
@@ -107,8 +113,10 @@ class DriveModule extends Component {
       <div>
         <h1 className="header">This is the DriveModule!</h1>
         { this.renderJoystickStatus() }
+        <Badge color="success">{this.state.speed}</Badge>
+        <br/>
         { this.renderDriveModes() }
-        <p>Copy/Paste this  your own stuff!</p>
+        
       </div>
     );
   }
