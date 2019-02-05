@@ -9,7 +9,11 @@ import "./ArmStyle.css";
 
 class SliderView extends Component {
   state = {
-    dropdownOpen: false
+    dropdownOpen: false,
+    buttons: [
+      { id: "claw", name: "Open/Close Claw" },
+      { id: "laser", name: "Toggle Laser" },
+    ]
   };
 
   toggle = () => {
@@ -18,12 +22,20 @@ class SliderView extends Component {
     });
   };
 
+  handleClick = (e) => {
+    console.log("SQUAD " + e.target.id);
+    this.props.handleXHR(`set_${e.target.id}`, { angle: e.target.value });
+  }
+
   render() {
     return (
       <div id="controls">
         <br />
-        <Button>Toggle Laser</Button>
-        <Button>Open/Close Claw</Button>
+        {this.state.buttons.map((button) => {
+          return (
+            <Button onClick={this.handleClick} id={button.id}>{button.name}</Button>
+          )
+        })}
         <ButtonDropdown
           isOpen={this.state.dropdownOpen}
           toggle={this.toggle}

@@ -1,22 +1,16 @@
 import React, { Component } from "react";
-import {
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
 import TextInput from "./TextInput";
-import Presets from "./Presets";
-import ArmHome from "./ArmHome";
+import sendXHR from "../../lib/sendXHR"
+import IPSet from "./IPSet";
 
 class ArmModule extends Component {
   state = {
-    dropdownOpen: false,
+    ipSetOpen: false,
     currentModule: "nothing",
-    espIP: 0,
+    espIP: "",
     views: [
-      { name: "Input Values", value: "input" },
-      { name: "Buttons + Presets", value: "preset" }
+      { name: "Set ESP IP", value: "home" },
+      { name: "Input Values", value: "input" }
     ]
   };
 
@@ -27,53 +21,38 @@ class ArmModule extends Component {
     console.log(e.target.value);
   });
 
-  chooseModule(moduleName) {
-    switch (moduleName) {
-      case "input":
-        return <TextInput />;
-      case "preset":
-        return <Presets />;
-      default:
-        return <ArmHome />;
-    }
+  handleXHR = (endpoint, data) => {
+    sendXHR("localhost:5000", endpoint, data, (res) => {
+      res = JSON.parse(res);
+      console.log(`result: ${res.message}`);
+    });
+  }
+
+  setIP = (val) => {
+    this.setState({
+      espIP: val
+    })
   }
 
   toggle = () => {
     this.setState({
-      dropdownOpen: !this.state.dropdownOpen
+      ipSetOpen: !this.state.ipSetOpen
     });
   };
+
+  renderInput = () => {
+    if (!this.state.ipSetOpen) {
+      return <TextInput handleXHR={this.handleXHR} />;
+    } else {
+      return <React.Fragment />
+    }
+  }
 
   render() {
     return (
       <div>
-        <ButtonDropdown
-          isOpen={this.state.dropdownOpen}
-          toggle={this.toggle}
-          className="controlSelect"
-          key="controlSelect"
-          onChange={this.changeValue}
-        >
-          <DropdownToggle caret>Control Select</DropdownToggle>
-          <DropdownMenu>
-            {this.state.views.map((view) => {
-              return (<DropdownItem
-                onClick={this.onChange}
-                key={view.value}
-                value={view.value}
-              >
-                {view.name}
-              </DropdownItem>);
-            })}
-            {/* <DropdownItem onClick={this.onChange} key="input" value="input">
-              Input Values
-            </DropdownItem>
-            <DropdownItem onClick={this.onChange} key="preset" value="preset">
-              Buttons + Presets
-            </DropdownItem> */}
-          </DropdownMenu>
-        </ButtonDropdown>
-        {this.chooseModule(this.state.currentModule)}
+        <IPSet setIP={this.setIP} handleXHR={this.handleXHR} toggle={this.toggle} />
+        {this.renderInput()}
       </div>
     );
   }

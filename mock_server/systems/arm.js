@@ -33,7 +33,7 @@ arm.addXHR("/set_rotunda", (req, res) => {
   let resText = "";
   //rtda = rotounda
   if (new_req.rtda) {
-    resText += `rotunda set to ${new_req.rtda}\n`;
+    resText += `rotunda set to ${new_req.angle}\n`;
   }
   res.send({
     message: resText
@@ -45,7 +45,7 @@ arm.addXHR("/set_shoulder", (req, res) => {
   let resText = "";
   //sldr = shoulder
   if (new_req.sldr) {
-    resText += `shoulder set to ${new_req.sldr}\n`;
+    resText += `shoulder set to ${new_req.angle}\n`;
   }
   res.send({
     message: resText
@@ -57,11 +57,11 @@ arm.addXHR("/set_wrist", (req, res) => {
   let resText = "";
   //wrll = wrist roll
   if (new_req.wrll) {
-    resText += `wrist roll set to ${new_req.wrll}\n`;
+    resText += `wrist roll set to ${new_req.roll}\n`;
   }
   //wpch = wrist pitch
   if (new_req.wpch) {
-    resText += `wrist roll set to ${new_req.wpch}\n`;
+    resText += `wrist roll set to ${new_req.pitch}\n`;
   }
   res.send({
     message: resText
