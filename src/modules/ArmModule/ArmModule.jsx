@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TextInput from "./TextInput";
-import sendXHR from "../../lib/sendXHR"
+import sendXHR from "../../lib/sendXHR";
+import { Container, Badge } from "reactstrap";
 import IPSet from "./IPSet";
 
 class ArmModule extends Component {
@@ -40,6 +41,14 @@ class ArmModule extends Component {
     });
   };
 
+  displayIP = () => {
+    if (this.state.espIP && !this.state.ipSetOpen) {
+      return <h5 style={{ display: "inline", padding: "5px" }}>Current ESP IP: {this.state.espIP} </h5>
+    } else {
+      return <React.Fragment />
+    }
+  }
+
   renderInput = () => {
     if (!this.state.ipSetOpen) {
       return <TextInput handleXHR={this.handleXHR} />;
@@ -50,10 +59,14 @@ class ArmModule extends Component {
 
   render() {
     return (
-      <div>
+      <Container>
+        <h1>Arm Module</h1>
+        {/* <div className="row container"> */}
         <IPSet setIP={this.setIP} handleXHR={this.handleXHR} toggle={this.toggle} />
+        {this.displayIP()}
+        {/* </div> */}
         {this.renderInput()}
-      </div>
+      </Container>
     );
   }
 }

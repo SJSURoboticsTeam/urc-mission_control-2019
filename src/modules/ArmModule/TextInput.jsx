@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { InputGroup, Input, InputGroupAddon } from "reactstrap";
 import Presets from "./Presets";
-import IPSet from "./IPSet";
-import sendXHR from "../../lib/sendXHR";
 import "./ArmStyle.css";
 
 class SliderView extends Component {

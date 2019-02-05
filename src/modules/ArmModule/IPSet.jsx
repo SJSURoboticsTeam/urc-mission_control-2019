@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Input, Alert } from "reactstrap";
+import { Button, Input, Alert, Col } from "reactstrap";
 
 class IPSet extends Component {
   constructor(props) {
@@ -32,7 +32,9 @@ class IPSet extends Component {
         </Alert>
       )
     } else {
-      <p>Enter an IP, and hit enter</p>
+      return (
+        <p>Enter an IP, and hit enter</p>
+      );
     }
   }
 
@@ -61,7 +63,6 @@ class IPSet extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1>Arm Module</h1>
         <Button onClick={this.toggleInput}> Set ESP IP </Button>
         {this.renderInput()}
       </React.Fragment>
