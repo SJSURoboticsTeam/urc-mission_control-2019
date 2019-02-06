@@ -130,7 +130,7 @@ export default class PODSContainer extends React.Component {
                     >
                         <Button
                             onClick={this.handlePODClicked.bind(this)}
-                            id={this.findPODIndex}
+                            id={this.findPODIndex()}
                             color={this.state.pods[this.findPODIndex()].isActive ? "danger" : "info"}
                         >
                             {this.state.pods[this.findPODIndex()].isActive ? "Kill " : "Activate "}
