@@ -22,6 +22,7 @@ science_systems.addXHR("/toggle_pod", (req, res) => {
 
   res.send({
     message: response, //can be printed directly
+    state: state
   });
 });
 
