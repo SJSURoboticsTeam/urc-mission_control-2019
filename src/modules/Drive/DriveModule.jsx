@@ -6,7 +6,11 @@ import {
   DM_CRAB,
   DM_DRIVE,
   DM_DEBUG,
-  DRIVE_MODES
+  BW_A,
+  BW_B,
+  BW_C,
+  DRIVE_MODES,
+  BACK_WHEELS
 } from './model.js';
 import { 
   Alert,
@@ -14,6 +18,7 @@ import {
   Button, 
   ButtonGroup,
   Col,
+  Container,
   Input,
   InputGroup,
   InputGroupAddon,
@@ -26,7 +31,8 @@ class DriveModule extends Component {
     this.state = {
       joystick_connected: false, 
       esp_connected: false,
-      drive_mode: null,
+      drive_mode: DM_DRIVE,
+      back_wheel: BW_A,
       esp_ip: "192.168.4.1",
       
       speed: 0,
@@ -37,10 +43,12 @@ class DriveModule extends Component {
     this.onJoystickDisconnect = this.onJoystickDisconnect.bind(this);
     this.getDriveState = this.getDriveState.bind(this);
     this.driveModeClicked = this.driveModeClicked.bind(this);
+    this.backWheelClicked = this.backWheelClicked.bind(this);
     this.joystickButtonPressed = this.joystickButtonPressed.bind(this);
     this.updateSpeed = this.updateSpeed.bind(this);
     this.updateHeading = this.updateHeading.bind(this);
     this.updateESPIP = this.updateESPIP.bind(this);
+    this.renderBackWheelOptions = this.renderBackWheelOptions.bind(this);
 
     joystick.init(this.getDriveState, this.joystickButtonPressed, this.updateSpeed, this.updateHeading);
   }
@@ -92,9 +100,15 @@ class DriveModule extends Component {
       drive_mode: parseInt(e.target.value)
     });
   }
+  
+  backWheelClicked(e) {
+    this.setState({
+      back_wheel: parseInt(e.target.value)
+    });
+  }
 
-  modeButtonColor(mode) {
-    if(this.state.drive_mode != null && this.state.drive_mode === mode){
+  decideButtonColor(current_val, state_val) {
+    if(state_val != null && state_val === current_val){
       return "primary";
     } else{
       return "secondary"
@@ -106,11 +120,38 @@ class DriveModule extends Component {
       <ButtonGroup>
         {DRIVE_MODES.map((mode) => {
           return (
-            <Button onClick={this.driveModeClicked} id={mode.id} value={mode.value} color={this.modeButtonColor(mode.value)} >{mode.name}</Button>
+            <Button 
+              onClick={this.driveModeClicked} 
+              id={mode.id} 
+              value={mode.value} 
+              color={this.decideButtonColor(mode.value, this.state.drive_mode)} 
+            >
+              {mode.name}
+            </Button>
           );
         })}
       </ButtonGroup>
     );
+  }
+
+  renderBackWheelOptions() {
+    return (
+      <ButtonGroup>
+        {BACK_WHEELS.map((wheel) => {
+          return (
+            <Button 
+              onClick={this.backWheelClicked} 
+              id={wheel.name} 
+              value={wheel.value} 
+              color={this.decideButtonColor(wheel.value, this.state.back_wheel)}
+            >
+              {wheel.name}
+            </Button>
+          );
+        })}
+      </ButtonGroup>
+    )
+    
   }
 
   renderJoystickStatus() {
@@ -130,7 +171,7 @@ class DriveModule extends Component {
 
   render() {
     return (
-      <div>
+      <Container>
         <h1 className="header">Drive Module</h1>
         <Row>
             <h2>ESP IP</h2>
@@ -162,6 +203,14 @@ class DriveModule extends Component {
         <Row>
           <Col>
             <Row>
+              <h2>Back Wheel</h2>
+            </Row>
+            <Row>
+              { this.renderBackWheelOptions() }
+            </Row>
+          </Col>
+          <Col>
+            <Row>
               <h2>Speed</h2>
             </Row>
             <Row>
@@ -180,7 +229,7 @@ class DriveModule extends Component {
           
         </Row>
         
-      </div>
+      </Container>
     );
   }
 }
