@@ -19,11 +19,10 @@ class ArmModule extends Component {
     this.setState({
       currentModule: e.target.value
     });
-    console.log(e.target.value);
   });
 
-  handleXHR = (endpoint, data) => {
-    sendXHR("localhost:5000", endpoint, data, (res) => {
+  handleXHR = (data) => {
+    sendXHR(this.state.espIP, "arm", data, (res) => {
       res = JSON.parse(res);
       console.log(`result: ${res.message}`);
     });
@@ -61,10 +60,8 @@ class ArmModule extends Component {
     return (
       <Container>
         <h1>Arm Module</h1>
-        {/* <div className="row container"> */}
         <IPSet setIP={this.setIP} handleXHR={this.handleXHR} toggle={this.toggle} />
         {this.displayIP()}
-        {/* </div> */}
         {this.renderInput()}
       </Container>
     );

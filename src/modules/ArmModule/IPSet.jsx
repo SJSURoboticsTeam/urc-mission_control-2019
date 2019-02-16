@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Input, Alert, Col } from "reactstrap";
+import { Button, Input, Alert, InputGroup, InputGroupAddon } from "reactstrap";
 
 class IPSet extends Component {
   constructor(props) {
@@ -13,12 +13,17 @@ class IPSet extends Component {
 
   handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      this.props.setIP(e.target.value);
+      this.sendIP(e);
       this.setState({
         ip: e.target.value,
         IPEntered: true
       })
+      this.sendIP();
     }
+  }
+
+  sendIP = () => {
+    this.props.setIP(this.state.ip)
   }
 
   showIPEntered = () => {
@@ -43,11 +48,17 @@ class IPSet extends Component {
       return (
         <React.Fragment>
           {this.showIPEntered()}
-          <Input
-            placeholder="Enter ESP IP here..."
-            onKeyPress={this.handleKeyPress}
-            style={{ width: "50%" }}
-          />
+          <InputGroup style={{ width: "50%" }}>
+            <Input
+              placeholder="Enter ESP IP here..."
+              onKeyPress={this.handleKeyPress}
+            />
+            <InputGroupAddon>
+              <Button onClick={this.sendIP}>
+                Enter
+              </Button>
+            </InputGroupAddon>
+          </InputGroup>
         </React.Fragment>
       );
     }

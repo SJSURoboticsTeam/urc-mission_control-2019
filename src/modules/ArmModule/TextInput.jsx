@@ -7,8 +7,8 @@ class SliderView extends Component {
   state = {
     inputs: [
       { name: "Rotunda", value: "rotunda" },
+      { name: "Elbow", value: "elbow" },
       { name: "Shoulder", value: "shoulder" },
-      { name: "Wrist", value: "wrist" }
     ],
     rotunda: 0,
     shoulder: 0,
@@ -17,13 +17,11 @@ class SliderView extends Component {
 
   handleChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
-    console.log(e.target.value);
   }
 
   handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      console.log("SQUAD " + e.target.id);
-      this.props.handleXHR(`set_${e.target.id}`, { angle: e.target.value });
+      this.props.handleXHR(`${e.target.id}Target`, { angle: e.target.value });
     }
   }
 
@@ -40,7 +38,7 @@ class SliderView extends Component {
                 <Input
                   onChange={this.handleChange}
                   onKeyPress={this.handleKeyPress}
-                  id={input.value}
+                  id={input.name}
                   type="number"
                   step="0.01"
                   placeholder="Input Servo Here..."
