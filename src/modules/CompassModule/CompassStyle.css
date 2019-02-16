@@ -1,0 +1,45 @@
+/* NEW Compass Image */
+.compass-gear {
+  width: 415px;
+  height: 300px;
+  background-image: "./compass-gear.png";
+  margin-right: 0%;
+  transform: rotate(-70%, -48%) 
+}
+
+.compass-container {
+  border: black solid 2px;
+  border-radius: 10px;
+  height: 90%;
+}
+
+.compass-flex-container {
+  border: black solid 2px;
+  border-radius: 10px;
+  display: flex;
+  height: 80%;
+}
+
+.compass-button-container {
+  border: black solid 2px;
+  border-radius: 10px;
+  display: flex;
+  flex-grow: 2;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.compass-image-container {
+  border: black solid 2px;
+  border-radius: 10px;
+  display: flex;
+  flex-grow: 3;
+  flex-direction: row-reverse;
+}
+
+.compass-pointer {
+  position: absolute;
+  top: 138px;
+  right: 165px;
+}

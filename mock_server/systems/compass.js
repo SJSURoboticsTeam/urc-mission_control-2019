@@ -3,6 +3,7 @@ const system = require("../system");
 
 // State
 let state = false;
+let heading = 0;
 
 // Arm API
 const compass = new system.System("compass");
@@ -27,19 +28,28 @@ compass.addXHR("/heading", (req, res) => {
   });
 });
 
+compass.addXHR("/set_angle_dec", (req, res) => {
+  let response = "";
+  if (state) {
+    response = `Angle of declination set to ${req.query.angle_dec}`;
+  } else {
+    response = "Compass isn't on!";
+  }
+  res.send({
+    message: response
+  });
+});
+
 
 //SENDING TO COMPASS RESPONSE
 function getHeading() {
-  if (state) {
-    let response = Math.floor(Math.random() * Math.floor(360));
+    // let response = Math.floor(Math.random() * Math.floor(360));
+    heading += 5;
     return JSON.stringify({
-      heading: response.toString()
+      heading
     });
-  } else {
-    return;
-  }
 }
 
 compass.addOnConnectSSE("getHeading", getHeading);
 
-compass.addSSE("getHeading", 1000, getHeading);
+compass.addSSE("getHeading", 500, getHeading);
