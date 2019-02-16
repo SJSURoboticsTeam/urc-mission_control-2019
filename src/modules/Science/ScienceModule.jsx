@@ -109,7 +109,7 @@ class ScienceModule extends Component {
             color="success"
 
           >
-            Hey
+            Enter ESP
           </Button>
           <div>
             {this.state.inputToggled ?
@@ -117,7 +117,7 @@ class ScienceModule extends Component {
                 // onChange={this.handleChange}
                 onKeyDown={this.connectESP}
               ></input> :
-              <p>yes</p>
+              <p></p>
             }
           </div>
         </div>
