@@ -31,8 +31,13 @@ arm.addXHR()
 arm.addXHR("/set_rotunda", (req, res) => {
   let new_req = req.query;
   let resText = "";
+<<<<<<< HEAD
   //rotunda
   if (new_req.angle) {
+=======
+  //rtda = rotounda
+  if (new_req.rtda) {
+>>>>>>> 241bac36834bbccd9690cdbf8c48fda7ffafd57e
     resText += `rotunda set to ${new_req.angle}\n`;
   }
   res.send({
@@ -43,8 +48,13 @@ arm.addXHR("/set_rotunda", (req, res) => {
 arm.addXHR("/set_shoulder", (req, res) => {
   let new_req = req.query;
   let resText = "";
+<<<<<<< HEAD
   //shoulder angle
   if (new_req.angle) {
+=======
+  //sldr = shoulder
+  if (new_req.sldr) {
+>>>>>>> 241bac36834bbccd9690cdbf8c48fda7ffafd57e
     resText += `shoulder set to ${new_req.angle}\n`;
   }
   res.send({
@@ -55,12 +65,21 @@ arm.addXHR("/set_shoulder", (req, res) => {
 arm.addXHR("/set_wrist", (req, res) => {
   let new_req = req.query;
   let resText = "";
+<<<<<<< HEAD
   //wrist roll
   if (new_req.roll) {
     resText += `wrist roll set to ${new_req.roll}\n`;
   }
   //wrist pitch
   if (new_req.pitch) {
+=======
+  //wrll = wrist roll
+  if (new_req.wrll) {
+    resText += `wrist roll set to ${new_req.roll}\n`;
+  }
+  //wpch = wrist pitch
+  if (new_req.wpch) {
+>>>>>>> 241bac36834bbccd9690cdbf8c48fda7ffafd57e
     resText += `wrist roll set to ${new_req.pitch}\n`;
   }
   res.send({

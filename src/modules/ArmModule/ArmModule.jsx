@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import TextInput from "./TextInput";
 import sendXHR from "../../lib/sendXHR";
-import { Container, Badge } from "reactstrap";
+import { Container } from "reactstrap";
+import sendXHR from "../../lib/sendXHR"
 import IPSet from "./IPSet";
 
 class ArmModule extends Component {
