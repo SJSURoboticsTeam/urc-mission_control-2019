@@ -8,10 +8,10 @@ export const CS_CONNECTING = 1;
 export const CS_CONNECTED = 2;
 
 //DM = Drive Mode
-export const DM_SPIN = 0;
+export const DM_DEBUG = 0;
 export const DM_CRAB = 1;
-export const DM_DRIVE = 2;
-export const DM_DEBUG = 3;
+export const DM_SPIN = 2;
+export const DM_DRIVE = 3;
 
 //BW = Back Wheel
 export const BW_A = 0;

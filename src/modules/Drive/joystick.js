@@ -74,9 +74,9 @@ class Joystick {
 		// Package drive data 
 		let drive_data = {
 			mode: drive_module_state.drive_mode,
-			AXIS_0: axes[joystick_indices[0]],
-			AXIS_1: axes[joystick_indices[1]],
-			AXIS_3: axes[joystick_indices[2]],
+			AXIS_X: axes[joystick_indices[0]],
+			AXIS_Y: axes[joystick_indices[1]],
+			THROTTLE: axes[joystick_indices[2]],
 			button_0: buttons[0].value,
 			wheel_A: (drive_module_state.back_wheel === BW_A ? 1 : 0),
 			wheel_B: (drive_module_state.back_wheel === BW_B ? 1 : 0),
