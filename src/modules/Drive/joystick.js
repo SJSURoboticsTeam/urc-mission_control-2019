@@ -48,6 +48,7 @@ class Joystick {
 		let gp = navigator.getGamepads()[0];
 		let drive_module_state = getDriveState();
 
+		// Check state, and status of gamepad connection
 		if (!drive_module_state.joystick_connected || !gp) {
 			return;
 		}
@@ -55,6 +56,11 @@ class Joystick {
 		let buttons = gp.buttons;
 		let axes = gp.axes;
 		let joystick_indices = this.mapJoystickIndices();
+		
+		// Verify user wants to send data.
+		if (buttons[1].value === 0) {
+			return;
+		}
 		
 		// Handle drive mode changes from joystick
 		if (buttons[2].value === 1 && drive_module_state.drive_mode !== DM_CRAB) { 
