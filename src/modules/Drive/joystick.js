@@ -57,11 +57,6 @@ class Joystick {
 		let axes = gp.axes;
 		let joystick_indices = this.mapJoystickIndices();
 		
-		// Verify user wants to send data.
-		if (buttons[1].value === 0) {
-			return;
-		}
-		
 		// Handle drive mode changes from joystick
 		if (buttons[2].value === 1 && drive_module_state.drive_mode !== DM_CRAB) { 
 			drive_module_state.drive_mode = DM_CRAB;
@@ -101,7 +96,8 @@ class Joystick {
 		// updateSliders(magnitude);
 
 		//Send to ESP
-		if (drive_module_state.esp_ip !== null || drive_module_state.esp_ip !== "localhost:5001") {
+		if ((drive_module_state.esp_ip !== null || drive_module_state.esp_ip !== "localhost:5001") && buttons[1].value !== 0) {
+			console.log("sending");
 			sendXHR(drive_module_state.esp_ip, "handle_update", drive_data);
 		}
 	}
