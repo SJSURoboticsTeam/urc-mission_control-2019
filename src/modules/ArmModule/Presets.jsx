@@ -33,7 +33,7 @@ class SliderView extends Component {
         <br />
         {this.state.buttons.map((button) => {
           return (
-            <Button onClick={this.handleClick} id={button.id}>{button.name}</Button>
+            <Button key={button.id} onClick={this.handleClick} id={button.id}>{button.name}</Button>
           )
         })}
         <ButtonDropdown

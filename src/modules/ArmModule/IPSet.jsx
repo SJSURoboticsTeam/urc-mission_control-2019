@@ -13,12 +13,10 @@ class IPSet extends Component {
 
   handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      this.sendIP(e);
       this.setState({
         ip: e.target.value,
         IPEntered: true
-      })
-      this.sendIP();
+      }, this.sendIP())
     }
   }
 
@@ -54,9 +52,9 @@ class IPSet extends Component {
               onKeyPress={this.handleKeyPress}
             />
             <InputGroupAddon>
-              <Button onClick={this.sendIP}>
-                Enter
-              </Button>
+              {/* <Button disabled={true} >
+                Press enter to log value
+              </Button> */}
             </InputGroupAddon>
           </InputGroup>
         </React.Fragment>

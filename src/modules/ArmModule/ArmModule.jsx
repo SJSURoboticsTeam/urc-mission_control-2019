@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import TextInput from "./TextInput";
 import sendXHR from "../../lib/sendXHR";
 import { Container } from "reactstrap";
-import sendXHR from "../../lib/sendXHR"
 import IPSet from "./IPSet";
 
 class ArmModule extends Component {
@@ -23,16 +22,19 @@ class ArmModule extends Component {
   });
 
   handleXHR = (data) => {
-    sendXHR(this.state.espIP, "arm", data, (res) => {
+    console.log(this.state.espIP);
+    console.log(data);
+    sendXHR(this.state.espIP, "Arm", data, (res) => {
       res = JSON.parse(res);
       console.log(`result: ${res.message}`);
     });
   }
 
   setIP = (val) => {
+    console.log(val);
     this.setState({
       espIP: val
-    })
+    }, console.log("\n\nlaskjdfasljk\n\n"))
   }
 
   toggle = () => {
