@@ -3,6 +3,7 @@ import Cookies from "universal-cookie";
 import ModuleSelect from "./ModuleSelect.jsx";
 import "../../lib/css/ModuleContainer.css";
 import ProtoModule from "../ProtoModule/ProtoModule.jsx";
+import ArmModule from "../ArmModule/ArmModule.jsx";
 import ScienceModule from "../Science/ScienceModule.jsx";
 import PowerModule from "../Power/PowerModule.jsx";
 import IntelligentSystemsModule from "../IntelligentSystems/IntelligentSystemsModule.jsx";
@@ -36,6 +37,8 @@ class ModuleContainer extends Component {
     switch (moduleName) {
       case "proto-module":
         return <ProtoModule />;
+      case "arm-module":
+        return <ArmModule />;
       case "science-module":
         return <ScienceModule />;
       case "power-module":
