@@ -22,8 +22,6 @@ class ArmModule extends Component {
   });
 
   handleXHR = (data) => {
-    console.log(this.state.espIP);
-    console.log(data);
     sendXHR(this.state.espIP, "Arm", data, (res) => {
       res = JSON.parse(res);
       console.log(`result: ${res.message}`);
@@ -31,10 +29,9 @@ class ArmModule extends Component {
   }
 
   setIP = (val) => {
-    console.log(val);
     this.setState({
       espIP: val
-    }, console.log("\n\nlaskjdfasljk\n\n"))
+    });
   }
 
   toggle = () => {

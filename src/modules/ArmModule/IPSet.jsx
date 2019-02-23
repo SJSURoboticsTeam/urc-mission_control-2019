@@ -16,12 +16,8 @@ class IPSet extends Component {
       this.setState({
         ip: e.target.value,
         IPEntered: true
-      }, this.sendIP())
+      }, this.props.setIP(e.target.value));
     }
-  }
-
-  sendIP = () => {
-    this.props.setIP(this.state.ip)
   }
 
   showIPEntered = () => {
