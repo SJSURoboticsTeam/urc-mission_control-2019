@@ -8,7 +8,7 @@ class IPSet extends Component {
       inputToggled: false,
       ip: "",
       IPEntered: false
-    }
+    };
   }
 
   handleKeyPress = (e) => {
@@ -29,7 +29,7 @@ class IPSet extends Component {
         >
           IP Logged! It's {this.state.ip}
         </Alert>
-      )
+      );
     } else {
       return (
         <p>Enter an IP, and hit enter</p>
@@ -62,7 +62,7 @@ class IPSet extends Component {
     this.props.toggle();
     this.setState({
       inputToggled: !this.state.inputToggled
-    })
+    });
   }
 
   render() {

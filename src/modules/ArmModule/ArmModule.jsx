@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import TextInput from "./TextInput";
 import sendXHR from "../../lib/sendXHR";
-import { Container } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import IPSet from "./IPSet";
+import Presets from "./Presets";
 
 class ArmModule extends Component {
   state = {
@@ -23,8 +24,9 @@ class ArmModule extends Component {
 
   handleXHR = (data) => {
     sendXHR(this.state.espIP, "Arm", data, (res) => {
-      res = JSON.parse(res);
-      console.log(`result: ${res.message}`);
+      //uncomment for module testing.
+      //res = JSON.parse(res);
+      //console.log(`result: ${res.message}`);
     });
   }
 
@@ -42,17 +44,31 @@ class ArmModule extends Component {
 
   displayIP = () => {
     if (this.state.espIP && !this.state.ipSetOpen) {
-      return <h5 style={{ display: "inline", padding: "5px" }}>Current ESP IP: {this.state.espIP} </h5>
+      return (
+        <h5 
+          style={{ display: "inline", padding: "5px" }}>
+          Current ESP IP: {this.state.espIP} 
+        </h5>
+      );
     } else {
-      return <React.Fragment />
+      return <React.Fragment />;
     }
   }
 
   renderInput = () => {
     if (!this.state.ipSetOpen) {
-      return <TextInput handleXHR={this.handleXHR} />;
+      return (
+      <Row>
+          <Col>
+            <TextInput handleXHR={this.handleXHR} />
+          </Col>
+          <Col>
+            <Presets handleXHR={this.handleXHR} />
+          </Col>
+        </Row>
+      );
     } else {
-      return <React.Fragment />
+      return <React.Fragment />;
     }
   }
 

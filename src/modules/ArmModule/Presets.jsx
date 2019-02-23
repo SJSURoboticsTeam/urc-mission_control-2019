@@ -1,60 +1,79 @@
 import React, { Component } from "react";
 import {
-  Button, ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap"
+  Button, ButtonGroup,
+} from "reactstrap";
 import "./ArmStyle.css";
 
-class SliderView extends Component {
+class Presets extends Component {
   state = {
-    dropdownOpen: false,
-    buttons: [
-      { id: "claw", name: "Open/Close Claw" },
-      { id: "laser", name: "Toggle Laser" },
-    ]
+    wristInputs: [
+      { name: "Dimension", id: "wrist", type: "" },
+      { name: "Command", id: "command", type: "" },
+    ],
   };
 
-  toggle = () => {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
-  };
+  determineButtonInput = (e) => {
+    if(e.id === "command"){
+      let commandOptions = ["close", "open","stop"];
+      return(
+        <ButtonGroup>
+          {commandOptions.map((el) => {
+            return(
+              <Button
+                key={`${el}-option`} 
+                color="primary" 
+                id="command" 
+                onClick={this.handleXHR} 
+                value={el}>
+                {el}
+              </Button>
+            );
+          })}
+        </ButtonGroup>
+      );
+    }else{
+      let dimensions = [0,1];
+      return (
+        <ButtonGroup>
+          {dimensions.map((el) => {
+            return( 
+              <Button
+                key={`${el}-option`}
+                color="primary"
+                onClick={this.handleXHR} 
+                id="dimension"
+                value={el}>
+                {el}
+              </Button>);
+          })}
+        </ButtonGroup>
+      );
+    }
+  }
 
-  handleClick = (e) => {
-    console.log("SQUAD " + e.target.id);
-    this.props.handleXHR(`set_${e.target.id}`, { angle: e.target.value });
+  handleXHR = (e) => {
+    if(e.target.id === "command"){
+      this.props.handleXHR({command: e.target.value});
+    }else{
+      this.props.handleXHR({dimension: e.target.value});
+    }
   }
 
   render() {
     return (
       <div id="controls">
-        <br />
-        {this.state.buttons.map((button) => {
-          return (
-            <Button key={button.id} onClick={this.handleClick} id={button.id}>{button.name}</Button>
-          )
-        })}
-        <ButtonDropdown
-          isOpen={this.state.dropdownOpen}
-          toggle={this.toggle}
-          className="presetSelect"
-          onChange={this.changeValue}
-        >
-          <DropdownToggle caret>Preset Select</DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem onClick={this.onChange} key="1" value="1">
-              Preset 1
-          </DropdownItem>
-            <DropdownItem onClick={this.onChange} key="2" value="2">
-              Preset 2
-          </DropdownItem>
-          </DropdownMenu>
-        </ButtonDropdown>
+        <h3>Wrist</h3>
+            {this.state.wristInputs.map((element) => {
+              return (
+                <React.Fragment key={element.id}>
+                  <p>{element.name}</p>
+                  {this.determineButtonInput(element)}
+                </React.Fragment>
+              );
+            })}
       </div>
     );
   }
 }
 
-export default SliderView;
+export default Presets;
