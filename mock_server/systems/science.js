@@ -64,3 +64,5 @@ science_systems.addOnConnectSSE("timestamp", makeTimestamp);
 science_systems.addSSE("timestamp", 1000, makeTimestamp);
 
 science_systems.addSSE("executePod", 1000, simulatePodExecution);
+
+// science_systems.addSSE("getMeasurement", );
