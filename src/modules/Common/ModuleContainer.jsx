@@ -9,7 +9,11 @@ import PowerModule from "../Power/PowerModule.jsx";
 import IntelligentSystemsModule from "../IntelligentSystems/IntelligentSystemsModule.jsx";
 import XHRTestModule from "../XHRTest/XHRTestModule.jsx";
 import CompassModule from "../CompassModule/CompassModule.jsx";
+<<<<<<< HEAD
 import DriveModule from "../Drive/DriveModule.jsx";
+=======
+import VideoStreamModule from "../VideoStream/VideoStream.jsx";
+>>>>>>> Initial tracking of VideoStreamModule files
 
 class ModuleContainer extends Component {
   constructor(props) {
@@ -50,8 +54,13 @@ class ModuleContainer extends Component {
         return <XHRTestModule />;
       case "compass-module":
         return <CompassModule />;
+<<<<<<< HEAD
       case "drive-module":
         return <DriveModule />;
+=======
+      case "video-stream-module":
+        return <VideoStreamModule />;
+>>>>>>> Initial tracking of VideoStreamModule files
       default:
         return <p>{moduleName} does not exist</p>;
     }
