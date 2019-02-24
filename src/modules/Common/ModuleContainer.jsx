@@ -9,6 +9,7 @@ import PowerModule from "../Power/PowerModule.jsx";
 import IntelligentSystemsModule from "../IntelligentSystems/IntelligentSystemsModule.jsx";
 import XHRTestModule from "../XHRTest/XHRTestModule.jsx";
 import CompassModule from "../CompassModule/CompassModule.jsx";
+import VideoStreamModule from "../VideoStream/VideoStream.jsx";
 
 class ModuleContainer extends Component {
   constructor(props) {
@@ -49,6 +50,8 @@ class ModuleContainer extends Component {
         return <XHRTestModule />;
       case "compass-module":
         return <CompassModule />;
+      case "video-stream-module":
+        return <VideoStreamModule />;
       default:
         return <p>{moduleName} does not exist</p>;
     }

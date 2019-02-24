@@ -15,7 +15,8 @@ const moduleData = {
     "proto-module": { id: "proto-module", value: "ProtoModule" },
     "intelligent-systems-module": { id: "intelligent-systems-module", value: "IntelligentSystems" },
     "xhr-test-module": { id: "xhr-test-module", value: "XHRTest" },
-    "compass-module": { id: "compass-module", value: "CompassModule" }
+    "compass-module": { id: "compass-module", value: "CompassModule" },
+    "video-stream-module": { id: "video-stream-module", value: "VideoStream"}
   },
 
 
@@ -30,7 +31,8 @@ const moduleData = {
     "proto-module",
     "intelligent-systems-module",
     "xhr-test-module",
-    "compass-module"
+    "compass-module",
+    "video-stream-module"
   ]
 };
 
