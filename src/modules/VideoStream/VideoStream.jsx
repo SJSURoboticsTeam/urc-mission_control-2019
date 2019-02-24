@@ -9,8 +9,8 @@ class VideoStreamModule extends Component {
   render() {
     return (
       <div>
-        <h1 className="header">This is the VideoStreamModule!</h1>
-        <p>Copy/Paste this folder and create your own stuff!</p>
+
+        <img id="video" src="https://ahseeit.com//king-include/uploads/2019/02/51508006_1207326942754330_6970094343420161442_n-3244417952.jpg" class="img-fluid"/>
       </div>
     );
   }
