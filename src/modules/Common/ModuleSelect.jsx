@@ -5,7 +5,6 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
-
 import moduleData from "../../lib/moduleData.js";
 
 export default class ModuleSelect extends React.Component {
@@ -20,6 +19,10 @@ export default class ModuleSelect extends React.Component {
     });
   };
 
+  currentModuleName = (current_module) => {
+    return moduleData.components[current_module].value
+  }
+
   render() {
     return (
       <ButtonDropdown
@@ -28,7 +31,7 @@ export default class ModuleSelect extends React.Component {
         className="moduleSelect"
         onChange={this.changeValue}
       >
-        <DropdownToggle caret>Module Select</DropdownToggle>
+        <DropdownToggle caret>{ this.currentModuleName(this.props.currentModule) }</DropdownToggle>
         <DropdownMenu>
           {this.state.modules.componentOrder.map((id, value) => (
             <DropdownItem onClick={this.props.onChange} key={id} value={id}>

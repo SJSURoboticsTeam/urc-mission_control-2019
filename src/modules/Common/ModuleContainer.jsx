@@ -64,6 +64,7 @@ class ModuleContainer extends Component {
           <ModuleSelect
             key={`${this.state.id}-select`}
             onChange={this.onChange}
+            currentModule={this.state.currentModule}
           />
           {this.chooseModule(this.state.currentModule)}
         </div>
