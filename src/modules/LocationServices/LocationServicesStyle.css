@@ -2,3 +2,20 @@
 .header {
     color: red;
 }
+
+.map-container {
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    height: 100%;
+}
+
+.row-7 {
+    height: 70%;
+}
+
+.row-3 {
+    height: 10%;
+}
