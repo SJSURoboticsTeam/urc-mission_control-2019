@@ -1,17 +1,12 @@
 import React, { Component } from "react";
 import "./DriveStyle.css";
-import joystick from './joystick.js';
+import joystick from "./joystick.js";
 import {
-  DM_SPIN,
-  DM_CRAB,
   DM_DRIVE,
-  DM_DEBUG,
   BW_A,
-  BW_B,
-  BW_C,
   DRIVE_MODES,
   BACK_WHEELS
-} from './model.js';
+} from "./model.js";
 import { 
   Alert,
   Badge,
@@ -84,7 +79,7 @@ class DriveModule extends Component {
   }
 
   updateHeading(newHeading) {
-    newHeading = (newHeading === undefined ? 0 : newHeading);
+    newHeading = (typeof newHeading === "undefined" ? 0 : newHeading);
 
     this.setState({
       heading: newHeading
@@ -111,7 +106,7 @@ class DriveModule extends Component {
     if(state_val != null && state_val === current_val){
       return "primary";
     } else{
-      return "secondary"
+      return "secondary";
     }
   }
 
@@ -150,16 +145,18 @@ class DriveModule extends Component {
           );
         })}
       </ButtonGroup>
-    )
+    );
     
   }
 
   renderJoystickStatus() {
     switch(this.state.joystick_connected) {
       case true:
-        return <Alert color="success"> Joystick is connected! </Alert>
+        return <Alert color="success"> Joystick is connected! </Alert>;
       case false:
-        return <Alert color="danger"> Joystick is disconnected! </Alert>
+        return <Alert color="danger"> Joystick is disconnected! </Alert>;
+      default:
+        return <Alert color="primary">WHAT</Alert>;
     }
   }
 
