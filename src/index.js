@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import NavBar from "./modules/Common/navbar";
+import NavBar from "./modules/Common/Navbar";
 import GridInterface from "./modules/Common/GridInterface";
 
 import "bootstrap/dist/css/bootstrap.min.css";
