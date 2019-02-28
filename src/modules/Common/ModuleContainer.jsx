@@ -10,6 +10,7 @@ import IntelligentSystemsModule from "../IntelligentSystems/IntelligentSystemsMo
 import XHRTestModule from "../XHRTest/XHRTestModule.jsx";
 import CompassModule from "../CompassModule/CompassModule.jsx";
 import DriveModule from "../Drive/DriveModule.jsx";
+import LocationServicesModule from "../LocationServices/LocationServices.jsx";
 
 class ModuleContainer extends Component {
   constructor(props) {
@@ -52,6 +53,8 @@ class ModuleContainer extends Component {
         return <CompassModule />;
       case "drive-module":
         return <DriveModule />;
+      case "location-services-module":
+        return <LocationServicesModule />;
       default:
         return <p>{moduleName} does not exist</p>;
     }

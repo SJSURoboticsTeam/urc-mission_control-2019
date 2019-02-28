@@ -1,0 +1,31 @@
+/* This CSS is an example. You can delete this at will. */
+.header {
+    color: red;
+}
+
+.map-container {
+    height: 80%;
+    width: 100%;
+}
+
+.container {
+    height: 100%;
+}
+
+.row-7 {
+    height: 70%;
+}
+
+.row-3 {
+    height: 30%;
+}
+
+.col-7 {
+    height: 100%;
+    width: 70%
+}
+
+.col-3 {
+    height: 100%;
+    width: 30%
+}

@@ -15,9 +15,9 @@ const moduleData = {
     "proto-module": { id: "proto-module", value: "ProtoModule" },
     "intelligent-systems-module": { id: "intelligent-systems-module", value: "IntelligentSystems" },
     "xhr-test-module": { id: "xhr-test-module", value: "XHRTest" },
-    "compass-module": { id: "compass-module", value: "CompassModule" }
+    "compass-module": { id: "compass-module", value: "CompassModule" },
+    "location-services-module": { id: "location-services=module", value: "Location Services"}
   },
-
 
   windowOrder: ["window-1", "window-2", "window-3", "window-4"],
   componentOrder: [
@@ -30,7 +30,8 @@ const moduleData = {
     "proto-module",
     "intelligent-systems-module",
     "xhr-test-module",
-    "compass-module"
+    "compass-module",
+    "location-services-module"
   ]
 };
 
