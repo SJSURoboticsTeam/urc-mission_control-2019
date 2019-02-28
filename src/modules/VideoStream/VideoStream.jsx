@@ -16,34 +16,35 @@ import {
 
 import "./VideoStreamStyle.css";
 
-import default_stream_src from './assets/images/default_stream_src.jpg';
+import defaultStreamSrc from "./assets/images/default_stream_src.jpg";
 
 class VideoStreamModule extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      connected: false
+      connected: false,
+      secUrl: null
     };
   }
 
   componentDidMount = () => {
-    let video_component = document.getElementById("video");
-    video_component.src = default_stream_src;
+    let videComponent = document.getElementById("video");
+    videComponent.src = defaultStreamSrc;
   }
 
   updateSource = () => {
-    let ip_input = document.getElementById("ip-input");
-    let video_component = document.getElementById("video");
+    let ipInput = document.getElementById("ip-input");
+    let videoComponent = document.getElementById("video");
     
-    if ( ip_input.value === "" ) {
+    if ( ipInput.value === "" ) {
       alert("ERROR: Must enter a IP address.");
       return;
     }
     
-    video_component.src = ip_input.value;
+    videoComponent.src = ipInput.value;
 
     this.setState({
-      src_url: ip_input.value,
+      srcUrl: ipInput.value,
       connected: true
     });
   }
@@ -51,8 +52,8 @@ class VideoStreamModule extends Component {
   defaultSource = () => {
     alert("ERROR: Connection IP address was unsuccessful. Defaulting source.");
 
-    let video_component = document.getElementById("video");
-    video_component.src = default_stream_src;
+    let videoComponent = document.getElementById("video");
+    videoComponent.src = defaultStreamSrc;
 
     this.setState({
       connected: false
@@ -60,12 +61,12 @@ class VideoStreamModule extends Component {
   }
 
   refreshSource = () => {
-    if (this.state.src_url == null) {
+    if (this.state.srcUrl == null) {
       alert("ERROR: Must enter video IP address first.");
       return;
     }
-    let video_component = document.getElementById("video");
-    video_component.src = `${this.state.src_url}?timestamp=${new Date().getTime()}`;
+    let videoComponent = document.getElementById("video");
+    videoComponent.src = `${this.state.srcUrl}?timestamp=${new Date().getTime()}`;
     
     this.setState({
       connected: true

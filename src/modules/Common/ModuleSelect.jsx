@@ -19,11 +19,11 @@ export default class ModuleSelect extends React.Component {
     });
   };
 
-  currentModuleName = (current_module) => {
-    if (moduleData.components[current_module] != undefined) {
-      return (moduleData.components[current_module].value);
+  currentModuleName = (currentModule) => {
+    if (typeof moduleData.components[currentModule] !== "undefined") {
+      return (moduleData.components[currentModule].value);
     } else {
-      return current_module;
+      return currentModule;
     }
   }
 
