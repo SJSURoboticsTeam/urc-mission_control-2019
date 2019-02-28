@@ -4,7 +4,6 @@ import {
   Input,
   InputGroup,
   InputGroupAddon,
-  InputGroupText
 } from "reactstrap";
 import {
   IoIosRefresh
@@ -12,7 +11,7 @@ import {
 import {
   FaCheck,
   FaExclamationTriangle
-} from "react-icons/fa"
+} from "react-icons/fa";
 
 import "./VideoStreamStyle.css";
 
@@ -101,7 +100,7 @@ class VideoStreamModule extends Component {
             <Button onClick={this.refreshSource} color="warning"> <IoIosRefresh/> </Button> 
           </InputGroupAddon>
         </InputGroup>
-        <img onError={this.defaultSource} id="video" src="" class="img-fluid"/>
+        <img onError={this.defaultSource} id="video" alt="img situations" src="" class="img-fluid"/>
       </div>
     );
   }
