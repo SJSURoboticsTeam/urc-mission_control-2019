@@ -1,15 +1,15 @@
-import L from 'leaflet';
+import L from "leaflet";
 import React, { Component } from "react";
-import { CircleSlider } from 'react-circle-slider';
+import { CircleSlider } from "react-circle-slider";
 import {
   IoIosRefresh
-} from 'react-icons/io';
+} from "react-icons/io";
 import {
   Map,
   Marker,
   Popup,
   TileLayer,
-} from 'react-leaflet';
+} from "react-leaflet";
 import {
   Button,
   Container,
@@ -18,7 +18,7 @@ import {
   Input,
   InputGroup,
   InputGroupAddon
-} from 'reactstrap';
+} from "reactstrap";
 import sendXHR from "../../lib/sendXHR";
 
 // css
@@ -28,9 +28,9 @@ import "./LocationServicesStyle.css";
 //random stuff to get markers to work.
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-  iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+  iconUrl: require("leaflet/dist/images/marker-icon.png"),
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
 
 class LocationServicesModule extends Component {
@@ -38,7 +38,7 @@ class LocationServicesModule extends Component {
     super(props);
     this.state = {
       currentHeading: 0,
-      esp_ip: null,
+      espIP: null,
       markers: [
         L.latLng(37.337064, -121.881747)
       ],
@@ -56,17 +56,17 @@ class LocationServicesModule extends Component {
     */
     let e = {
       latlng: L.latLng(lat, lng)
-    }
+    };
     this.addMarker(e);
   }
 
   addMarker = (e) => {
-    let markers_tmp = this.state.markers;
+    let markersTmp = this.state.markers;
 
     // Add new marker to state
-    markers_tmp.push(e.latlng);
+    markersTmp.push(e.latlng);
     this.setState({
-      markers: markers_tmp 
+      markers: markersTmp 
     });
 
     //Populate text inputs with coordinates.
@@ -81,21 +81,21 @@ class LocationServicesModule extends Component {
   } 
   
   requestCurrentHeading = () => {
-    if (this.state.esp_ip === null) {
-      let esp_ip_input = prompt("Please enter IP address of the Intelligent Systems ESP", "192.168.4.1");
+    if (this.state.espIP === null) {
+      let espIpInput = prompt("Please enter IP address of the Intelligent Systems ESP", "192.168.4.1");
 
-      if (esp_ip_input == null || esp_ip_input == "") {
+      if (espIpInput === null || espIpInput === "") {
         return;
       }
 
-      let new_heading = null
-      sendXHR(esp_ip_input, "request_heading", {}, (res) => {
-        new_heading = res;
+      let newHeading = null;
+      sendXHR(espIpInput, "request_heading", {}, (res) => {
+        newHeading = res;
       });
       
       this.setState({
-        esp_ip: esp_ip_input,
-        currentHeading: new_heading
+        espIP: espIpInput,
+        currentHeading: newHeading
       });
     }
   }
@@ -120,7 +120,7 @@ class LocationServicesModule extends Component {
                 center={position} 
                 zoom={this.state.zoom}>
               <TileLayer
-                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                attribution='&amp;copy <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               {this.state.markers.map((position, idx) => 
