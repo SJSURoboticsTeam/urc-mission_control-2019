@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  Button,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -9,15 +10,37 @@ import {
   NavLink,
   Container
 } from "reactstrap";
+import DarkTheme from "../../lib/css/DarkTheme.jsx";
+import soundfile from "../../lib/css/sp.mp3";
 
 class AppNavbar extends Component {
-  state = {
-    isOpen: false
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      isOpen: false,
+      darkThemeActive: false,
+      isPlaying: false,
+    };
+  }
 
   toggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
-  };
+  }
+
+  toggleDarkTheme = () => {
+    this.setState({
+      darkThemeActive: !this.state.darkThemeActive
+    });
+  }
+
+  handleDarkTheme = () => {
+    return this.state.darkThemeActive ? <DarkTheme /> : <React.Fragment />;
+  }
+
+  handleAudio = () => {
+    let audio = new Audio(soundfile);
+    audio.play();
+  }
 
   render() {
     return (
@@ -28,8 +51,13 @@ class AppNavbar extends Component {
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
+                <Button outline 
+                  color="primary"
+                  onClick={this.toggleDarkTheme}>
+                  Dark Theme
+                </Button>
                 <NavItem>
-                  <NavLink href="https://www.youtube.com/watch?v=czTksCF6X8Y">
+                  <NavLink onClick={this.handleAudio}>
                     Github
                   </NavLink>
                 </NavItem>
@@ -37,6 +65,7 @@ class AppNavbar extends Component {
             </Collapse>
           </Container>
         </Navbar>
+        {this.handleDarkTheme()}
       </React.Fragment>
     );
   }
