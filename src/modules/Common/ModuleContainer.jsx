@@ -11,6 +11,7 @@ import XHRTestModule from "../XHRTest/XHRTestModule.jsx";
 import CompassModule from "../CompassModule/CompassModule.jsx";
 import DriveModule from "../Drive/DriveModule.jsx";
 import LocationServicesModule from "../LocationServices/LocationServices.jsx";
+import VideoStreamModule from "../VideoStream/VideoStream.jsx";
 
 class ModuleContainer extends Component {
   constructor(props) {
@@ -53,6 +54,8 @@ class ModuleContainer extends Component {
         return <CompassModule />;
       case "drive-module":
         return <DriveModule />;
+      case "video-stream-module":
+        return <VideoStreamModule />;
       case "location-services-module":
         return <LocationServicesModule />;
       default:
@@ -67,6 +70,7 @@ class ModuleContainer extends Component {
           <ModuleSelect
             key={`${this.state.id}-select`}
             onChange={this.onChange}
+            currentModule={this.state.currentModule}
           />
           {this.chooseModule(this.state.currentModule)}
         </div>
