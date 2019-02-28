@@ -10,13 +10,13 @@ const moduleData = {
     "power-module": { id: "power-module", value: "Power" },
     "arm-module": { id: "arm-module", value: "Arm" },
     "drive-module": { id: "drive-module", value: "Drive" },
-    "map-module": { id: "map-module", value: "map" },
-    "camera-module": { id: "camera-module", value: "Camera" },
-    "proto-module": { id: "proto-module", value: "ProtoModule" },
-    "intelligent-systems-module": { id: "intelligent-systems-module", value: "IntelligentSystems" },
-    "xhr-test-module": { id: "xhr-test-module", value: "XHRTest" },
-    "compass-module": { id: "compass-module", value: "CompassModule" },
-    "location-services-module": { id: "location-services=module", value: "Location Services"}
+    "map-module": { id: "map-module", value: "Map" },
+    "proto-module": { id: "proto-module", value: "Module Dropdown" },
+    "intelligent-systems-module": { id: "intelligent-systems-module", value: "Intelligent Systems" },
+    "xhr-test-module": { id: "xhr-test-module", value: "XHR Test" },
+    "compass-module": { id: "compass-module", value: "Compass Module" },
+    "video-stream-module": { id: "video-stream-module", value: "Video Stream"},
+    "location-services-module": { id: "location-services-module", value: "Location Services"}
   },
 
   windowOrder: ["window-1", "window-2", "window-3", "window-4"],
@@ -31,6 +31,7 @@ const moduleData = {
     "intelligent-systems-module",
     "xhr-test-module",
     "compass-module",
+    "video-stream-module",
     "location-services-module"
   ]
 };

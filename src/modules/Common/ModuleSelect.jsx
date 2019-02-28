@@ -20,6 +20,14 @@ export default class ModuleSelect extends React.Component {
     });
   };
 
+  currentModuleName = (currentModule) => {
+    if (typeof moduleData.components[currentModule] !== "undefined") {
+      return (moduleData.components[currentModule].value);
+    } else {
+      return currentModule;
+    }
+  }
+
   render() {
     return (
       <ButtonDropdown
@@ -28,7 +36,9 @@ export default class ModuleSelect extends React.Component {
         className="moduleSelect"
         onChange={this.changeValue}
       >
-        <DropdownToggle caret>Module Select</DropdownToggle>
+        <DropdownToggle caret>
+          {this.currentModuleName(this.props.currentModule)}
+        </DropdownToggle>
         <DropdownMenu>
           {this.state.modules.componentOrder.map((id, value) => (
             <DropdownItem onClick={this.props.onChange} key={id} value={id}>
