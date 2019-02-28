@@ -9,11 +9,8 @@ import PowerModule from "../Power/PowerModule.jsx";
 import IntelligentSystemsModule from "../IntelligentSystems/IntelligentSystemsModule.jsx";
 import XHRTestModule from "../XHRTest/XHRTestModule.jsx";
 import CompassModule from "../CompassModule/CompassModule.jsx";
-<<<<<<< HEAD
 import DriveModule from "../Drive/DriveModule.jsx";
-=======
 import LocationServicesModule from "../LocationServices/LocationServices.jsx";
->>>>>>> inital push offiles for Location Services Module
 
 class ModuleContainer extends Component {
   constructor(props) {
@@ -54,13 +51,10 @@ class ModuleContainer extends Component {
         return <XHRTestModule />;
       case "compass-module":
         return <CompassModule />;
-<<<<<<< HEAD
       case "drive-module":
         return <DriveModule />;
-=======
       case "location-services-module":
         return <LocationServicesModule />;
->>>>>>> inital push offiles for Location Services Module
       default:
         return <p>{moduleName} does not exist</p>;
     }
