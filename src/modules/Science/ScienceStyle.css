@@ -2,3 +2,143 @@
 .header {
     color: red;
 }
+
+.science-container {
+    width: 80vh;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    height: 49vh;
+}
+
+/* ----------- */
+/* HEADER */
+/* ----------- */
+
+.science-header-container {
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.science-header {
+    color: red;
+}
+
+/* -------------- */
+/* BUTTONS */
+/* -------------- */
+
+.science-buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    height: 80%;
+}
+
+/* ----------- */
+/* DRILL */
+/* ----------- */
+
+.science-drill-container {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    height: 80%;
+}
+
+.science-slider-container {
+    border: 2px solid black;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.science-drill-slider {
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
+    width: 8px;
+    height: 155px;
+    padding: 0 5px;
+}
+
+.science-slider-indiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* -------- */
+/* GRAPH */
+/* -------- */
+
+.science-graph-container {
+    /* border: 2px solid black; */
+    border-radius: 5px;
+    padding: 5px;
+    height: 95%;
+    flex: 1;
+}
+
+.science-geiger-graph {
+    position: relative;
+    top: -70px;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    /* border: 2px solid black; */
+}
+
+.science-back-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* -------- */
+/* PODS */
+/* -------- */
+
+.science-pods-container {
+    border: 2px solid black;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 5px;
+    height: 100%;
+    width: 100%;
+}
+
+.science-pod-container {
+    /* border: 2px solid black; */
+    display: flex;
+    justify-content: space-evenly;
+    /* overflow: hidden; */
+    padding-left: 20px;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.science-topbuttons-container {
+    border: 2px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+.science-pod-buttons {
+    /* border: 2px solid black; */
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 20px;
+    height: 50%;
+}
+
+.science-pods-header {
+    display: flex;
+    justify-content: space-between;
+}
