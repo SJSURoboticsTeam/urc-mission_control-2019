@@ -28,6 +28,13 @@ class ModuleContainer extends Component {
     return typeof cookie !== "undefined" ? cookie : "proto-module";
   }
 
+  setCookie = (cookieName, value) => {
+    let d = new Date();
+    d.setDate(d.getDate() + 30);
+    this.moduleCookie.set(cookieName, value, 
+      { path: "/",  expires: d });
+  }
+
   onChange = (e) => {
     this.setState({
       currentModule: e.target.value
@@ -36,7 +43,7 @@ class ModuleContainer extends Component {
   };
 
   chooseModule(moduleName) {
-    this.moduleCookie.set(`${this.props.id}-choice`, moduleName, { path: "/" });
+    this.setCookie(`${this.props.id}-choice`, moduleName);
     switch (moduleName) {
       case "proto-module":
         return <ProtoModule />;
