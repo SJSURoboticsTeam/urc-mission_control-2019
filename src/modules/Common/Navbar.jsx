@@ -10,7 +10,6 @@ import {
   NavLink,
   Container
 } from "reactstrap";
-import DarkTheme from "../../lib/css/DarkTheme.jsx";
 import soundfile from "../../lib/css/sp.mp3";
 
 class AppNavbar extends Component {
@@ -29,12 +28,9 @@ class AppNavbar extends Component {
 
   toggleDarkTheme = () => {
     this.setState({
-      darkThemeActive: !this.state.darkThemeActive
+      darkThemeActive: !this.state.darkThemeActive,
     });
-  }
-
-  handleDarkTheme = () => {
-    return this.state.darkThemeActive ? <DarkTheme /> : <React.Fragment />;
+    this.props.toggleDarkTheme();
   }
 
   handleAudio = () => {
@@ -65,7 +61,6 @@ class AppNavbar extends Component {
             </Collapse>
           </Container>
         </Navbar>
-        {this.handleDarkTheme()}
       </React.Fragment>
     );
   }
