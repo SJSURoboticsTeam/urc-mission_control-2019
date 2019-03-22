@@ -12,8 +12,12 @@ import sendXHR from "../../lib/sendXHR";
 
 class Joystick {
 
-	init(getDriveState, joyStickButtonPressed, updateSpeed, updateHeading) {
-		window.setInterval(this.retrieveGamepadState.bind(this, getDriveState, joyStickButtonPressed, updateSpeed, updateHeading), 300);
+	initArm(getArmState){
+		window.setInterval(this.retrieveArmState.bind(this, getArmState), 300);
+	}
+
+	initDrive(getDriveState, joyStickButtonPressed, updateSpeed, updateHeading) {
+		window.setInterval(this.retrieveDriveState.bind(this, getDriveState, joyStickButtonPressed, updateSpeed, updateHeading), 300);
 	}
 
 	/*
@@ -48,7 +52,41 @@ class Joystick {
 		return joystick_indices;
 	}
 
-	retrieveGamepadState(getDriveState, joystickButtonPressed, updateSpeed, updateHeading) {
+	retrieveArmState(getArmState) {
+		let gp = navigator.getGamepads()[0];
+		let armState = getArmState();
+		let joystickIndeces = this.mapJoystickIndices();
+
+		console.log("before", armState.joystickConnected, armState.espIP !== "");
+		// Check state, and status of gamepad connection
+		if (!armState.joystickConnected) {
+			return;
+		}
+		let axes = gp.axes;
+		console.log("after");
+		/**
+		 * Wrist Index 0
+		 * ElbowTarget 1
+		 * ShoulderTarget 2
+		 * W Roll 5
+		 * RotundaTarget 6
+		 */
+		let armData = {
+			//whateer
+			Wrist_Delta: axes[joystickIndeces[0]],
+			ElbowTarget: axes[joystickIndeces[1]],
+			ShoulderTarget:axes[joystickIndeces[2]],
+			Wrist_Dimension: axes[joystickIndeces[5]], 
+			RotundaTarget: axes[joystickIndeces[6]]
+		};
+		// Send to ESP
+		if (armState.espIP !== "" && armState.espIP !== "localhost:5001") {
+			console.log(armData, armState.espIP);
+			sendXHR(armState.espIP, "Arm", armData);
+		}
+	}
+
+	retrieveDriveState(getDriveState, joystickButtonPressed, updateSpeed, updateHeading) {
 		let gp = navigator.getGamepads()[0];
 		let drive_module_state = getDriveState();
 
