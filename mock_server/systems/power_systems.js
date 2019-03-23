@@ -22,10 +22,17 @@ power_systems.addXHR("/toggle_power", (req, res) => {
 });
 
 function setVoltage() {
-  let response = Math.floor(Math.random() * Math.floor(360));
-  return JSON.stringify({
-    voltage: response.toString()
-  });
+  let voltage = {
+    armVoltage:         Math.floor(Math.random() * Math.floor(5)),
+    driveVoltage:       Math.floor(Math.random() * Math.floor(5)),
+    mastVoltage:        Math.floor(Math.random() * Math.floor(5)),
+    controlVoltage:     Math.floor(Math.random() * Math.floor(5)),
+    intelligentVoltage: Math.floor(Math.random() * Math.floor(5))
+  }
+  // console.log(response.toString());
+  return JSON.stringify(
+    voltage
+  );
 }
 
 power_systems.addOnConnectSSE("sendVoltage", setVoltage);

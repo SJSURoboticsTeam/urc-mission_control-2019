@@ -6,13 +6,13 @@ import PowerGraph from './PowerGraph';
 class PowerModule extends Component {
 	state = {
 		displayCompenent: 0,
+		mainPowerChecked: false,
 		modules: [
 			{ key: 0, name: 'Arm', id: 'arm', isChecked: false },
-			{ key: 1, name: 'Wheel', id: 'wheel', isChecked: false },
-			{ key: 2, name: 'Drive', id: 'drive', isChecked: false },
-			{ key: 3, name: 'Mast Camera', id: 'camera', isChecked: false },
-			{ key: 4, name: 'Control System', id: 'control-system', isChecked: false },
-			{ key: 5, name: 'Intelligent System', id: 'intelligent-system', isChecked: false }
+			{ key: 1, name: 'Drive', id: 'drive', isChecked: false },
+			{ key: 2, name: 'Mast Camera', id: 'camera', isChecked: false },
+			{ key: 3, name: 'Control System', id: 'control-system', isChecked: false },
+			{ key: 4, name: 'Intelligent System', id: 'intelligent-system', isChecked: false }
 		]
 	};
 

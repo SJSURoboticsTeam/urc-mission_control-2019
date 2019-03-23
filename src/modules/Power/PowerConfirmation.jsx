@@ -29,11 +29,11 @@ class PowerConfirmation extends Component {
    * Main power is checked when the user confirms turning off
    */
 	handlePower = (isPowerOn) => {
-		mainPower.checked = !isPowerOn;
+		mainPower.checked = isPowerOn;
 		this.closeModal();
 
 		// Debugging code
-		if (isPowerOn) {
+		if (isPowerOn === true) {
 			console.log('POWER STILL ON');
 		} else {
 			console.log('POWER OFF');
@@ -61,10 +61,10 @@ class PowerConfirmation extends Component {
 							Click <b>[YES]</b> to power off, click <b>[NO]</b> to continue on.
 						</p>
 						<div>
-							<Button className="menu-button" color="danger" onClick={() => this.handlePower(true)}>
+							<Button className="menu-button" color="danger" onClick={() => this.handlePower(false)}>
 								Yes
 							</Button>
-							<Button color="primary" onClick={() => this.handlePower(false)}>
+							<Button color="primary" onClick={() => this.handlePower(true)}>
 								No
 							</Button>
 						</div>
