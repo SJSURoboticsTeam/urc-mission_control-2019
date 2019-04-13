@@ -71,7 +71,7 @@ class Joystick {
 		} else if(buttons[4].value === 1 && drive_module_state.drive_mode !== DM_SPIN) {
 			drive_module_state.drive_mode = DM_SPIN;
 			joystickButtonPressed(DM_SPIN);
-		} else {
+		} else if (buttons[5].value === 1 && drive_module_state.drive_mode !== DM_DRIVE){
 			drive_module_state.drive_mode = DM_DRIVE;
 			joystickButtonPressed(DM_DRIVE);
 		}
