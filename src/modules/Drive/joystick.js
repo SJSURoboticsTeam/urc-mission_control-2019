@@ -80,7 +80,7 @@ class Joystick {
 			RotundaTarget: axes[joystickIndeces[6]]
 		};
 		// Send to ESP
-		if (armState.espIP !== "" && armState.espIP !== "localhost:5001") {
+		if (armState.joystickConnected && armState.espIP !== "" && armState.espIP !== "localhost:5001") {
 			console.log(armData, armState.espIP);
 			sendXHR(armState.espIP, "Arm", armData);
 		}
