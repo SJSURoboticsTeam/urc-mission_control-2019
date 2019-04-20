@@ -4,21 +4,35 @@ import NavBar from "./modules/Common/Navbar";
 import GridInterface from "./modules/Common/GridInterface";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import Cookies from "universal-cookie";
 
 class App extends React.Component {
-  state = {
-    darkThemeActive: false,
-    chosenCSS: null
+  constructor(props) {
+    super(props);
+    this.cssCookie = new Cookies();
+  }
+
+  componentDidMount() {
+    this.handleDarkTheme();
+  }
+
+  getCookie = () => {
+    let cookie = this.cssCookie.get("darkthemeactive");
+    let val = typeof cookie !== "undefined" ? cookie : "false";
+    return val === "true";
   }
 
   toggleDarkTheme = () => {
-    this.setState({
-      darkThemeActive: !this.state.darkThemeActive
-    }, this.handleDarkTheme());
+    let value = !this.getCookie() ? "true" : "false";
+    let d = new Date();
+    d.setDate(d.getDate() + 30);
+    this.cssCookie.set("darkthemeactive", value, 
+      { path: "/",  expires: d });
+    window.location.reload();
   }
 
   handleDarkTheme = () => {
-    if (this.state.darkThemeActive) {
+    if (this.getCookie()) {
       require("./lib/css/darktheme.css");
     }else{
       require("./lib/css/ModuleContainer.css");
@@ -27,8 +41,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div style={this.state.chosenCSS}>
-        <NavBar toggleDarkTheme={this.toggleDarkTheme} />
+      <div>
+        <NavBar
+          toggleDarkTheme={this.toggleDarkTheme.bind(this)} />
         <GridInterface />
       </div>
     );

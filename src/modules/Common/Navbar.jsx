@@ -17,20 +17,18 @@ class AppNavbar extends Component {
     super(props);
     this.state = {
       isOpen: false,
-      darkThemeActive: false,
       isPlaying: false,
     };
   }
 
-  toggle = () => {
-    this.setState({ isOpen: !this.state.isOpen });
+  componentDidMount() {
+    this.setState({
+      darkThemeActive: this.props.darkThemeActive === "true",
+    });
   }
 
-  toggleDarkTheme = () => {
-    this.setState({
-      darkThemeActive: !this.state.darkThemeActive,
-    });
-    this.props.toggleDarkTheme();
+  toggle = () => {
+    this.setState({ isOpen: !this.state.isOpen });
   }
 
   handleAudio = () => {
@@ -49,7 +47,7 @@ class AppNavbar extends Component {
               <Nav className="ml-auto" navbar>
                 <Button outline 
                   color="primary"
-                  onClick={this.toggleDarkTheme}>
+                  onClick={() => this.props.toggleDarkTheme()}>
                   Dark Theme
                 </Button>
                 <NavItem>
