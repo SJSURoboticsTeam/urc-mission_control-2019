@@ -45,7 +45,7 @@ class DriveModule extends Component {
     this.updateESPIP = this.updateESPIP.bind(this);
     this.renderBackWheelOptions = this.renderBackWheelOptions.bind(this);
 
-    joystick.init(this.getDriveState, this.joystickButtonPressed, this.updateSpeed, this.updateHeading);
+    joystick.initDrive(this.getDriveState, this.joystickButtonPressed, this.updateSpeed, this.updateHeading);
   }
 
   componentWillMount() {

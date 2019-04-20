@@ -1,26 +1,60 @@
 import React, { Component } from "react";
 import TextInput from "./TextInput";
 import sendXHR from "../../lib/sendXHR";
-import { Container, Row, Col } from "reactstrap";
+import { Alert, Container, Row, Col } from "reactstrap";
 import IPSet from "./IPSet";
 import Presets from "./Presets";
+import joystick from "../Drive/joystick";
 
 class ArmModule extends Component {
-  state = {
-    ipSetOpen: false,
-    currentModule: "nothing",
-    espIP: "",
-    views: [
-      { name: "Set ESP IP", value: "home" },
-      { name: "Input Values", value: "input" }
-    ]
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      ipSetOpen: false,
+      currentModule: "nothing",
+      joystickConnected: false,
+      espIP: "",
+      views: [
+        { name: "Set ESP IP", value: "home" },
+        { name: "Input Values", value: "input" }
+      ]
+    };
+
+    this.getArmState = this.getArmState.bind(this);
+    joystick.initArm(this.getArmState);
+  }
 
   onChange = ((e) => {
     this.setState({
       currentModule: e.target.value
     });
   });
+  
+  getArmState() {
+    return this.state;
+  }
+
+  componentWillMount() {
+    window.addEventListener("gamepadconnected", this.onJoystickConnect);
+    window.addEventListener("gamepaddisconnected", this.onJoystickDisconnect);
+  }
+
+
+  onJoystickConnect = () => {
+    this.setState({ 
+      joystickConnected: true 
+    });
+  }
+
+  onJoystickDisconnect = () => {
+    this.setState({
+      joystickConnected: false,
+    });
+  }
+
+  getArmState = () => {
+    return this.state;
+  }
 
   handleXHR = (data) => {
     sendXHR(this.state.espIP, "Arm", data, (res) => {
@@ -42,6 +76,17 @@ class ArmModule extends Component {
     });
   };
 
+  renderJoystickStatus() {
+    switch(this.state.joystickConnected) {
+      case true:
+        return <Alert color="success"> Joystick is connected! </Alert>;
+      case false:
+        return <Alert color="danger"> Joystick is disconnected! </Alert>;
+      default:
+        return <Alert color="primary">WHAT</Alert>;
+    }
+  }
+
   displayIP = () => {
     if (this.state.espIP && !this.state.ipSetOpen) {
       return (
@@ -58,14 +103,23 @@ class ArmModule extends Component {
   renderInput = () => {
     if (!this.state.ipSetOpen) {
       return (
-      <Row>
-          <Col>
-            <TextInput handleXHR={this.handleXHR} />
-          </Col>
-          <Col>
-            <Presets handleXHR={this.handleXHR} />
-          </Col>
-        </Row>
+        <React.Fragment>
+          <Row>
+            <Col>
+              <TextInput handleXHR={this.handleXHR} />
+            </Col>
+            <Col>
+              <Presets handleXHR={this.handleXHR} />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Row>
+                {this.renderJoystickStatus()}
+              </Row>
+            </Col>
+          </Row>
+        </React.Fragment>
       );
     } else {
       return <React.Fragment />;
