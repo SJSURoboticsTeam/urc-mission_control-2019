@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  Button,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -9,15 +10,31 @@ import {
   NavLink,
   Container
 } from "reactstrap";
+import soundfile from "../../lib/css/sp.mp3";
 
 class AppNavbar extends Component {
-  state = {
-    isOpen: false
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      isOpen: false,
+      isPlaying: false,
+    };
+  }
+
+  componentDidMount() {
+    this.setState({
+      darkThemeActive: this.props.darkThemeActive === "true",
+    });
+  }
 
   toggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
-  };
+  }
+
+  handleAudio = () => {
+    let audio = new Audio(soundfile);
+    audio.play();
+  }
 
   render() {
     return (
@@ -28,8 +45,13 @@ class AppNavbar extends Component {
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
+                <Button outline 
+                  color="primary"
+                  onClick={() => this.props.toggleDarkTheme()}>
+                  Dark Theme
+                </Button>
                 <NavItem>
-                  <NavLink href="https://www.youtube.com/watch?v=czTksCF6X8Y">
+                  <NavLink onClick={this.handleAudio}>
                     Github
                   </NavLink>
                 </NavItem>
