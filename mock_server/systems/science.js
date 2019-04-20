@@ -58,8 +58,26 @@ function simulatePodExecution() {
   }
 }
 
+function getGraphData() {
+  let value = Math.floor(Math.random() * (29 - 21 + 1));
+  let data = {
+    pod1: Math.floor(Math.random() * (29 - value)),
+    pod2: Math.floor(Math.random() * (23 - value)),
+    pod3: Math.floor(Math.random() * (18 - value)),
+    pod4: Math.floor(Math.random() * (13 - value)),
+    pod5: Math.floor(Math.random() * (9 - value)),
+    pod6: Math.floor(Math.random() * (4 - value)),
+    sterilizedPod: Math.floor(Math.random() * value),
+  };
+  return JSON.stringify({
+    graphData: data
+  });
+}
+
 science_systems.addOnConnectSSE("timestamp", makeTimestamp);
 
 science_systems.addSSE("timestamp", 1000, makeTimestamp);
 
 science_systems.addSSE("executePod", 1000, simulatePodExecution);
+
+science_systems.addSSE("onGraphChange", 500, getGraphData);

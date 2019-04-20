@@ -33,6 +33,7 @@ class ScienceModule extends Component {
     };
 
     event_source.addEventListener("executePod", this.onPodEvent);
+    event_source.addEventListener("onGraphChange", this.onGraphEvent);
 
     this.setState({ event_source });
   };
@@ -40,6 +41,11 @@ class ScienceModule extends Component {
     let podStatus = JSON.parse(evt.data).podStatus;
     console.log(`Pod Status: ${podStatus}`);
   };
+  onGraphEvent(evt) {
+    let graphData = JSON.parse(evt.data).graphData.pod1;
+    console.log(`Graph Data: ${graphData}`);
+    console.log(JSON.parse(graphData));
+  }
   toggleInput = () => {
     this.setState({
       inputToggled: !this.state.inputToggled
@@ -58,7 +64,7 @@ class ScienceModule extends Component {
         this.setupSSE.bind(this)
       );
 
-      alert(`You entered: ${this.state.connectIP}`);
+      setTimeout(() => alert(`You entered: ${this.state.connectIP}`), 1500);
 
       this.setupSSE.bind(this);
     }
