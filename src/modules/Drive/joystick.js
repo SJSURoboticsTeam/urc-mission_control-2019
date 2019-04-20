@@ -13,7 +13,7 @@ import sendXHR from "../../lib/sendXHR";
 class Joystick {
 
 	initArm(getArmState){
-		window.setInterval(this.retrieveArmState.bind(this, getArmState), 300);
+		window.setInterval(this.retrieveArmState.bind(this, getArmState), 1000);
 	}
 
 	initDrive(getDriveState, joyStickButtonPressed, updateSpeed, updateHeading) {
@@ -57,13 +57,11 @@ class Joystick {
 		let armState = getArmState();
 		let joystickIndeces = this.mapJoystickIndices();
 
-		console.log("before", armState.joystickConnected, armState.espIP !== "");
 		// Check state, and status of gamepad connection
 		if (!armState.joystickConnected) {
 			return;
 		}
 		let axes = gp.axes;
-		console.log("after");
 		/**
 		 * Wrist Index 0
 		 * ElbowTarget 1
@@ -81,7 +79,6 @@ class Joystick {
 		};
 		// Send to ESP
 		if (armState.joystickConnected && armState.espIP !== "" && armState.espIP !== "localhost:5001") {
-			console.log(armData, armState.espIP);
 			sendXHR(armState.espIP, "Arm", armData);
 		}
 	}
