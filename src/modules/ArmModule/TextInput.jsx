@@ -16,11 +16,9 @@ class SliderView extends Component {
       if(e.target.id !== "wrist") {
         let jeff = `${e.target.name}Target`;
         this.props.handleXHR({ [jeff]: e.target.value });
-        console.log(`${jeff} = ${e.target.value}`)
       } else {
         let jeff = `Wrist${e.target.name}`;
         this.props.handleXHR({ [jeff]: e.target.value });
-        console.log(`${jeff} = ${e.target.value}`)
       }
     }
   }

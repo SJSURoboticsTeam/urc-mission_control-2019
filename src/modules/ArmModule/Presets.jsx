@@ -7,16 +7,16 @@ import "./ArmStyle.css";
 class Presets extends Component {
 
   renderCommands = () => {
-    let commandOptions = ["close", "open","stop"];
-    return(
+    let commandOptions = ["close", "open", "stop"];
+    return (
       <ButtonGroup>
         {commandOptions.map((el) => {
-          return(
+          return (
             <Button
-              key={`${el}-option`} 
-              color="primary" 
-              id="command" 
-              onClick={this.handleXHR} 
+              key={`${el}-option`}
+              color="primary"
+              id="command"
+              onClick={this.handleXHR}
               value={el}>
               {el}
             </Button>
@@ -27,8 +27,8 @@ class Presets extends Component {
   }
 
   handleXHR = (e) => {
-    if(e.target.id === "command"){
-      this.props.handleXHR({command: e.target.value});
+    if (e.target.id === "command") {
+      this.props.handleXHR({ command: e.target.value });
     }
   }
 
@@ -36,7 +36,7 @@ class Presets extends Component {
     return (
       <div id="controls">
         <p>Commands</p>
-          {this.renderCommands()}
+        {this.renderCommands()}
       </div>
     );
   }
