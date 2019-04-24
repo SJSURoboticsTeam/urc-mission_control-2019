@@ -104,21 +104,12 @@ class ArmModule extends Component {
     if (!this.state.ipSetOpen) {
       return (
         <React.Fragment>
-          <Row>
-            <Col>
+            <Row>
               <TextInput handleXHR={this.handleXHR} />
-            </Col>
-            <Col>
+            </Row>
+            <Row>
               <Presets handleXHR={this.handleXHR} />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Row>
-                {this.renderJoystickStatus()}
-              </Row>
-            </Col>
-          </Row>
+            </Row>
         </React.Fragment>
       );
     } else {
@@ -129,7 +120,10 @@ class ArmModule extends Component {
   render() {
     return (
       <Container>
-        <h1>Arm Module</h1>
+        <Row>
+          <Col><h1>Arm Module</h1></Col>
+          <Col>{this.renderJoystickStatus()}</Col>
+        </Row>
         <IPSet setIP={this.setIP} handleXHR={this.handleXHR} toggle={this.toggle} />
         {this.displayIP()}
         {this.renderInput()}

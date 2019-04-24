@@ -71,10 +71,10 @@ class Joystick {
 		 */
 		let armData = {
 			//whateer
-			Wrist_Delta: axes[joystickIndeces[0]],
+			WristPitch: axes[joystickIndeces[0]],
 			ElbowTarget: axes[joystickIndeces[1]],
 			ShoulderTarget:axes[joystickIndeces[2]],
-			Wrist_Dimension: axes[joystickIndeces[5]], 
+			WristRoll: axes[joystickIndeces[5]], 
 			RotundaTarget: axes[joystickIndeces[6]]
 		};
 		// Send to ESP
