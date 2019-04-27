@@ -1,0 +1,21 @@
+.mast-button-container {
+    width: 60%;
+    height: 20vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.mast-button-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 5 !important;
+}
+
+.mast-button {
+    flex-grow: 1 !important;
+}
+
+.mast-stop-btn {
+    flex: 1 !important;
+}
