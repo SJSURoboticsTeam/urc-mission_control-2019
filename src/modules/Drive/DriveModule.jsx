@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./DriveStyle.css";
-import joystick from "./joystick.js";
+import joystick from "./joystick_new.js";
 import {
   DM_DRIVE,
   BW_A,
@@ -39,13 +39,14 @@ class DriveModule extends Component {
     this.getDriveState = this.getDriveState.bind(this);
     this.driveModeClicked = this.driveModeClicked.bind(this);
     this.backWheelClicked = this.backWheelClicked.bind(this);
-    this.joystickButtonPressed = this.joystickButtonPressed.bind(this);
+    this.driveModeButtonPressed = this.driveModeButtonPressed.bind(this);
+    this.backWheelButtonPressed = this.backWheelButtonPressed.bind(this);
     this.updateSpeed = this.updateSpeed.bind(this);
     this.updateHeading = this.updateHeading.bind(this);
     this.updateESPIP = this.updateESPIP.bind(this);
     this.renderBackWheelOptions = this.renderBackWheelOptions.bind(this);
 
-    joystick.initDrive(this.getDriveState, this.joystickButtonPressed, this.updateSpeed, this.updateHeading);
+    joystick.initDrive(this.getDriveState, this.driveModeButtonPressed, this.backWheelButtonPressed, this.updateSpeed, this.updateHeading);
   }
 
   componentWillMount() {
@@ -66,9 +67,15 @@ class DriveModule extends Component {
     });
   }
 
-  joystickButtonPressed(newDriveMode) {
+  driveModeButtonPressed(newDriveMode) {
     this.setState({
       drive_mode: newDriveMode
+    });
+  }
+  
+  backWheelButtonPressed(newBackWheel) {
+    this.setState({
+      back_wheel: newBackWheel
     });
   }
 
