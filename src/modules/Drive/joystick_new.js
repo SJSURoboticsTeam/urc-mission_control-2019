@@ -191,7 +191,6 @@ class Joystick {
 					up(-1) - drive
 					down(.14) - debug
 			*/
-			if 
 			let dpad_val = this.toPrecision2( axes[ joystick_indices.drive_mode_a ] );
 			if (dpad_val === .71 && 
 				drive_module_state.drive_mode !== DM_CRAB) {
