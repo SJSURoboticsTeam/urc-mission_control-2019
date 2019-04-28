@@ -38,20 +38,23 @@ class DriveModule extends Component {
     this.onJoystickDisconnect = this.onJoystickDisconnect.bind(this);
     this.getDriveState = this.getDriveState.bind(this);
     this.driveModeClicked = this.driveModeClicked.bind(this);
-    this.backWheelClicked = this.backWheelClicked.bind(this);
-    this.driveModeButtonPressed = this.driveModeButtonPressed.bind(this);
-    this.backWheelButtonPressed = this.backWheelButtonPressed.bind(this);
+    this.updateBackWheel = this.updateBackWheel.bind(this);
+    this.updateDriveMode = this.updateDriveMode.bind(this);
     this.updateSpeed = this.updateSpeed.bind(this);
     this.updateHeading = this.updateHeading.bind(this);
     this.updateESPIP = this.updateESPIP.bind(this);
     this.renderBackWheelOptions = this.renderBackWheelOptions.bind(this);
 
-    joystick.initDrive(this.getDriveState, this.driveModeButtonPressed, this.backWheelButtonPressed, this.updateSpeed, this.updateHeading);
+    joystick.initDrive(this.getDriveState, this.updateDriveMode, this.updateBackWheel, this.updateSpeed, this.updateHeading);
   }
 
   componentWillMount() {
     window.addEventListener("gamepadconnected", this.onJoystickConnect);
     window.addEventListener("gamepaddisconnected", this.onJoystickDisconnect);
+  }
+
+  getDriveState() {
+    return this.state;
   }
 
   onJoystickConnect() {
@@ -67,16 +70,24 @@ class DriveModule extends Component {
     });
   }
 
-  driveModeButtonPressed(newDriveMode) {
+  updateDriveMode(newDriveMode) {
     this.setState({
       drive_mode: newDriveMode
     });
   }
+
+  driveModeClicked(e) {
+    this.updateDriveMode( parseInt(e.target.value) );
+  }
   
-  backWheelButtonPressed(newBackWheel) {
+  updateBackWheel(newBackWheel) {
     this.setState({
       back_wheel: newBackWheel
     });
+  }
+
+  backWheelClicked(e) {
+    this.updateBackWheel( parseInt(e.target.value) );
   }
 
   updateSpeed(newSpeed) {
@@ -93,21 +104,7 @@ class DriveModule extends Component {
     });
   }
 
-  getDriveState() {
-    return this.state;
-  }
 
-  driveModeClicked(e) {
-    this.setState({
-      drive_mode: parseInt(e.target.value)
-    });
-  }
-  
-  backWheelClicked(e) {
-    this.setState({
-      back_wheel: parseInt(e.target.value)
-    });
-  }
 
   decideButtonColor(current_val, state_val) {
     if(state_val != null && state_val === current_val){

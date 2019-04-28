@@ -16,7 +16,6 @@ class Joystick {
 		window.setInterval(this.retrieveArmState.bind(this, getArmState), 1000);
 	}
 
-	//
 	initDrive(getDriveState, driveModeButtonPressed, backWheelButtonPressed, updateSpeed, updateHeading) {
 		window.setInterval(this.retrieveDriveState.bind(this, getDriveState, driveModeButtonPressed, backWheelButtonPressed, updateSpeed, updateHeading), 300);
 	}
@@ -43,6 +42,7 @@ class Joystick {
 			wheel_a: 4,
 			wheel_b: 5,
 			wheel_c: 6,
+			send_XHR: 7,
 			
 			/*
 				Setting Drive Mode w/ Analogue Stick:
@@ -232,6 +232,10 @@ class Joystick {
 		let axes = gp.axes;
 		let joystick_indices = this.mapJoystickIndices();
 
+		/* 
+			Check if user is pressing buttons to 
+			update drive mode or the back wheel 
+		*/
 		this.handleDriveModeUpdates(drive_module_state, driveModeButtonPressed, joystick_indices, buttons, axes);
 		this.handleBackWheelUpdates(drive_module_state, backWheelButtonPressed, joystick_indices, buttons, axes);
 		
@@ -252,18 +256,11 @@ class Joystick {
 			WHEEL_C: (drive_module_state.back_wheel === BW_C ? 1 : 0)
 		};
 
-		// console.log(drive_data);
-
-		//Update UI
-		// updateSpeed(magnitude);
-		// updateHeading(heading);
-		// updateDials(heading);
-		// updateSliders(magnitude);
-		// updateDials(heading);
-		// updateSliders(magnitude);
-
 		//Send to ESP
-		if ((drive_module_state.esp_ip !== null || drive_module_state.esp_ip !== "localhost:5001") && buttons[1].value !== 0) {
+		if (
+			(drive_module_state.esp_ip !== null || drive_module_state.esp_ip !== "localhost:5001") 
+			&& buttons[ joystick_indices.send_XHR ].value === 1) 
+		{
 			sendXHR(drive_module_state.esp_ip, "handle_update", drive_data);
 		}
 	}
