@@ -154,7 +154,7 @@ class Joystick {
 
 	handleDriveModeUpdates(drive_module_state, driveModeButtonPressed, joystick_indices, buttons, axes) {
 		let OSName = this.getOSName();
-		if (OSName == "Linux") {
+		if (OSName == "Linux" || OSName == "UNIX") {
 			/*
 				evaluate state left/right axis before top/bottom - may cause some precedence issues
 
@@ -182,7 +182,7 @@ class Joystick {
 					drive_module_state.drive_mode = DM_DEBUG;
 					driveModeButtonPressed(DM_DEBUG);
 			}	
-		} else if (OSName == "UNIX" || OSName == "Mac") {
+		} else if (OSName == "Mac") {
 			/* 
 				one button handles the drive mode.
 				Axis 9 (aka joystick_indices[drive_mode_a] ): 
@@ -191,6 +191,7 @@ class Joystick {
 					up(-1) - drive
 					down(.14) - debug
 			*/
+			if 
 			let dpad_val = this.toPrecision2( axes[ joystick_indices.drive_mode_a ] );
 			if (dpad_val === .71 && 
 				drive_module_state.drive_mode !== DM_CRAB) {

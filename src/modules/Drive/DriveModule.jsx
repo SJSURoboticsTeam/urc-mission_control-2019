@@ -37,9 +37,10 @@ class DriveModule extends Component {
     this.onJoystickConnect = this.onJoystickConnect.bind(this);
     this.onJoystickDisconnect = this.onJoystickDisconnect.bind(this);
     this.getDriveState = this.getDriveState.bind(this);
+    this.updateDriveMode = this.updateDriveMode.bind(this);
     this.driveModeClicked = this.driveModeClicked.bind(this);
     this.updateBackWheel = this.updateBackWheel.bind(this);
-    this.updateDriveMode = this.updateDriveMode.bind(this);
+    this.backWheelClicked = this.backWheelClicked.bind(this);
     this.updateSpeed = this.updateSpeed.bind(this);
     this.updateHeading = this.updateHeading.bind(this);
     this.updateESPIP = this.updateESPIP.bind(this);
@@ -103,8 +104,6 @@ class DriveModule extends Component {
       heading: newHeading
     });
   }
-
-
 
   decideButtonColor(current_val, state_val) {
     if(state_val != null && state_val === current_val){
