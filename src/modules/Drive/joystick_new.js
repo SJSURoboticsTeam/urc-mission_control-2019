@@ -261,6 +261,8 @@ class Joystick {
 			WHEEL_C: (drive_module_state.back_wheel === BW_C ? 1 : 0)
 		};
 
+		console.log(drive_data);
+
 		//Send to ESP
 		if (
 			(drive_module_state.esp_ip !== null || drive_module_state.esp_ip !== "localhost:5001") 
