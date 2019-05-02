@@ -247,15 +247,16 @@ class Joystick {
 		// Package drive data 
 		let drive_data = {
 			MODE: drive_module_state.drive_mode,
-			T_MAX: drive_module_state.throttle_max,
+			// T_MAX: drive_module_state.throttle_max,
+			T_MAX: 20,
 			AXIS_X: axes[ joystick_indices.axis_x ],
 			AXIS_Y: axes[ joystick_indices.axis_y ],
 			YAW: axes[ joystick_indices.yaw ],
 			THROTTLE: axes[ joystick_indices.throttle ],
-			BRAKES: buttons[ joystick_indices.brakes ],
+			BRAKES: buttons[ joystick_indices.brakes ].value,
 			MAST_POSITION: 0, // temporary
-			TRIGGER: buttons[ joystick_indices.trigger ],
-			REVERSE: buttons[ joystick_indices.reverse ],
+			TRIGGER: buttons[ joystick_indices.trigger ].value,
+			REVERSE: buttons[ joystick_indices.reverse ].value,
 			WHEEL_A: (drive_module_state.back_wheel === BW_A ? 1 : 0),
 			WHEEL_B: (drive_module_state.back_wheel === BW_B ? 1 : 0),
 			WHEEL_C: (drive_module_state.back_wheel === BW_C ? 1 : 0)
