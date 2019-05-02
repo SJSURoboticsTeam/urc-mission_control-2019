@@ -28,15 +28,16 @@ class Joystick {
 	mapJoystickIndices() {
 		let joystick_indices = {};
 		let OSName = this.getOSName();
+		let linuxOrUnix = (OSName === "Linux" || OSName === "UNIX");
 
 		joystick_indices = {
 			t_mod_up: 8,
 			t_mod_down: 9,
 			axis_x: 0,
 			axis_y: 1,
-			yaw: (OSName === "Linux" ? 3 : 5),
+			yaw: (linuxOrUnix ? 3 : 5),
 			throttle: 2,
-			brakes: (OSName === "Linux" ? 4 : 6),
+			brakes: (linuxOrUnix ? 4 : 6),
 			trigger: 0,
 			reverse: 3,
 			wheel_a: 4,
@@ -56,8 +57,8 @@ class Joystick {
 				Mac:
 					Only one index in the 'axes' array (index 9) is used.
 			*/
-			drive_mode_a: (OSName === "Linux" ? 5 : 9), 
-			drive_mode_b: (OSName === "Linux" ? 6 : null)
+			drive_mode_a: (linuxOrUnix ? 5 : 9), 
+			drive_mode_b: (linuxOrUnix ? 6 : null)
 		}
 
 		return joystick_indices;
@@ -167,18 +168,22 @@ class Joystick {
 			*/
 			if (axes[ joystick_indices.drive_mode_a ] === -1 && 
 				drive_module_state.drive_mode !== DM_CRAB) {
+
 					drive_module_state.drive_mode = DM_CRAB;
 					driveModeButtonPressed(DM_CRAB);
 			} else if (axes[ joystick_indices.drive_mode_a ] === 1 &&
 				drive_module_state.drive_mode != DM_SPIN) {
+
 					drive_module_state.drive_mode = DM_SPIN;
 					driveModeButtonPressed(DM_SPIN);
 			} else if (axes[ joystick_indices.drive_mode_b ] === -1 &&
 				drive_module_state.drive_mode != DM_DRIVE) {
+
 					drive_module_state.drive_mode = DM_DRIVE;
 					driveModeButtonPressed(DM_DRIVE)
 			} else if (axes[ joystick_indices.drive_mode_b ] === 1 &&
 				drive_module_state.drive_mode != DM_DEBUG) {
+
 					drive_module_state.drive_mode = DM_DEBUG;
 					driveModeButtonPressed(DM_DEBUG);
 			}	
