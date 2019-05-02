@@ -247,7 +247,7 @@ class Joystick {
 			AXIS_Y: axes[ joystick_indices.axis_y ],
 			YAW: axes[ joystick_indices.yaw ],
 			THROTTLE: axes[ joystick_indices.throttle ],
-			BRAKES: axes[ joystick_indices.brakes ],
+			BRAKES: buttons[ joystick_indices.brakes ],
 			MAST_POSITION: 0, // temporary
 			TRIGGER: buttons[ joystick_indices.trigger ],
 			REVERSE: buttons[ joystick_indices.reverse ],
