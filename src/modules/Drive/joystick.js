@@ -67,8 +67,8 @@ class Joystick {
 		 * Wrist Index 0
 		 * ElbowTarget 1
 		 * ShoulderTarget 2	
-		 * W Roll 5
-		 * RotundaTarget 6
+		 * W Roll BUTTONS
+		 * RotundaTarget 5
 		 */
 
 		/*
@@ -98,11 +98,11 @@ class Joystick {
 
 		let armData = {
 			//whateer
-			WristPitch: axes[joystickIndeces[0]],
-			ElbowTarget: axes[joystickIndeces[1]],
-			ShoulderTarget:axes[joystickIndeces[2]],
+			WristPitch: axes[0],
+			ElbowTarget: axes[1],
+			ShoulderTarget:axes[2],
 			WristRoll: wrist_roll_val, 
-			RotundaTarget: axes[joystickIndeces[6]],
+			RotundaTarget: axes[5],
 			command: command_val, //bad name for claw,
 			MacroA: buttons[5].value ? 0 : 1,
 			MacroB: buttons[6].value ? 0 : 1,
