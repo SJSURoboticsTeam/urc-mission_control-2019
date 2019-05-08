@@ -109,6 +109,8 @@ class Joystick {
 			MacroC: buttons[7] ? 0 : 1,
 			MacroD: buttons[8] ? 0 : 1
 		};
+
+		console.log(armData);
 		// Send to ESP (only if buttons[1] is pressed])
 		if (armState.joystickConnected && armState.espIP !== "" && armState.espIP !== "localhost:5001" && !buttons[1]) {
 			sendXHR(armState.espIP, "Arm", armData);
