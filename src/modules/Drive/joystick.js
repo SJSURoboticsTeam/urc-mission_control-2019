@@ -62,23 +62,55 @@ class Joystick {
 			return;
 		}
 		let axes = gp.axes;
+		let buttons = gp.buttons;
 		/**
 		 * Wrist Index 0
 		 * ElbowTarget 1
-		 * ShoulderTarget 2
+		 * ShoulderTarget 2	
 		 * W Roll 5
 		 * RotundaTarget 6
 		 */
+
+		/*
+			Claw Open/Close
+			-1: close
+			0: nothing
+			1: open
+		*/
+		let command_val = 0;
+		if (!buttons[10] && buttons[11]) { 
+			command_val = 1;
+		} else if (buttons[10] && !buttons[11]) {
+			command_val = -1;
+		}
+
+		/*
+			-1: counterclockwise
+			0: nothing
+			1: clockwise3
+		*/
+		let wrist_roll_val = 0;
+		if (!buttons[2]) {
+			wrist_roll_val = -1;
+		} else if (!buttons[4]) {
+			wrist_roll_val = 1;
+		}
+
 		let armData = {
 			//whateer
 			WristPitch: axes[joystickIndeces[0]],
 			ElbowTarget: axes[joystickIndeces[1]],
 			ShoulderTarget:axes[joystickIndeces[2]],
-			WristRoll: axes[joystickIndeces[5]], 
-			RotundaTarget: axes[joystickIndeces[6]]
+			WristRoll: wrist_roll_val, 
+			RotundaTarget: axes[joystickIndeces[6]],
+			command: command_val, //bad name for claw,
+			MacroA: buttons[5] ? 0 : 1,
+			MacroB: buttons[6] ? 0 : 1,
+			MacroC: buttons[7] ? 0 : 1,
+			MacroD: buttons[8] ? 0 : 1
 		};
-		// Send to ESP
-		if (armState.joystickConnected && armState.espIP !== "" && armState.espIP !== "localhost:5001") {
+		// Send to ESP (only if buttons[1] is pressed])
+		if (armState.joystickConnected && armState.espIP !== "" && armState.espIP !== "localhost:5001" && !buttons[1]) {
 			sendXHR(armState.espIP, "Arm", armData);
 		}
 	}
