@@ -78,9 +78,9 @@ class Joystick {
 			1: open
 		*/
 		let command_val = 0;
-		if (!buttons[10] && buttons[11]) { 
+		if (!buttons[11].value) { 
 			command_val = 1;
-		} else if (buttons[10] && !buttons[11]) {
+		} else if (!buttons[10].value) {
 			command_val = -1;
 		}
 
@@ -90,9 +90,9 @@ class Joystick {
 			1: clockwise3
 		*/
 		let wrist_roll_val = 0;
-		if (!buttons[2]) {
+		if (!buttons[2].value) {
 			wrist_roll_val = -1;
-		} else if (!buttons[4]) {
+		} else if (!buttons[4].value) {
 			wrist_roll_val = 1;
 		}
 
@@ -104,15 +104,15 @@ class Joystick {
 			WristRoll: wrist_roll_val, 
 			RotundaTarget: axes[joystickIndeces[6]],
 			command: command_val, //bad name for claw,
-			MacroA: buttons[5] ? 0 : 1,
-			MacroB: buttons[6] ? 0 : 1,
-			MacroC: buttons[7] ? 0 : 1,
-			MacroD: buttons[8] ? 0 : 1
+			MacroA: buttons[5].value ? 0 : 1,
+			MacroB: buttons[6].value ? 0 : 1,
+			MacroC: buttons[7].value ? 0 : 1,
+			// MacroD: buttons[8].value ? 0 : 1 //disconnected
 		};
 
-		console.log(armData);
 		// Send to ESP (only if buttons[1] is pressed])
-		if (armState.joystickConnected && armState.espIP !== "" && armState.espIP !== "localhost:5001" && !buttons[1]) {
+		if (armState.joystickConnected && armState.espIP !== "" && armState.espIP !== "localhost:5001" && !(buttons[1].value)) {
+			console.log("sending!")
 			sendXHR(armState.espIP, "Arm", armData);
 		}
 	}
