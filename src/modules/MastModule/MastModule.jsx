@@ -21,7 +21,11 @@ class MastModule extends Component {
   }
   onPress = (e) => {
     sendXHR(this.state.connectIP, "pitch_update", { mode: "manual", manual_move: e.target.id }, (res) => {
+<<<<<<< HEAD
       // console.log(`result: ${res}`);
+=======
+      console.log(`result: ${res}`);
+>>>>>>> Update to match XHR test.
     });
   };
   toggleInput = () => {
