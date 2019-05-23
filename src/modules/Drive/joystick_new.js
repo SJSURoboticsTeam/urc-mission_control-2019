@@ -16,8 +16,8 @@ class Joystick {
 		window.setInterval(this.retrieveArmState.bind(this, getArmState), 1000);
 	}
 
-	initDrive(getDriveState, driveModeButtonPressed, backWheelButtonPressed, updateSpeed, updateHeading) {
-		window.setInterval(this.retrieveDriveState.bind(this, getDriveState, driveModeButtonPressed, backWheelButtonPressed, updateSpeed, updateHeading), 300);
+	initDrive(getDriveState, driveModeButtonPressed, backWheelButtonPressed, updateSpeed, updateHeading, updateThrottleMax) {
+		window.setInterval(this.retrieveDriveState.bind(this, getDriveState, driveModeButtonPressed, backWheelButtonPressed, updateSpeed, updateHeading, updateThrottleMax), 300);
 	}
 
 	/*
@@ -31,8 +31,8 @@ class Joystick {
 		let linuxOrUnix = (OSName === "Linux" || OSName === "UNIX");
 
 		joystick_indices = {
-			t_mod_up: 8,
-			t_mod_down: 9,
+			t_max_up: 8,
+			t_max_down: 9,
 			axis_x: 0,
 			axis_y: 1,
 			yaw: (linuxOrUnix ? 3 : 5),
@@ -220,11 +220,24 @@ class Joystick {
 		}
 	}
 
+	handleMaxThrottleUpdates(drive_module_state, updateThrottleMax, joystick_indices, buttons, axes) {
+		let t_max_new = drive_module_state.t_max;
+		if (buttons[ joystick_indices.t_max_up ].value == 1 && drive_module_state.t_max != 100) {
+			t_max_new += 10;
+		} else if  (buttons[ joystick_indices.t_max_down ].value == 1 && drive_module_state.t_max != 0) {
+			t_max_new -= 10;
+		}
+		
+		if (drive_module_state.t_max != t_max_new) {
+			updateThrottleMax(t_max_new);
+		}
+	}
+
 	toPrecision2(val) {
 		return parseFloat(val.toPrecision(2));
 	}
 
-	retrieveDriveState(getDriveState, driveModeButtonPressed, backWheelButtonPressed, updateSpeed, updateHeading) {
+	retrieveDriveState(getDriveState, driveModeButtonPressed, backWheelButtonPressed, updateSpeed, updateHeading, updateThrottleMax) {
 		let gp = navigator.getGamepads()[0];
 		let drive_module_state = getDriveState();
 
@@ -243,12 +256,13 @@ class Joystick {
 		*/
 		this.handleDriveModeUpdates(drive_module_state, driveModeButtonPressed, joystick_indices, buttons, axes);
 		this.handleBackWheelUpdates(drive_module_state, backWheelButtonPressed, joystick_indices, buttons, axes);
+		this.handleMaxThrottleUpdates(drive_module_state, updateThrottleMax, joystick_indices, buttons, axes);
 		
 		// Package drive data 
 		let drive_data = {
 			MODE: drive_module_state.drive_mode,
 			// T_MAX: drive_module_state.throttle_max,
-			T_MAX: 20,
+			T_MAX: drive_module_state.t_max,
 			AXIS_X: axes[ joystick_indices.axis_x ],
 			AXIS_Y: axes[ joystick_indices.axis_y ],
 			YAW: axes[ joystick_indices.yaw ],

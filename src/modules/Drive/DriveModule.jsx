@@ -30,6 +30,7 @@ class DriveModule extends Component {
       back_wheel: BW_A,
       esp_ip: "192.168.4.1",
       
+      t_max: 20,
       speed: 0,
       heading: 0
     };
@@ -41,12 +42,13 @@ class DriveModule extends Component {
     this.driveModeClicked = this.driveModeClicked.bind(this);
     this.updateBackWheel = this.updateBackWheel.bind(this);
     this.backWheelClicked = this.backWheelClicked.bind(this);
+    this.updateThrottleMax = this.updateThrottleMax.bind(this);
     this.updateSpeed = this.updateSpeed.bind(this);
     this.updateHeading = this.updateHeading.bind(this);
     this.updateESPIP = this.updateESPIP.bind(this);
     this.renderBackWheelOptions = this.renderBackWheelOptions.bind(this);
 
-    joystick.initDrive(this.getDriveState, this.updateDriveMode, this.updateBackWheel, this.updateSpeed, this.updateHeading);
+    joystick.initDrive(this.getDriveState, this.updateDriveMode, this.updateBackWheel, this.updateSpeed, this.updateHeading, this.updateThrottleMax);
   }
 
   componentWillMount() {
@@ -84,6 +86,12 @@ class DriveModule extends Component {
   updateBackWheel(newBackWheel) {
     this.setState({
       back_wheel: newBackWheel
+    });
+  }
+
+  updateThrottleMax(newThrottleMax) {
+    this.setState({
+      t_max: newThrottleMax
     });
   }
 
@@ -224,6 +232,15 @@ class DriveModule extends Component {
             </Row>
             <Row>
               <Badge color="secondary">{this.state.heading}°</Badge>
+            </Row>
+          </Col>
+
+          <Col>
+            <Row>
+              <h2>Throttle Max</h2>
+            </Row>
+            <Row>
+              <Badge color="secondary">{this.state.t_max}</Badge>
             </Row>
           </Col>
           
