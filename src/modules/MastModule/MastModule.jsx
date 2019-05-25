@@ -36,8 +36,7 @@ class MastModule extends Component {
           connectIP: e.target.value,
         }
       , (res) => {
-        console.log("Success");
-        console.log(this.state.connectIP);
+        console.log(`Successfully connected to ${this.state.connectIP}`);
       });
 
     }
