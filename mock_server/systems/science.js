@@ -69,6 +69,7 @@ function getGraphData() {
     pod6: Math.floor(Math.random() * (4 - value)),
     sterilizedPod: Math.floor(Math.random() * value),
   };
+  console.log(data);
   return JSON.stringify({
     graphData: data
   });

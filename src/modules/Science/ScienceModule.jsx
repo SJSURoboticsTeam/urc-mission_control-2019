@@ -5,13 +5,17 @@ import {
   Button
 } from "reactstrap";
 import sendXHR from "../../lib/sendXHR";
+import { setData } from '../Science/PODStateManager';
 
 class ScienceModule extends Component {
-  state = {
-    container: 0,
-    connectIP: "0",
-    inputToggled: false,
-    event_source: null
+  constructor(props) {
+    super(props);
+    this.state = {
+      container: 0,
+      connectIP: "0",
+      inputToggled: false,
+      event_source: null
+    };
   };
   onXHRSend = (endpoint, data) => {
     sendXHR(this.state.connectIP, endpoint, data, (res) => {
@@ -42,9 +46,8 @@ class ScienceModule extends Component {
     console.log(`Pod Status: ${podStatus}`);
   };
   onGraphEvent(evt) {
-    let graphData = JSON.parse(evt.data).graphData.pod1;
-    console.log(`Graph Data: ${graphData}`);
-    console.log(JSON.parse(graphData));
+    setData(JSON.parse(evt.data).graphData);
+    // console.log(`Graph Data: ${this.graphData}`);
   }
   toggleInput = () => {
     this.setState({
@@ -79,7 +82,11 @@ class ScienceModule extends Component {
     this.setState(() => ({ container: 2 }));
   };
   handlePodsButton = () => {
-    this.setState(() => ({ container: 3 }));
+    if(this.state.connectIP === "0") {
+      alert("go to hell");
+    } else {
+      this.setState(() => ({ container: 3 }));
+    }
   };
   handleStopAllButton = () => {
     this.onXHRSend("stop_all", {});

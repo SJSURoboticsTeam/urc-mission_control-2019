@@ -8,24 +8,62 @@ import {
 } from "reactstrap";
 import Plot from "react-plotly.js";
 import BackButton from "./BackButton";
+import { getData } from '../Science/PODStateManager';
 
 export default class PODSContainer extends React.Component {
-    state = {
-        dropdownOpen: false,
-        pods: [
-            { name: "POD 1", id: 0, isActive: true },
-            { name: "POD 2", id: 1, isActive: false },
-            { name: "POD 3", id: 2, isActive: false },
-            { name: "POD 4", id: 3, isActive: false },
-            { name: "POD 5", id: 4, isActive: false },
-            { name: "POD 6", id: 5, isActive: false },
-            { name: "Sterilized POD", id: 6, isActive: false },
-        ],
-        currentPOD: "POD 1",
-        x1: [],
-        y1: [],
-        xrange: [-20, 1],
-        seconds: 0
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            dropdownOpen: false,
+            pods: [
+                { name: "POD 1", id: 0, sseName: "pod1", isActive: true },
+                { name: "POD 2", id: 1, sseName: "pod2", isActive: false },
+                { name: "POD 3", id: 2, sseName: "pod3", isActive: false },
+                { name: "POD 4", id: 3, sseName: "pod4", isActive: false },
+                { name: "POD 5", id: 4, sseName: "pod5", isActive: false },
+                { name: "POD 6", id: 5, sseName: "pod6", isActive: false },
+                { name: "Sterilized POD", id: 6, sseName: "sterilizedPod", isActive: false },
+            ],
+            currentPOD: "POD 1",
+            currentPODSSEName: "pod1",
+            x1: [],
+            y1: [],
+            xrange: [-20, 1],
+            seconds: 0
+        };
+        // this.layout = {
+        //     width: 350,
+        //     height: 250,
+        //     showlegend: false,
+        //     title: `${this.state.currentPOD} Geiger Graph`,
+        //     xaxis: {
+        //         title: "Time (s)",
+        //         autotick: false,
+        //         dtick: 2,
+        //         range: this.state.xrange,
+        //         showgrid: false,
+        //         zeroline: false
+        //     },
+        //     yaxis: {
+        //         title: "Something (S)",
+        //         range: [-5, 5],
+        //         showline: false,
+        //         zeroline: false
+        //     }
+        // };
+        this.range = [-5, 5];
+        this.data = [
+            {
+                x: this.state.x1,
+                y: this.state.y1,
+                name: `${this.state.currentPOD} Graph`,
+                type: "scatter"
+            }
+        ];
+    }
+    componentDidMount() {
+        setInterval(() => this.tick(), 1000);
     };
     toggle = () => {
         this.setState((prevState) => ({
@@ -33,8 +71,9 @@ export default class PODSContainer extends React.Component {
         }));
     };
     handleChange = (e) => {
-        this.setState({ currentPOD: e.target.value });
-        this.interval = setInterval(() => this.tick(), 1000);
+        this.setState({ currentPOD: e.target.value, currentPODSSEName: e.target.name });
+        this.setState({x1: []});
+        this.setState({y1: []});
     };
     handlePODClicked = () => {
         const currentPOD = this.state.currentPOD;
@@ -47,27 +86,8 @@ export default class PODSContainer extends React.Component {
     findPODIndex = () => {
         return this.state.pods.find((pod) => pod.name === this.state.currentPOD).id;
     };
-    tick() {
-        this.setState({ x1: [...this.state.x1, this.state.seconds] });
-        this.setState({ y1: [...this.state.y1, Math.floor(Math.random() * (29 - 21 + 1)) + 21] });
-
-        let lowerXRange = this.state.xrange[0] + 1;
-        let upperXRange = this.state.xrange[1] + 1;
-        this.setState({ xrange: [lowerXRange, upperXRange] });
-        this.setState({ seconds: this.state.seconds + 1 });
-    }
-    render() {
-
-        const data = [
-            {
-                x: this.state.x1,
-                y: this.state.y1,
-                name: `${this.state.currentPOD} Graph`,
-                type: "scatter"
-            }
-        ];
-
-        const layout = {
+    renderGraph = () => {
+        let layout = {
             width: 350,
             height: 250,
             showlegend: false,
@@ -82,12 +102,38 @@ export default class PODSContainer extends React.Component {
             },
             yaxis: {
                 title: "Something (S)",
-                range: [20, 29.4],
+                range: this.range,
                 showline: false,
                 zeroline: false
             }
         };
+        return <Plot data={this.data} layout={layout} />;
+    };
+    tick() {
+        let currObj = getData();
+        console.log(`Getting value from: ${this.state.currentPODSSEName}`);
+        this.setState({ x1: [...this.state.x1, this.state.seconds] });
+        this.setState({ y1: [...this.state.y1, currObj[this.state.currentPODSSEName]] });
+        console.log(currObj[this.state.currentPODSSEName]);
 
+        setTimeout(() => { }, 1000);
+
+        this.range = [Math.min(...this.state.y1) - 5, Math.max(...this.state.y1) + 5];
+
+        let lowerXRange = this.state.xrange[0] + 1;
+        let upperXRange = this.state.xrange[1] + 1;
+        this.data = [
+            {
+                x: this.state.x1,
+                y: this.state.y1,
+                name: `${this.state.currentPOD} Graph`,
+                type: "scatter"
+            }
+        ];
+        this.setState({ xrange: [lowerXRange, upperXRange] });
+        this.setState({ seconds: this.state.seconds + 1 });
+    };
+    render() {
         return (
             <div className="science-pods-container">
                 <div className="science-pods-header">
@@ -100,6 +146,7 @@ export default class PODSContainer extends React.Component {
                                 <DropdownItem
                                     onClick={this.handleChange}
                                     value={pod.name}
+                                    name={pod.sseName}
                                     key={pod.id}
                                 >
                                     {pod.name}
@@ -143,7 +190,7 @@ export default class PODSContainer extends React.Component {
                     <div
                         className="science-graph-container"
                     >
-                        <Plot data={data} layout={layout} />
+                        {this.renderGraph()}
                     </div>
                 </div>
             </div>
