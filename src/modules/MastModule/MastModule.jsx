@@ -20,7 +20,9 @@ class MastModule extends Component {
     };
   }
   onPress = (e) => {
-    sendXHR(this.state.connectIP, "pitch_update", { manual_mode: e.target.id });
+    sendXHR(this.state.connectIP, "pitch_update", { mode: "manual", manual_move: e.target.id }, (res) => {
+      // console.log(`result: ${res}`);
+    });
   };
   toggleInput = () => {
     this.setState({
@@ -29,12 +31,13 @@ class MastModule extends Component {
   };
   connectESP = (e) => {
     if (e.which === 13) {
-
       this.setState(
         {
           connectIP: e.target.value,
         }
-      );
+      , (res) => {
+        // console.log(`Successfully connected to ${this.state.connectIP}`);
+      });
 
     }
   };
