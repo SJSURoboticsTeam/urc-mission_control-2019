@@ -100,7 +100,6 @@ class CompassModule extends Component {
     // RADIO BUTTON
     return (
       <div className="compass-container">
-        <h1 className="header">Compass Module</h1>
 
         <div className="compass-flex-container">
           <div className="compass-button-container">

@@ -100,7 +100,7 @@ class VideoStreamModule extends Component {
             <Button onClick={this.refreshSource} color="warning"> <IoIosRefresh/> </Button> 
           </InputGroupAddon>
         </InputGroup>
-        <img onError={this.defaultSource} id="video" alt="img situations" src="" class="img-fluid"/>
+        <img onError={this.defaultSource} id="video" alt="img situations" src="" className="img-fluid"/>
       </div>
     );
   }

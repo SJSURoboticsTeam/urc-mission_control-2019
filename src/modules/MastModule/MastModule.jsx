@@ -44,7 +44,6 @@ class MastModule extends Component {
   render() {
     return (
       <div>
-        <h1>Mast Module</h1>
         <div
           className="mast-button-container"
         >

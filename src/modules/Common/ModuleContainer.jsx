@@ -82,7 +82,9 @@ class ModuleContainer extends Component {
             onChange={this.onChange}
             currentModule={this.state.currentModule}
           />
-          {this.chooseModule(this.state.currentModule)}
+          <div className="module-container">
+            {this.chooseModule(this.state.currentModule)}
+          </div>
         </div>
       </React.Fragment>
     );

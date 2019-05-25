@@ -9,7 +9,6 @@ class ProtoModule extends Component {
   render() {
     return (
       <div id="power">
-        <h1 className="header">This is the Power Module!</h1>
         <p>Nhat is tasked with power module</p>
         <p>Control:</p>
         <ul>

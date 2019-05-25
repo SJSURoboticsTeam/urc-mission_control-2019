@@ -11,9 +11,11 @@ class GridInterface extends Component {
   render() {
     return (
       <div id="window-container">
-        {this.state.modules.windowOrder.map((window) => (
-          <ModuleContainer key={window} id={window} />
-        ))}
+        <div id="henryWorld">
+          {this.state.modules.windowOrder.map((window) => (
+            <ModuleContainer key={window} id={window} />
+          ))}
+        </div>
       </div>
     );
   }
