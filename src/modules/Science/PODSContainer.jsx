@@ -8,7 +8,7 @@ import {
 } from "reactstrap";
 import Plot from "react-plotly.js";
 import BackButton from "./BackButton";
-import { getData } from '../Science/PODStateManager';
+import { getData } from "../Science/PODStateManager";
 
 export default class PODSContainer extends React.Component {
     
@@ -111,10 +111,10 @@ export default class PODSContainer extends React.Component {
     };
     tick() {
         let currObj = getData();
-        console.log(`Getting value from: ${this.state.currentPODSSEName}`);
+        // console.log(`Getting value from: ${this.state.currentPODSSEName}`);
         this.setState({ x1: [...this.state.x1, this.state.seconds] });
         this.setState({ y1: [...this.state.y1, currObj[this.state.currentPODSSEName]] });
-        console.log(currObj[this.state.currentPODSSEName]);
+        // console.log(currObj[this.state.currentPODSSEName]);
 
         setTimeout(() => { }, 1000);
 
@@ -132,7 +132,7 @@ export default class PODSContainer extends React.Component {
         ];
         this.setState({ xrange: [lowerXRange, upperXRange] });
         this.setState({ seconds: this.state.seconds + 1 });
-    };
+    }
     render() {
         return (
             <div className="science-pods-container">

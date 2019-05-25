@@ -10,4 +10,4 @@ const getData = () => {
 
 module.exports = {
     setData, getData
-}
+};

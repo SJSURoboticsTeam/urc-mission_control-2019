@@ -5,7 +5,7 @@ import {
   Button
 } from "reactstrap";
 import sendXHR from "../../lib/sendXHR";
-import { setData } from '../Science/PODStateManager';
+import { setData } from "../Science/PODStateManager";
 
 class ScienceModule extends Component {
   constructor(props) {
@@ -14,37 +14,37 @@ class ScienceModule extends Component {
       container: 0,
       connectIP: "0",
       inputToggled: false,
-      event_source: null
+      eventSource: null
     };
   };
   onXHRSend = (endpoint, data) => {
     sendXHR(this.state.connectIP, endpoint, data, (res) => {
-      const res_obj = JSON.parse(res);
-      console.log(res_obj.message);
+      const resObj = JSON.parse(res);
+      // console.log(resObj.message);
     });
   };
   setupSSE() {
     //Copy event source, add event onOpen/Close, listeners, call setState()
-    let event_source = Object.assign(this.state.event_source);
-    event_source.onopen = () => {
-      console.log("Event Source Added!");
+    let eventSource = Object.assign(this.state.eventSource);
+    eventSource.onopen = () => {
+      // console.log("Event Source Added!");
     };
 
-    event_source.onerror = () => {
-      event_source.close();
-      event_source = null;
-      console.log("Event Source Closed.");
+    eventSource.onerror = () => {
+      eventSource.close();
+      eventSource = null;
+      // console.log("Event Source Closed.");
     };
 
-    event_source.addEventListener("executePod", this.onPodEvent);
-    event_source.addEventListener("onGraphChange", this.onGraphEvent);
+    eventSource.addEventListener("executePod", this.onPodEvent);
+    eventSource.addEventListener("onGraphChange", this.onGraphEvent);
 
-    this.setState({ event_source });
+    this.setState({ eventSource });
   };
   onPodEvent(evt) {
     let podStatus = JSON.parse(evt.data).podStatus;
-    console.log(`Pod Status: ${podStatus}`);
-  };
+    // console.log(`Pod Status: ${podStatus}`);
+  }
   onGraphEvent(evt) {
     setData(JSON.parse(evt.data).graphData);
     // console.log(`Graph Data: ${this.graphData}`);
@@ -52,7 +52,7 @@ class ScienceModule extends Component {
   toggleInput = () => {
     this.setState({
       inputToggled: !this.state.inputToggled
-    })
+    });
   };
   connectESP = (e) => {
     if (e.which === 13) {
@@ -61,7 +61,7 @@ class ScienceModule extends Component {
       this.setState(
         {
           connectIP: e.target.value,
-          event_source: new EventSource(`http://${espIpAddress}/sse`)
+          eventSource: new EventSource(`http://${espIpAddress}/sse`)
         },
 
         this.setupSSE.bind(this)

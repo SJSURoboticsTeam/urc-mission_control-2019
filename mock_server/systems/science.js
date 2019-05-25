@@ -6,9 +6,9 @@ let state = [];
 state.length = 7;
 
 // Arm API
-const science_systems = new system.System("science_systems");
+const sciSystems = new system.System("science_systems");
 
-science_systems.addXHR("/toggle_pod", (req, res) => {
+sciSystems.addXHR("/toggle_pod", (req, res) => {
 
   let response = "";
   let pod = req.query.pod;
@@ -26,7 +26,7 @@ science_systems.addXHR("/toggle_pod", (req, res) => {
 });
 
 
-science_systems.addXHR("/stop_all", (req, res) => {
+sciSystems.addXHR("/stop_all", (req, res) => {
   state = false;
 
   res.send({
@@ -69,16 +69,15 @@ function getGraphData() {
     pod6: Math.floor(Math.random() * (4 - value)),
     sterilizedPod: Math.floor(Math.random() * value),
   };
-  console.log(data);
   return JSON.stringify({
     graphData: data
   });
 }
 
-science_systems.addOnConnectSSE("timestamp", makeTimestamp);
+sciSystems.addOnConnectSSE("timestamp", makeTimestamp);
 
-science_systems.addSSE("timestamp", 1000, makeTimestamp);
+sciSystems.addSSE("timestamp", 1000, makeTimestamp);
 
-science_systems.addSSE("executePod", 1000, simulatePodExecution);
+sciSystems.addSSE("executePod", 1000, simulatePodExecution);
 
-science_systems.addSSE("onGraphChange", 500, getGraphData);
+sciSystems.addSSE("onGraphChange", 500, getGraphData);
