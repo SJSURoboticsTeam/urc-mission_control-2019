@@ -19,7 +19,7 @@ class ScienceModule extends Component {
   };
   onXHRSend = (endpoint, data) => {
     sendXHR(this.state.connectIP, endpoint, data, (res) => {
-      const resObj = JSON.parse(res);
+      // const resObj = JSON.parse(res);
       // console.log(resObj.message);
     });
   };
@@ -41,10 +41,10 @@ class ScienceModule extends Component {
 
     this.setState({ eventSource });
   };
-  onPodEvent(evt) {
-    let podStatus = JSON.parse(evt.data).podStatus;
-    // console.log(`Pod Status: ${podStatus}`);
-  }
+  // onPodEvent(evt) {
+  //   let podStatus = JSON.parse(evt.data).podStatus;
+  //   console.log(`Pod Status: ${podStatus}`);
+  // }
   onGraphEvent(evt) {
     setData(JSON.parse(evt.data).graphData);
     // console.log(`Graph Data: ${this.graphData}`);
