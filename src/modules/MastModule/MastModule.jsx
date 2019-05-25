@@ -31,12 +31,14 @@ class MastModule extends Component {
   };
   connectESP = (e) => {
     if (e.which === 13) {
-
       this.setState(
         {
           connectIP: e.target.value,
         }
-      );
+      , (res) => {
+        console.log("Success");
+        console.log(this.state.connectIP);
+      });
 
     }
   };
