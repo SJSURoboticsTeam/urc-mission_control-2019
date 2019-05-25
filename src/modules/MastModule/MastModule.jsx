@@ -29,9 +29,7 @@ class MastModule extends Component {
   };
   onPressTogglePower = (e) => {
     let powerLabel = this.state.powerLabel === "off" ? "on" : "off";
-    sendXHR(this.state.connectIP, "pitch_update", { mode: powerLabel }, (res) => {
-      console.log(res);
-    });
+    sendXHR(this.state.connectIP, "pitch_update", { mode: powerLabel });
     this.setState({ powerLabel });
   };
   toggleInput = () => {
