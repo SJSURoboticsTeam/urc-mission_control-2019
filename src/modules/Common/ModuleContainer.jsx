@@ -3,6 +3,7 @@ import Cookies from "universal-cookie";
 import ModuleSelect from "./ModuleSelect.jsx";
 import "../../lib/css/ModuleContainer.css";
 import ProtoModule from "../ProtoModule/ProtoModule.jsx";
+import MastModule from "../MastModule/MastModule.jsx";
 import ArmModule from "../ArmModule/ArmModule.jsx";
 import ScienceModule from "../Science/ScienceModule.jsx";
 import PowerModule from "../Power/PowerModule.jsx";
@@ -47,6 +48,8 @@ class ModuleContainer extends Component {
     switch (moduleName) {
       case "proto-module":
         return <ProtoModule />;
+      case "mast-module":
+        return <MastModule />;
       case "arm-module":
         return <ArmModule />;
       case "science-module":
@@ -79,7 +82,9 @@ class ModuleContainer extends Component {
             onChange={this.onChange}
             currentModule={this.state.currentModule}
           />
-          {this.chooseModule(this.state.currentModule)}
+          <div className="module-container">
+            {this.chooseModule(this.state.currentModule)}
+          </div>
         </div>
       </React.Fragment>
     );

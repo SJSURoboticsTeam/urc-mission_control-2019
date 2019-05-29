@@ -127,6 +127,7 @@ class DriveModule extends Component {
         {DRIVE_MODES.map((mode) => {
           return (
             <Button 
+              key={mode.id}
               onClick={this.driveModeClicked} 
               id={mode.id} 
               value={mode.value} 
@@ -149,6 +150,7 @@ class DriveModule extends Component {
               onClick={this.backWheelClicked} 
               id={wheel.name} 
               value={wheel.value} 
+              key={wheel.name}
               color={this.decideButtonColor(wheel.value, this.state.back_wheel)}
             >
               {wheel.name}
@@ -180,7 +182,6 @@ class DriveModule extends Component {
   render() {
     return (
       <Container>
-        <h1 className="header">Drive Module</h1>
         <Row>
             <h2>ESP IP</h2>
             <InputGroup >

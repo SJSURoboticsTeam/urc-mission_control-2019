@@ -121,7 +121,6 @@ class ArmModule extends Component {
     return (
       <Container>
         <Row>
-          <Col><h1>Arm Module</h1></Col>
           <Col>{this.renderJoystickStatus()}</Col>
         </Row>
         <IPSet setIP={this.setIP} handleXHR={this.handleXHR} toggle={this.toggle} />
