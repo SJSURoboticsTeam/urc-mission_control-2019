@@ -83,7 +83,7 @@ class ScienceModule extends Component {
   };
   handlePodsButton = () => {
     if(this.state.connectIP === "0") {
-      alert("go to hell");
+      alert("Please enter an IP address first");
     } else {
       this.setState(() => ({ container: 3 }));
     }

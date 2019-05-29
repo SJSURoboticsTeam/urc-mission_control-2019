@@ -24,8 +24,15 @@ class MastModule extends Component {
   }
   onPress = (e) => {
     sendXHR(this.state.connectIP, "pitch_update", { mode: "manual", manual_move: e.target.id }, (res) => {
-      // console.log(`result: ${res}`);
+      console.log(`result: ${res}`);
     });
+  };
+  sendIMU = (e) => {
+    if (e.which === 13) {
+      sendXHR(this.state.connectIP, "imu_update", {imu_mode: e.target.value}, (res) => {
+        console.log(`result: ${res}`);
+      });
+    }
   };
   onPressTogglePower = (e) => {
     let powerLabel = this.state.powerLabel === "off" ? "on" : "off";
@@ -44,7 +51,7 @@ class MastModule extends Component {
           connectIP: e.target.value,
         }
       , (res) => {
-        // console.log(`Successfully connected to ${this.state.connectIP}`);
+        console.log(`Successfully connected to ${this.state.connectIP}`);
       });
 
     }
@@ -84,31 +91,31 @@ class MastModule extends Component {
         </div>
 
         <Row>
-        <Col>
-        <Button
-          onClick={this.toggleInput}
-          color="success"
-          key="toggleInputGimbal"
-        >
-          Enter ESP
-        </Button>
-        </Col>
-        <Col>
-        {this.state.inputToggled ?
-          <input
+        <span className="input-group-text">
+            Enter ESP
+          </span>
+        <input
             onKeyDown={this.connectESP}
-          ></input> :
-          <p></p>
-        }
-        </Col>
-        <Col>
-        <Button
-          key="togglePowerGimbal"
-          onClick={this.onPressTogglePower}
         >
-          Toggle Gimbal Power
-        </Button>
+        </input>
+        <Col>
+          <Button
+            key="togglePowerGimbal"
+            onClick={this.onPressTogglePower}
+          >
+            Toggle Gimbal Power
+          </Button>
         </Col>
+        </Row>
+        <Row>
+          <span className="input-group-text">
+            Enter IMU
+          </span>
+          <input
+            key="imuInput"
+            onKeyDown={this.sendIMU}
+          >
+          </input>
         </Row>
       </div>
     );
