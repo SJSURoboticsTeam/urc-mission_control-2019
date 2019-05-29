@@ -19,10 +19,10 @@ export const BW_B = 1;
 export const BW_C = 2;
 
 export const DRIVE_MODES = [ 
-    {name: "Spin", id:"spin", value: DM_SPIN}, 
-    {name: "Crab", id: "crab", value: DM_CRAB}, 
-    {name: "Drive", id: "drive", value: DM_DRIVE},
-    {name: "Debug", id: "debug", value: DM_DEBUG}
+    {name: "Spin →", id:"spin", value: DM_SPIN}, 
+    {name: "Crab ←", id: "crab", value: DM_CRAB}, 
+    {name: "Drive ↑", id: "drive", value: DM_DRIVE},
+    {name: "Debug ↓", id: "debug", value: DM_DEBUG}
 ];
 
 export const BACK_WHEELS = [ 

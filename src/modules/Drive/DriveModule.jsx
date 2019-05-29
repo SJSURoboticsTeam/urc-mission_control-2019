@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./DriveStyle.css";
-import joystick from "./joystick.js";
+import joystick from "./joystick_new.js";
 import {
   DM_DRIVE,
   BW_A,
@@ -30,6 +30,7 @@ class DriveModule extends Component {
       back_wheel: BW_A,
       esp_ip: "192.168.4.1",
       
+      t_max: 20,
       speed: 0,
       heading: 0
     };
@@ -37,20 +38,26 @@ class DriveModule extends Component {
     this.onJoystickConnect = this.onJoystickConnect.bind(this);
     this.onJoystickDisconnect = this.onJoystickDisconnect.bind(this);
     this.getDriveState = this.getDriveState.bind(this);
+    this.updateDriveMode = this.updateDriveMode.bind(this);
     this.driveModeClicked = this.driveModeClicked.bind(this);
+    this.updateBackWheel = this.updateBackWheel.bind(this);
     this.backWheelClicked = this.backWheelClicked.bind(this);
-    this.joystickButtonPressed = this.joystickButtonPressed.bind(this);
+    this.updateThrottleMax = this.updateThrottleMax.bind(this);
     this.updateSpeed = this.updateSpeed.bind(this);
     this.updateHeading = this.updateHeading.bind(this);
     this.updateESPIP = this.updateESPIP.bind(this);
     this.renderBackWheelOptions = this.renderBackWheelOptions.bind(this);
 
-    joystick.initDrive(this.getDriveState, this.joystickButtonPressed, this.updateSpeed, this.updateHeading);
+    joystick.initDrive(this.getDriveState, this.updateDriveMode, this.updateBackWheel, this.updateSpeed, this.updateHeading, this.updateThrottleMax);
   }
 
   componentWillMount() {
     window.addEventListener("gamepadconnected", this.onJoystickConnect);
     window.addEventListener("gamepaddisconnected", this.onJoystickDisconnect);
+  }
+
+  getDriveState() {
+    return this.state;
   }
 
   onJoystickConnect() {
@@ -66,10 +73,30 @@ class DriveModule extends Component {
     });
   }
 
-  joystickButtonPressed(newDriveMode) {
+  updateDriveMode(newDriveMode) {
     this.setState({
       drive_mode: newDriveMode
     });
+  }
+
+  driveModeClicked(e) {
+    this.updateDriveMode( parseInt(e.target.value) );
+  }
+  
+  updateBackWheel(newBackWheel) {
+    this.setState({
+      back_wheel: newBackWheel
+    });
+  }
+
+  updateThrottleMax(newThrottleMax) {
+    this.setState({
+      t_max: newThrottleMax
+    });
+  }
+
+  backWheelClicked(e) {
+    this.updateBackWheel( parseInt(e.target.value) );
   }
 
   updateSpeed(newSpeed) {
@@ -83,22 +110,6 @@ class DriveModule extends Component {
 
     this.setState({
       heading: newHeading
-    });
-  }
-
-  getDriveState() {
-    return this.state;
-  }
-
-  driveModeClicked(e) {
-    this.setState({
-      drive_mode: parseInt(e.target.value)
-    });
-  }
-  
-  backWheelClicked(e) {
-    this.setState({
-      back_wheel: parseInt(e.target.value)
     });
   }
 
@@ -222,6 +233,15 @@ class DriveModule extends Component {
             </Row>
             <Row>
               <Badge color="secondary">{this.state.heading}°</Badge>
+            </Row>
+          </Col>
+
+          <Col>
+            <Row>
+              <h2>Throttle Max</h2>
+            </Row>
+            <Row>
+              <Badge color="secondary">{this.state.t_max}</Badge>
             </Row>
           </Col>
           
