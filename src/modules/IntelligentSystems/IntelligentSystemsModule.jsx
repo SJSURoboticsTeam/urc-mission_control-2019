@@ -131,7 +131,6 @@ class IntelligentSystemsModule extends Component {
   render() {
     return (
       <div>
-        <h1>Intelligent Systems</h1>
         <h2>Communication</h2>
         <InputGroup>
           <InputGroupAddon addOnType="prepend">ESP IP Address + Port</InputGroupAddon>

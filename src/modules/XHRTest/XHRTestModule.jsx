@@ -141,7 +141,6 @@ class XHRTestModule extends Component {
   render() {
     return (
       <div>
-        <h1 className="header">This is the XHR Test Module!</h1>
         <Row>
           <Col>
             <h2>Communication</h2>
