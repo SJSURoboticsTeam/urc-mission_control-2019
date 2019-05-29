@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import "./MastStyle.css";
 import {
   Button,
-  ButtonGroup
+  ButtonGroup,
+  Col,
+  Row
 } from "reactstrap";
 import sendXHR from "../../lib/sendXHR";
 
@@ -16,11 +18,19 @@ class MastModule extends Component {
         { name: "up", id: 1 },
         { name: "center", id: 0 },
         { name: "down", id: 2 }
-      ]
+      ],
+      powerLabel: "off"
     };
   }
   onPress = (e) => {
-    sendXHR(this.state.connectIP, "pitch_update", { manual_mode: e.target.id });
+    sendXHR(this.state.connectIP, "pitch_update", { mode: "manual", manual_move: e.target.id }, (res) => {
+      // console.log(`result: ${res}`);
+    });
+  };
+  onPressTogglePower = (e) => {
+    let powerLabel = this.state.powerLabel === "off" ? "on" : "off";
+    sendXHR(this.state.connectIP, "pitch_update", { mode: powerLabel });
+    this.setState({ powerLabel });
   };
   toggleInput = () => {
     this.setState({
@@ -29,19 +39,19 @@ class MastModule extends Component {
   };
   connectESP = (e) => {
     if (e.which === 13) {
-
       this.setState(
         {
           connectIP: e.target.value,
         }
-      );
+      , (res) => {
+        // console.log(`Successfully connected to ${this.state.connectIP}`);
+      });
 
     }
   };
   render() {
     return (
       <div>
-        <h1>Mast Module</h1>
         <div
           className="mast-button-container"
         >
@@ -72,19 +82,34 @@ class MastModule extends Component {
             Stop
           </Button>
         </div>
+
+        <Row>
+        <Col>
         <Button
           onClick={this.toggleInput}
           color="success"
-
+          key="toggleInputGimbal"
         >
           Enter ESP
         </Button>
+        </Col>
+        <Col>
         {this.state.inputToggled ?
           <input
             onKeyDown={this.connectESP}
           ></input> :
           <p></p>
         }
+        </Col>
+        <Col>
+        <Button
+          key="togglePowerGimbal"
+          onClick={this.onPressTogglePower}
+        >
+          Toggle Gimbal Power
+        </Button>
+        </Col>
+        </Row>
       </div>
     );
   }
