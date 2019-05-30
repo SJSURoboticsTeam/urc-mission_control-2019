@@ -17,7 +17,7 @@ class ProtoModule extends Component {
     this.state = {
       batteries: [0, 0, 0, 0, 0],
       channels: [0, 0, 0, 0, 0],
-      espIP: '192.168.10.50'
+      espIP: '192.168.4.1'
     };
   }
 
@@ -56,7 +56,8 @@ class ProtoModule extends Component {
     }
 
     //this expects "OK" or "ERR" as its response.
-    sendXHR(this.state.espIP, '/updateControlVals', data, (res) => {
+    sendXHR(this.state.espIP, 'updateControlVals', data, (res) => {
+      console.log(res);
       if (res.status == "OK") {
         alert("Power Systems Update Successful");
       } else if (res.status == "ERR") {
