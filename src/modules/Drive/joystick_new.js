@@ -238,8 +238,23 @@ class Joystick {
 	}
 
 	retrieveDriveState(getDriveState, driveModeButtonPressed, backWheelButtonPressed, updateSpeed, updateHeading, updateThrottleMax) {
-		let gp = navigator.getGamepads()[0];
+		let gamepad_list = navigator.getGamepads();
+		let gp = null;
 		let drive_module_state = getDriveState();
+		// console.log({list: gamepad_list, gamepad1: gamepad_list[0].id.indexOf("044f") != -1, gamepad2: gamepad_list[1].id.indexOf("044f") != -1, state: !drive_module_state.joystick_connected});
+
+		if (gamepad_list[0] != null) {
+			if (gamepad_list[0].id.indexOf("Flight") != -1) {
+				gp = gamepad_list[0];
+			}
+		} 
+		
+		if (gamepad_list[1] != null) {
+			
+			if (gamepad_list[1].id.indexOf("Flight") != -1) {
+				gp = gamepad_list[1];
+			}
+		}
 
 		// Check state, and status of gamepad connection
 		if (!drive_module_state.joystick_connected || !gp) {

@@ -61,9 +61,25 @@ class DriveModule extends Component {
   }
 
   onJoystickConnect() {
-    this.setState({ 
-      joystick_connected: true 
-    });
+    let gamepad_list = navigator.getGamepads();
+    if (gamepad_list[0] != null) {
+      console.log("flight0" + gamepad_list[0].id.indexOf("Flight") != -1)
+			if (gamepad_list[0].id.indexOf("Flight") != -1) {
+        this.setState({ 
+          joystickConnected: true 
+        });
+			}
+    }
+    
+    if (gamepad_list[1] != null) {
+      console.log("flight1" + gamepad_list[1].id.indexOf("Flight") != -1)
+			if (gamepad_list[1].id.indexOf("Flight") != -1) {
+				this.setState({ 
+          joystickConnected: true 
+        });
+			}
+		}
+
   }
 
   onJoystickDisconnect() {

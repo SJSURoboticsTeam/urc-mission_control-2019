@@ -17,7 +17,7 @@ class ProtoModule extends Component {
     this.state = {
       batteries: [0, 0, 0, 0, 0],
       channels: [0, 0, 0, 0, 0],
-      espIP: '192.168.4.1'
+      espIP: '192.168.10.50'
     };
   }
 

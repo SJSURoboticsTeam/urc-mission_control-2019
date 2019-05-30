@@ -53,7 +53,19 @@ class Joystick {
 	}
 
 	retrieveArmState(getArmState) {
-		let gp = navigator.getGamepads()[0];
+		let gamepad_list = navigator.getGamepads();
+		let gp = null;
+
+		if (gamepad_list[0] != null) {
+			if (gamepad_list[0].id.indexOf("Mimic") != -1) {
+				gp = gamepad_list[0];
+			}
+		} 
+		if (gamepad_list[1] != null) {
+			if (gamepad_list[1].id.indexOf("Mimic") != -1) {
+				gp = gamepad_list[1];
+			}
+		}
 		let armState = getArmState();
 		let joystickIndeces = this.mapJoystickIndices();
 
