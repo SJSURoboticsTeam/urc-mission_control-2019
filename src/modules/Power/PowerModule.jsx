@@ -56,7 +56,7 @@ class ProtoModule extends Component {
     }
 
     //this expects "OK" or "ERR" as its response.
-    sendXHR(this.state.espIP, 'updateControlVals', data, (res) => {
+    sendXHR(this.state.espIP, '/updateControlVals', data, (res) => {
       console.log(res);
       if (res.status == "OK") {
         alert("Power Systems Update Successful");
