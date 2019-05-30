@@ -106,14 +106,45 @@ class LocationServicesModule extends Component {
     });
   }
 
+  requestRoverPosition() {
+    if (this.state.espIP === null) {
+      let espIpInput = prompt("Please enter IP address of the Intelligent Systems ESP", "192.168.4.1");
+
+      if (espIpInput === null || espIpInput === "") {
+        return;
+      }
+
+      sendXHR(this.state.espIpInput, "getPositionalData", {}, (res) => {
+        let arr = res.split(",");
+        this.setState({
+          rover_longitude: arr[0],
+          rover_latitude: arr[1],
+          gps_timestamp: arr[2]
+        });
+        console.log(this.state)
+      });
+      
+      this.setState({
+        espIP: espIpInput
+      });
+    }
+  }
+
   render() {
     const position = this.state.markers[0];
     return (
       <Container className="container">
         <Row className="container">
           <Col className="col-7">
+            <Row>
+              <h2>Map</h2>  
+            </Row>
+            <Row>
+              
+              <Button onClick={this.requestRoverPosition}>Request Rover Position</Button>
+            </Row>
             <Row className="row-7">
-              <h2>Map</h2>
+              
               <Map 
                 onClick={this.addMarker}
                 className="map-container" 
@@ -139,6 +170,7 @@ class LocationServicesModule extends Component {
                 <InputGroupAddon type="append"> <Button onClick={this.manuallyAddMarker}>Set Marker</Button> </InputGroupAddon>
               </InputGroup>
             </Row>
+            
           </Col>
           <Col className="col-3">
             <h2>Compass</h2>
