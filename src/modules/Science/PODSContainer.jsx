@@ -6,7 +6,7 @@ import {
     DropdownMenu,
     DropdownToggle
 } from "reactstrap";
-import Plot from "react-plotly.js";
+// import Plot from "react-plotly.js";
 import BackButton from "./BackButton";
 import { getData } from "../Science/PODStateManager";
 
@@ -107,7 +107,8 @@ export default class PODSContainer extends React.Component {
                 zeroline: false
             }
         };
-        return <Plot data={this.data} layout={layout} />;
+        // return <Plot data={this.data} layout={layout} />;
+        return <p>react plotly is a huge file!</p>;
     };
     tick() {
         let currObj = getData();
