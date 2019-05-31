@@ -19,3 +19,7 @@
 .mast-stop-btn {
     flex: 1 !important;
 }
+
+.gimbal-power-btn {
+    margin-top: 20px;
+}

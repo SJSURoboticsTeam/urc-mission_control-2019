@@ -12,7 +12,7 @@ class MastModule extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      connectIP: "0",
+      connectIP: "192.168.10.53",
       inputToggled: false,
       buttons: [
         { name: "up", id: 1 },
@@ -86,25 +86,10 @@ class MastModule extends Component {
         <Row>
         <Col>
         <Button
-          onClick={this.toggleInput}
-          color="success"
-          key="toggleInputGimbal"
-        >
-          Enter ESP
-        </Button>
-        </Col>
-        <Col>
-        {this.state.inputToggled ?
-          <input
-            onKeyDown={this.connectESP}
-          ></input> :
-          <p></p>
-        }
-        </Col>
-        <Col>
-        <Button
           key="togglePowerGimbal"
           onClick={this.onPressTogglePower}
+          color="primary"
+          className="gimbal-power-btn"
         >
           Toggle Gimbal Power
         </Button>
