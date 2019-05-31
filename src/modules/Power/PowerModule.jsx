@@ -59,11 +59,11 @@ class ProtoModule extends Component {
     sendXHR(this.state.espIP, 'updateControlVals', data, (res) => {
       console.log(res);
       if (res.status == "OK") {
-        alert("Power Systems Update Successful");
+        console.log("Power Systems Update Successful");
       } else if (res.status == "ERR") {
-        alert("ERROR: Power Systems Update Unuccessful");
+        console.log("ERROR: Power Systems Update Unuccessful");
       } else {
-        alert("ERROR: Unhandled exception");
+        console.log(`Result: ${res}`);
       }
     });
 
