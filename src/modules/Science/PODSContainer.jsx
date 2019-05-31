@@ -17,13 +17,13 @@ export default class PODSContainer extends React.Component {
         this.state = {
             dropdownOpen: false,
             pods: [
-                { name: "POD 1", id: 0, sseName: "pod1", isActive: false },
-                { name: "POD 2", id: 1, sseName: "pod2", isActive: false },
-                { name: "POD 3", id: 2, sseName: "pod3", isActive: false },
-                { name: "POD 4", id: 3, sseName: "pod4", isActive: false },
-                { name: "POD 5", id: 4, sseName: "pod5", isActive: false },
-                { name: "POD 6", id: 5, sseName: "pod6", isActive: false },
-                { name: "Sterilized POD", id: 6, sseName: "sterilizedPod", isActive: false },
+                { name: "POD 1", id: 0, sseName: "pod1", isActive: false, x1: [], y1: [] },
+                { name: "POD 2", id: 1, sseName: "pod2", isActive: false, x1: [], y1: [] },
+                { name: "POD 3", id: 2, sseName: "pod3", isActive: false, x1: [], y1: [] },
+                { name: "POD 4", id: 3, sseName: "pod4", isActive: false, x1: [], y1: [] },
+                { name: "POD 5", id: 4, sseName: "pod5", isActive: false, x1: [], y1: [] },
+                { name: "POD 6", id: 5, sseName: "pod6", isActive: false, x1: [], y1: [] },
+                { name: "Sterilized POD", id: 6, sseName: "sterilizedPod", isActive: false, x1: [], y1: [] },
             ],
             currentPOD: "POD 1",
             currentPODSSEName: "pod1",
@@ -61,6 +61,13 @@ export default class PODSContainer extends React.Component {
                 type: "scatter"
             }
         ];
+        // average background radiation:
+            // average cpm before activation
+        // Give a cpm value 10 minutes after activation
+            // paramaterize those '10 minutes'
+        // Calculate cpm growth per minute
+            // finish / time
+        
     }
     componentDidMount() {
         setInterval(() => this.tick(), 1000);
@@ -101,7 +108,7 @@ export default class PODSContainer extends React.Component {
                 zeroline: false
             },
             yaxis: {
-                title: "Something (S)",
+                title: "Voltage (cpm)",
                 range: this.range,
                 showline: false,
                 zeroline: false
@@ -112,6 +119,7 @@ export default class PODSContainer extends React.Component {
     };
     tick() {
         let currObj = getData();
+        console.log(currObj);
         // console.log(`Getting value from: ${this.state.currentPODSSEName}`);
         this.setState({ x1: [...this.state.x1, this.state.seconds] });
         if (currObj !== null) {
