@@ -42,29 +42,42 @@ class ArmModule extends Component {
 
   onJoystickConnect = () => {
     let gamepad_list = navigator.getGamepads();
-    if (gamepad_list[0] != null) {
-			if (gamepad_list[0].id.indexOf("Mimic") != -1) {
-        this.setState({ 
-          joystickConnected: true 
-        });
-			}
+    if (gamepad_list[0] != null  && gamepad_list[0].id.indexOf("Mimic") != -1) {
+      this.setState({ 
+        joystickConnected: true 
+      });
     } 
     
-    if (gamepad_list[1] != null) {
-			if (gamepad_list[1].id.indexOf("Mimic") != -1) {
-				this.setState({ 
-          joystickConnected: true 
-        });
-			}
-		}
+    if (gamepad_list[1] != null && gamepad_list[1].id.indexOf("Mimic") != -1) {
+      this.setState({ 
+        joystickConnected: true 
+      });
+    }
+    console.log(gamepad_list)
 
     
   }
 
   onJoystickDisconnect = () => {
-    this.setState({
-      joystickConnected: false,
+    let gamepad_list = navigator.getGamepads();
+
+    this.setState({ 
+      joystickConnected: false
     });
+
+    if (gamepad_list[0] != null  && gamepad_list[0].id.indexOf("Mimic") != -1) {
+      this.setState({ 
+        joystickConnected: true 
+      });
+    } 
+    
+    if (gamepad_list[1] != null && gamepad_list[1].id.indexOf("Mimic") != -1) {
+      this.setState({ 
+        joystickConnected: true 
+      });
+    }
+
+    console.log(gamepad_list)
   }
 
   getArmState = () => {
