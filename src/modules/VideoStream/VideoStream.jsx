@@ -22,7 +22,7 @@ class VideoStreamModule extends Component {
     super(props);
     this.state = {
       connected: false,
-      secUrl: null
+      srcUrl: "192.168.10.60"
     };
   }
 
@@ -32,18 +32,11 @@ class VideoStreamModule extends Component {
   }
 
   updateSource = () => {
-    let ipInput = document.getElementById("ip-input");
     let videoComponent = document.getElementById("video");
     
-    if ( ipInput.value === "" ) {
-      alert("ERROR: Must enter a IP address.");
-      return;
-    }
-    
-    videoComponent.src = ipInput.value;
+    videoComponent.src = this.state.srcUrl;
 
     this.setState({
-      srcUrl: ipInput.value,
       connected: true
     });
   }
@@ -87,11 +80,6 @@ class VideoStreamModule extends Component {
           <InputGroupAddon addonType="prepend" >
             {this.renderStatusIcon()} 
           </InputGroupAddon>
-          <InputGroupAddon addonType="prepend" >
-            Camera IP: 
-          </InputGroupAddon>
-
-          <Input id="ip-input" placeholder="192.168.4.1" />
 
           <InputGroupAddon addonType="append">
             <Button onClick={this.updateSource} color="success">Connect</Button>
