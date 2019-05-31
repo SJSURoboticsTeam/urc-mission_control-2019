@@ -6,7 +6,7 @@ import {
     DropdownMenu,
     DropdownToggle
 } from "reactstrap";
-// import Plot from "react-plotly.js";
+import Plot from "react-plotly.js";
 import BackButton from "./BackButton";
 import { getData } from "../Science/PODStateManager";
 
@@ -107,8 +107,8 @@ export default class PODSContainer extends React.Component {
                 zeroline: false
             }
         };
-        // return <Plot data={this.data} layout={layout} />;
-        return <p>react plotly is a huge file!</p>;
+        return <Plot data={this.data} layout={layout} />;
+        // return <p>react plotly is a huge file!</p>;
     };
     tick() {
         let currObj = getData();
@@ -186,11 +186,6 @@ export default class PODSContainer extends React.Component {
                             {this.state.pods[this.findPODIndex()].isActive ? "Kill " : "Activate "}
                             {this.state.currentPOD}
                         </Button>
-                        {/* <button
-                            className="btn btn-danger"
-                        >
-                            Kill {this.state.currentPOD}
-                        </button> */}
                     </div>
                     <div
                         className="science-graph-container"
