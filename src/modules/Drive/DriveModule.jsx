@@ -28,7 +28,7 @@ class DriveModule extends Component {
       esp_connected: false,
       drive_mode: DM_DRIVE,
       back_wheel: BW_A,
-      esp_ip: "192.168.4.1",
+      esp_ip: "192.168.10.51",
       
       t_max: 20,
       speed: 0,
@@ -190,9 +190,10 @@ class DriveModule extends Component {
   }
 
   updateESPIP() {
-    this.setState({
-      esp_ip: document.getElementById("esp_ip_input").value
-    });
+    console.log("ESP IP cannot be set anymore due to final address being released");
+    // this.setState({
+    //   esp_ip: document.getElementById("esp_ip_input").value
+    // });
   }
 
   render() {
@@ -201,7 +202,7 @@ class DriveModule extends Component {
         <Row>
             <h2>ESP IP</h2>
             <InputGroup >
-              <Input id="esp_ip_input" placeholder="192.168.4.1"/>
+              <Input id="esp_ip_input" placeholder="192.168.10.51"/>
               <InputGroupAddon addonType="append"> <Button onClick={ this.updateESPIP }>Click me</Button> </InputGroupAddon>
             </InputGroup>
         </Row>
