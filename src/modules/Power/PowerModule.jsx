@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Button,
-  ButtonGroup,
+  // ButtonGroup,
   Row,
   Col,
   Container
@@ -58,9 +58,9 @@ class ProtoModule extends Component {
     //this expects "OK" or "ERR" as its response.
     sendXHR(this.state.espIP, 'updateControlVals', data, (res) => {
       console.log(res);
-      if (res.status == "OK") {
+      if (res.status === "OK") {
         console.log("Power Systems Update Successful");
-      } else if (res.status == "ERR") {
+      } else if (res.status === "ERR") {
         console.log("ERROR: Power Systems Update Unuccessful");
       } else {
         console.log(`Result: ${res}`);
@@ -73,7 +73,7 @@ class ProtoModule extends Component {
   getFeedbackData = () => {
     //expects an object of power feedback. not sure what to do with it yet.
     sendXHR(this.state.espIP, 'requestFeedbackData', null, (res) => {
-      if (res.status == "OK") {
+      if (res.status === "OK") {
         this.setState({
           powerFeedback: res.obj
         });

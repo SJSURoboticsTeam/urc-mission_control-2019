@@ -14,9 +14,9 @@ import {
   ButtonGroup,
   Col,
   Container,
-  Input,
-  InputGroup,
-  InputGroupAddon,
+  // Input,
+  // InputGroup,
+  // InputGroupAddon,
   Row
 } from "reactstrap";
 
@@ -63,11 +63,11 @@ class DriveModule extends Component {
   onJoystickConnect() {
     let gamepad_list = navigator.getGamepads();
 
-		if (gamepad_list[0] != null && gamepad_list[0].id.indexOf("Flight") != -1) {
+		if (gamepad_list[0] !== null && gamepad_list[0].id.indexOf("Flight") !== -1) {
 			this.setState({
         joystick_connected: true
       });
-		} else if  (gamepad_list[1] != null && gamepad_list[1].id.indexOf("Flight") != -1) {
+		} else if  (gamepad_list[1] !== null && gamepad_list[1].id.indexOf("Flight") !== -1) {
 			this.setState({
         joystick_connected: true
       });
@@ -84,14 +84,14 @@ class DriveModule extends Component {
       drive_mode: null
     });
 
-    if (gamepad_list[0] != null  && gamepad_list[0].id.indexOf("Flight") != -1) {
+    if (gamepad_list[0] !== null  && gamepad_list[0].id.indexOf("Flight") !== -1) {
       this.setState({ 
         joystickConnected: true,
         drive_mode: prev_drive_mode
       });
     } 
     
-    if (gamepad_list[1] != null && gamepad_list[1].id.indexOf("Flight") != -1) {
+    if (gamepad_list[1] !== null && gamepad_list[1].id.indexOf("Flight") !== -1) {
       this.setState({ 
         joystickConnected: true,
         drive_mode: prev_drive_mode

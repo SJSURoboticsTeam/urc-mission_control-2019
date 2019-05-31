@@ -132,21 +132,21 @@ class Joystick {
 	handleBackWheelUpdates(drive_module_state, backWheelButtonPressed, joystick_indices, buttons, axes) {
 		if (
 			buttons[ joystick_indices.wheel_a ].value === 1
-			&& drive_module_state.back_wheel != BW_A
+			&& drive_module_state.back_wheel !== BW_A
 		) {
 			drive_module_state.back_wheel = BW_A;
 			backWheelButtonPressed(BW_A);
 		} 
 		else if (
 			buttons[ joystick_indices.wheel_b ].value === 1
-			&& drive_module_state.back_wheel != BW_B
+			&& drive_module_state.back_wheel !== BW_B
 		) {
 			drive_module_state.back_wheel = BW_B;
 			backWheelButtonPressed(BW_B);
 		} 
 		else if (
 			buttons[ joystick_indices.wheel_c ].value === 1
-			&& drive_module_state.back_wheel != BW_C
+			&& drive_module_state.back_wheel !== BW_C
 		) {
 			drive_module_state.back_wheel = BW_C;
 			backWheelButtonPressed(BW_C);
@@ -155,7 +155,7 @@ class Joystick {
 
 	handleDriveModeUpdates(drive_module_state, driveModeButtonPressed, joystick_indices, buttons, axes) {
 		let OSName = this.getOSName();
-		if (OSName == "Linux" || OSName == "UNIX") {
+		if (OSName === "Linux" || OSName === "UNIX") {
 			/*
 				evaluate state left/right axis before top/bottom - may cause some precedence issues
 
@@ -172,22 +172,22 @@ class Joystick {
 					drive_module_state.drive_mode = DM_CRAB;
 					driveModeButtonPressed(DM_CRAB);
 			} else if (axes[ joystick_indices.drive_mode_a ] === 1 &&
-				drive_module_state.drive_mode != DM_SPIN) {
+				drive_module_state.drive_mode !== DM_SPIN) {
 
 					drive_module_state.drive_mode = DM_SPIN;
 					driveModeButtonPressed(DM_SPIN);
 			} else if (axes[ joystick_indices.drive_mode_b ] === -1 &&
-				drive_module_state.drive_mode != DM_DRIVE) {
+				drive_module_state.drive_mode !== DM_DRIVE) {
 
 					drive_module_state.drive_mode = DM_DRIVE;
 					driveModeButtonPressed(DM_DRIVE)
 			} else if (axes[ joystick_indices.drive_mode_b ] === 1 &&
-				drive_module_state.drive_mode != DM_DEBUG) {
+				drive_module_state.drive_mode !== DM_DEBUG) {
 
 					drive_module_state.drive_mode = DM_DEBUG;
 					driveModeButtonPressed(DM_DEBUG);
 			}	
-		} else if (OSName == "Mac") {
+		} else if (OSName === "Mac") {
 			/* 
 				one button handles the drive mode.
 				Axis 9 (aka joystick_indices[drive_mode_a] ): 
@@ -202,15 +202,15 @@ class Joystick {
 					drive_module_state.drive_mode = DM_CRAB;
 					driveModeButtonPressed(DM_CRAB);
 			} else if (dpad_val === -.43 &&
-				drive_module_state.drive_mode != DM_SPIN) {
+				drive_module_state.drive_mode !== DM_SPIN) {
 					drive_module_state.drive_mode = DM_SPIN;
 					driveModeButtonPressed(DM_SPIN);
 			} else if (dpad_val === -1 &&
-				drive_module_state.drive_mode != DM_DRIVE) {
+				drive_module_state.drive_mode !== DM_DRIVE) {
 					drive_module_state.drive_mode = DM_DRIVE;
 					driveModeButtonPressed(DM_DRIVE)
 			} else if (dpad_val === .14 &&
-				drive_module_state.drive_mode != DM_DEBUG) {
+				drive_module_state.drive_mode !== DM_DEBUG) {
 					drive_module_state.drive_mode = DM_DEBUG;
 					driveModeButtonPressed(DM_DEBUG);
 			}		
@@ -222,13 +222,13 @@ class Joystick {
 
 	handleMaxThrottleUpdates(drive_module_state, updateThrottleMax, joystick_indices, buttons, axes) {
 		let t_max_new = drive_module_state.t_max;
-		if (buttons[ joystick_indices.t_max_up ].value == 1 && drive_module_state.t_max != 100) {
+		if (buttons[ joystick_indices.t_max_up ].value === 1 && drive_module_state.t_max !== 100) {
 			t_max_new += 10;
-		} else if  (buttons[ joystick_indices.t_max_down ].value == 1 && drive_module_state.t_max != 0) {
+		} else if  (buttons[ joystick_indices.t_max_down ].value === 1 && drive_module_state.t_max !== 0) {
 			t_max_new -= 10;
 		}
 		
-		if (drive_module_state.t_max != t_max_new) {
+		if (drive_module_state.t_max !== t_max_new) {
 			updateThrottleMax(t_max_new);
 		}
 	}
@@ -243,9 +243,9 @@ class Joystick {
 		// console.log({list: gamepad_list, gamepad1: gamepad_list[0].id.indexOf("044f") != -1, gamepad2: gamepad_list[1].id.indexOf("044f") != -1, state: !drive_module_state.joystick_connected});
 
 		let gp = null;
-		if (gamepad_list[0] != null && gamepad_list[0].id.indexOf("Flight") != -1) {
+		if (gamepad_list[0] !== null && gamepad_list[0].id.indexOf("Flight") !== -1) {
 			gp = gamepad_list[0];
-		} else if  (gamepad_list[1] != null && gamepad_list[1].id.indexOf("Flight") != -1) {
+		} else if  (gamepad_list[1] !== null && gamepad_list[1].id.indexOf("Flight") !== -1) {
 			gp = gamepad_list[1];
 		}
 		// console.log(gp)
