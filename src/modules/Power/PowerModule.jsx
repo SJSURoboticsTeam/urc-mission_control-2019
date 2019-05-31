@@ -103,39 +103,20 @@ class ProtoModule extends Component {
             </h2>
             <Row>
               <Col>
-                <h3>Input</h3>
                 <Row>
-                  Bat#1:  <RadioButtonGroup type="input-channel" channel="1" buttonValUpdated={this.buttonValUpdated}/>
+                  <RadioButtonGroup type="output-channel" channel="1" buttonValUpdated={this.buttonValUpdated}/>  1. Drive / Science
                 </Row>
                 <Row>
-                  Bat#2:  <RadioButtonGroup type="input-channel" channel="2" buttonValUpdated={this.buttonValUpdated}/>
+                  <RadioButtonGroup type="output-channel" channel="2" buttonValUpdated={this.buttonValUpdated}/>  2. Arm
                 </Row>
                 <Row>
-                  Bat#3:  <RadioButtonGroup type="input-channel" channel="3" buttonValUpdated={this.buttonValUpdated}/>
+                  <RadioButtonGroup type="output-channel" channel="3" buttonValUpdated={this.buttonValUpdated}/>  3. Motor Hub A
                 </Row>
                 <Row>
-                  Bat#4:  <RadioButtonGroup type="input-channel" channel="4" buttonValUpdated={this.buttonValUpdated}/>
+                  <RadioButtonGroup type="output-channel" channel="4" buttonValUpdated={this.buttonValUpdated}/>  4. Motor Hub B
                 </Row>
                 <Row>
-                  Bat#5:  <RadioButtonGroup type="input-channel" channel="5" buttonValUpdated={this.buttonValUpdated}/>
-                </Row>
-              </Col>
-              <Col>
-                <h3>Output</h3>
-                <Row>
-                  Out#1:  <RadioButtonGroup type="output-channel" channel="1" buttonValUpdated={this.buttonValUpdated}/>
-                </Row>
-                <Row>
-                  Out#2:  <RadioButtonGroup type="output-channel" channel="2" buttonValUpdated={this.buttonValUpdated}/>  
-                </Row>
-                <Row>
-                  Out#3:  <RadioButtonGroup type="output-channel" channel="3" buttonValUpdated={this.buttonValUpdated}/>
-                </Row>
-                <Row>
-                  Out#4:  <RadioButtonGroup type="output-channel" channel="4" buttonValUpdated={this.buttonValUpdated}/>
-                </Row>
-                <Row>
-                  Out#5:  <RadioButtonGroup type="output-channel" channel="5" buttonValUpdated={this.buttonValUpdated}/>
+                  <RadioButtonGroup type="output-channel" channel="5" buttonValUpdated={this.buttonValUpdated}/>  5. Motor Hub C
                 </Row>
                 
               </Col>
