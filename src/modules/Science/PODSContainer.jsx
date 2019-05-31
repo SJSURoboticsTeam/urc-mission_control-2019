@@ -17,7 +17,7 @@ export default class PODSContainer extends React.Component {
         this.state = {
             dropdownOpen: false,
             pods: [
-                { name: "POD 1", id: 0, sseName: "pod1", isActive: true },
+                { name: "POD 1", id: 0, sseName: "pod1", isActive: false },
                 { name: "POD 2", id: 1, sseName: "pod2", isActive: false },
                 { name: "POD 3", id: 2, sseName: "pod3", isActive: false },
                 { name: "POD 4", id: 3, sseName: "pod4", isActive: false },
