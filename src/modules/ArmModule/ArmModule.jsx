@@ -13,7 +13,7 @@ class ArmModule extends Component {
       ipSetOpen: false,
       currentModule: "nothing",
       joystickConnected: false,
-      espIP: "",
+      espIP: "192.168.10.52",
       views: [
         { name: "Set ESP IP", value: "home" },
         { name: "Input Values", value: "input" }

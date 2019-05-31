@@ -63,7 +63,6 @@ class IPSet extends Component {
   render() {
     return (
       <React.Fragment>
-        <Button onClick={this.toggleInput}> Set ESP IP </Button>
         {this.renderInput()}
       </React.Fragment>
     );
