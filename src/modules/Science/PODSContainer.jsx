@@ -114,7 +114,11 @@ export default class PODSContainer extends React.Component {
         let currObj = getData();
         // console.log(`Getting value from: ${this.state.currentPODSSEName}`);
         this.setState({ x1: [...this.state.x1, this.state.seconds] });
-        this.setState({ y1: [...this.state.y1, currObj[this.state.currentPODSSEName]] });
+        if (currObj !== null) {
+            this.setState({ y1: [...this.state.y1, currObj[this.state.currentPODSSEName]] });
+        } else {
+            this.setState({ y1: [...this.state.y1, 0] });
+        }
         // console.log(currObj[this.state.currentPODSSEName]);
 
         setTimeout(() => { }, 1000);

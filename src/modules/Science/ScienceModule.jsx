@@ -12,7 +12,7 @@ class ScienceModule extends Component {
     super(props);
     this.state = {
       container: 0,
-      connectIP: "0",
+      connectIP: "192.168.10.54",
       inputToggled: false,
       eventSource: null
     };
@@ -113,22 +113,6 @@ class ScienceModule extends Component {
         <div
           style={{ float: "right", position: "absolute", top: 50, left: "78%" }}
         >
-          <Button
-            onClick={this.toggleInput}
-            color="success"
-
-          >
-            Enter ESP
-          </Button>
-          <div>
-            {this.state.inputToggled ?
-              <input
-                // onChange={this.handleChange}
-                onKeyDown={this.connectESP}
-              ></input> :
-              <p></p>
-            }
-          </div>
         </div>
       </React.Fragment>
     );
