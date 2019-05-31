@@ -17,18 +17,16 @@ export default class PODSContainer extends React.Component {
         this.state = {
             dropdownOpen: false,
             pods: [
-                { name: "POD 1", id: 0, sseName: "pod1", isActive: false, x1: [], y1: [] },
-                { name: "POD 2", id: 1, sseName: "pod2", isActive: false, x1: [], y1: [] },
-                { name: "POD 3", id: 2, sseName: "pod3", isActive: false, x1: [], y1: [] },
-                { name: "POD 4", id: 3, sseName: "pod4", isActive: false, x1: [], y1: [] },
-                { name: "POD 5", id: 4, sseName: "pod5", isActive: false, x1: [], y1: [] },
-                { name: "POD 6", id: 5, sseName: "pod6", isActive: false, x1: [], y1: [] },
-                { name: "Sterilized POD", id: 6, sseName: "sterilizedPod", isActive: false, x1: [], y1: [] },
+                { name: "POD 1", id: 0, sseName: "pod1", isActive: false, x1: [], y1: [], timeActivated: NaN },
+                { name: "POD 2", id: 1, sseName: "pod2", isActive: false, x1: [], y1: [], timeActivated: NaN },
+                { name: "POD 3", id: 2, sseName: "pod3", isActive: false, x1: [], y1: [], timeActivated: NaN },
+                { name: "POD 4", id: 3, sseName: "pod4", isActive: false, x1: [], y1: [], timeActivated: NaN },
+                { name: "POD 5", id: 4, sseName: "pod5", isActive: false, x1: [], y1: [], timeActivated: NaN },
+                { name: "POD 6", id: 5, sseName: "pod6", isActive: false, x1: [], y1: [], timeActivated: NaN },
+                { name: "Sterilized POD", id: 6, sseName: "sterilizedPod", isActive: false, x1: [], y1: [], timeActivated: NaN },
             ],
             currentPOD: "POD 1",
             currentPODSSEName: "pod1",
-            x1: [],
-            y1: [],
             xrange: [-20, 1],
             seconds: 0
         };
@@ -53,10 +51,12 @@ export default class PODSContainer extends React.Component {
         //     }
         // };
         this.range = [-5, 5];
+        let currentPOD = this.state.currentPOD;
+        let currentId = this.state.pods.find((pod) => pod.name === currentPOD).id;
         this.data = [
             {
-                x: this.state.x1,
-                y: this.state.y1,
+                x: this.state.pods[currentId].x1,
+                y: this.state.pods[currentId].y1,
                 name: `${this.state.currentPOD} Graph`,
                 type: "scatter"
             }
@@ -79,15 +79,18 @@ export default class PODSContainer extends React.Component {
     };
     handleChange = (e) => {
         this.setState({ currentPOD: e.target.value, currentPODSSEName: e.target.name });
-        this.setState({x1: []});
-        this.setState({y1: []});
+        // this.setState({x1: []});
+        // this.setState({y1: []});
     };
     handlePODClicked = () => {
         const currentPOD = this.state.currentPOD;
         const currentId = this.state.pods.find((pod) => pod.name === currentPOD).id;
         const pods = this.state.pods;
         pods[currentId].isActive = true;
+        pods[currentId].timeActivated = this.state.seconds;
         this.setState(() => ({ pods }));
+
+        // console.log(pods[currentId].timeActivated);
         this.props.handlePodClick(currentId + 1);
     };
     findPODIndex = () => {
@@ -120,25 +123,46 @@ export default class PODSContainer extends React.Component {
     tick() {
         let currObj = getData();
         console.log(currObj);
-        // console.log(`Getting value from: ${this.state.currentPODSSEName}`);
-        this.setState({ x1: [...this.state.x1, this.state.seconds] });
+
+        let currentPOD = this.state.currentPOD;
+        let currentId = this.state.pods.find((pod) => pod.name === currentPOD).id;
+        let pods = this.state.pods;
+
+        // Set same x-values for all pods
+        pods.map((pod) => {
+            pod.x1 = [...pod.x1, this.state.seconds];
+            return pod;
+        });
+        
+        this.setState({ pods });
+
+        // If data is received, attach data to appropriate pod's y-values
         if (currObj !== null) {
-            this.setState({ y1: [...this.state.y1, currObj[this.state.currentPODSSEName]] });
-        } else {
-            this.setState({ y1: [...this.state.y1, 0] });
+            pods.map((pod) => {
+                pod.y1 = [...pod.y1, currObj[pod.sseName]];
+                return pod;
+            });
+        } 
+        // If data is not received, attach '0' to every pod's y-values
+        else {
+            pods.map((pod) => {
+                pod.y1 = [...pod.y1, Math.floor(Math.random() * 10)];
+                return pod;
+            });
         }
-        // console.log(currObj[this.state.currentPODSSEName]);
+
+        this.setState({ pods });
 
         setTimeout(() => { }, 1000);
 
-        this.range = [Math.min(...this.state.y1) - 5, Math.max(...this.state.y1) + 5];
+        this.range = [Math.min(...this.state.pods[currentId].y1) - 5, Math.max(...this.state.pods[currentId].y1) + 5];
 
         let lowerXRange = this.state.xrange[0] + 1;
         let upperXRange = this.state.xrange[1] + 1;
         this.data = [
             {
-                x: this.state.x1,
-                y: this.state.y1,
+                x: pods[currentId].x1,
+                y: pods[currentId].y1,
                 name: `${this.state.currentPOD} Graph`,
                 type: "scatter"
             }
