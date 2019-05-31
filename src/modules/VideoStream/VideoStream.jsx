@@ -80,7 +80,9 @@ class VideoStreamModule extends Component {
           <InputGroupAddon addonType="prepend" >
             {this.renderStatusIcon()} 
           </InputGroupAddon>
-
+          <InputGroupAddon addonType="append" >
+            <h3 className="esp-h3">  ESP IP   {this.state.srcUrl}</h3>
+          </InputGroupAddon>
           <InputGroupAddon addonType="append">
             <Button onClick={this.updateSource} color="success">Connect</Button>
           </InputGroupAddon>

@@ -200,11 +200,7 @@ class DriveModule extends Component {
     return (
       <Container>
         <Row>
-            <h2>ESP IP</h2>
-            <InputGroup >
-              <Input id="esp_ip_input" placeholder="192.168.10.51"/>
-              <InputGroupAddon addonType="append"> <Button onClick={ this.updateESPIP }>Click me</Button> </InputGroupAddon>
-            </InputGroup>
+            <h2>ESP IP {this.state.esp_ip}</h2>
         </Row>
         
         <Row>

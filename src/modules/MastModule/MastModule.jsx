@@ -52,6 +52,7 @@ class MastModule extends Component {
   render() {
     return (
       <div>
+        <h2>ESP IP {this.state.connectIP}</h2>
         <div
           className="mast-button-container"
         >
