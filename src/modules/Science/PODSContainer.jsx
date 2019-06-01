@@ -28,7 +28,7 @@ export default class PODSContainer extends React.Component {
             ],
             currentPOD: "POD 1",
             currentPODSSEName: "pod1",
-            xrange: [-20, 1],
+            xrange: [-160, 0],
             seconds: 0
         };
         // this.layout = {
@@ -71,7 +71,8 @@ export default class PODSContainer extends React.Component {
         // Get activation lines (Check state) + (handlePodClicked)
     }
     componentDidMount() {
-        setInterval(() => this.tick(), 1000);
+        this.tick();
+        setInterval(() => this.tick(), 120000);
     };
     toggle = () => {
         this.setState((prevState) => ({
@@ -137,7 +138,7 @@ export default class PODSContainer extends React.Component {
         // File cpm value after 10 minutes for each pod
         this.state.pods.forEach((pod) => {
             if (this.state.seconds >= 600)
-                propertiesFile += `${pod.sseName}_10_minutes=${pod.y1[600]}\n`;
+                propertiesFile += `${pod.sseName}_10_minutes=${pod.y1[4]}\n`;
             else 
                 propertiesFile += `${pod.sseName}_10_minutes=${pod.y1[pod.x1.length-1]}\n`;
         });
@@ -179,7 +180,7 @@ export default class PODSContainer extends React.Component {
             xaxis: {
                 title: "Time (s)",
                 autotick: false,
-                dtick: 2,
+                dtick: 10,
                 range: this.state.xrange,
                 showgrid: false,
                 zeroline: false
@@ -196,7 +197,7 @@ export default class PODSContainer extends React.Component {
     };
     tick() {
         let currObj = getData();
-        console.log(currObj);
+        // console.log(currObj);
 
         let currentPOD = this.state.currentPOD;
         let currentId = this.state.pods.find((pod) => pod.name === currentPOD).id;
@@ -227,12 +228,12 @@ export default class PODSContainer extends React.Component {
 
         this.setState({ pods });
 
-        setTimeout(() => { }, 1000);
+        setTimeout(() => { }, 120000);
 
         this.range = [Math.min(...this.state.pods[currentId].y1) - 5, Math.max(...this.state.pods[currentId].y1) + 5];
 
-        let lowerXRange = this.state.xrange[0] + 1;
-        let upperXRange = this.state.xrange[1] + 1;
+        let lowerXRange = this.state.xrange[0] + 120;
+        let upperXRange = this.state.xrange[1] + 120;
         this.data = [
             {
                 x: pods[currentId].x1,
@@ -242,7 +243,7 @@ export default class PODSContainer extends React.Component {
             }
         ];
         this.setState({ xrange: [lowerXRange, upperXRange] });
-        this.setState({ seconds: this.state.seconds + 1 });
+        this.setState({ seconds: this.state.seconds + 120 });
     }
     render() {
         return (
