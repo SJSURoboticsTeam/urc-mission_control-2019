@@ -220,7 +220,7 @@ export default class PODSContainer extends React.Component {
         // If data is not received, attach '0' to every pod's y-values
         else {
             pods.map((pod) => {
-                pod.y1 = [...pod.y1, Math.floor(Math.random() * 10)];
+                pod.y1 = [...pod.y1, 0];
                 return pod;
             });
         }
