@@ -8,7 +8,7 @@ import {
 } from "reactstrap";
 import { saveAs } from 'file-saver';
 import Plot from "react-plotly.js";
-import BackButton from "./BackButton";
+// import BackButton from "./BackButton";
 import { getData } from "../Science/PODStateManager";
 
 export default class PODSContainer extends React.Component {
@@ -280,9 +280,9 @@ export default class PODSContainer extends React.Component {
                         >
                             Download
                         </Button>
-                        <BackButton
+                        {/* <BackButton
                             handleBackButton={this.props.handleBackButton}
-                        />
+                        /> */}
                     </div>
                 </div>
 
