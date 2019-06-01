@@ -6,6 +6,7 @@ import {
     DropdownMenu,
     DropdownToggle
 } from "reactstrap";
+import { saveAs } from 'file-saver';
 import Plot from "react-plotly.js";
 import BackButton from "./BackButton";
 import { getData } from "../Science/PODStateManager";
@@ -92,6 +93,24 @@ export default class PODSContainer extends React.Component {
 
         // console.log(pods[currentId].timeActivated);
         this.props.handlePodClick(currentId + 1);
+    };
+    handleDownload = () => {
+        console.log('Creating file...');
+        let csvFile = '';
+        for (let i = 0; i < this.state.pods.length; i++) {
+            for (let j = 0; j < this.state.pods[i].x1.length; j++ ) {
+                csvFile += `${this.state.pods[i].sseName},`;
+                csvFile += this.state.pods[i].x1[j] + ',';
+                csvFile += this.state.pods[i].y1[j] + ',';
+                csvFile += '\n';
+            }
+        }   
+        console.log(csvFile);
+        let blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+
+        saveAs(blob, "science_data.csv");
+        
+        console.log('Creation complete!');
     };
     findPODIndex = () => {
         return this.state.pods.find((pod) => pod.name === this.state.currentPOD).id;
@@ -200,6 +219,12 @@ export default class PODSContainer extends React.Component {
                         >
                             Kill All
                         </button>
+                        <Button
+                            color="primary"
+                            onClick={this.handleDownload}
+                        >
+                            Download
+                        </Button>
                         <BackButton
                             handleBackButton={this.props.handleBackButton}
                         />

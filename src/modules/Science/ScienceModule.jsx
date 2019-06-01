@@ -111,7 +111,7 @@ class ScienceModule extends Component {
 
         </div>
         <div
-          style={{ float: "right", position: "absolute", top: 50, left: "78%" }}
+          style={{ float: "right", position: "absolute", top: 20, left: "74%" }}
         >
         </div>
       </React.Fragment>
