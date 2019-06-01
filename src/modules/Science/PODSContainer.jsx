@@ -23,8 +23,8 @@ export default class PODSContainer extends React.Component {
                 { name: "POD 3", id: 2, sseName: "pod3", isActive: false, x1: [], y1: [], timeActivated: NaN },
                 { name: "POD 4", id: 3, sseName: "pod4", isActive: false, x1: [], y1: [], timeActivated: NaN },
                 { name: "POD 5", id: 4, sseName: "pod5", isActive: false, x1: [], y1: [], timeActivated: NaN },
-                { name: "POD 6", id: 5, sseName: "pod6", isActive: false, x1: [], y1: [], timeActivated: NaN },
-                { name: "Sterilized POD", id: 6, sseName: "sterilizedPod", isActive: false, x1: [], y1: [], timeActivated: NaN },
+                // { name: "POD 6", id: 5, sseName: "pod6", isActive: false, x1: [], y1: [], timeActivated: NaN },
+                { name: "Sterilized POD", id: 5, sseName: "sterilizedPod", isActive: false, x1: [], y1: [], timeActivated: NaN },
             ],
             currentPOD: "POD 1",
             currentPODSSEName: "pod1",
@@ -62,13 +62,13 @@ export default class PODSContainer extends React.Component {
                 type: "scatter"
             }
         ];
-        // average background radiation:
+        // average background radiation: (Check assembly function)
             // average cpm before activation
-        // Give a cpm value 10 minutes after activation
+        // Give a cpm value 10 minutes after activation (Check assembly function)
             // paramaterize those '10 minutes'
-        // Calculate cpm growth per minute
+        // Calculate cpm growth per minute (Check assembly function)
             // finish / time
-        
+        // Get activation lines (Check state) + (handlePodClicked)
     }
     componentDidMount() {
         setInterval(() => this.tick(), 1000);
@@ -96,21 +96,76 @@ export default class PODSContainer extends React.Component {
     };
     handleDownload = () => {
         console.log('Creating file...');
-        let csvFile = '';
+        let csvFile = 'pod_no,timestamp,cpm,\n';
         for (let i = 0; i < this.state.pods.length; i++) {
-            for (let j = 0; j < this.state.pods[i].x1.length; j++ ) {
+            for (let j = 0; j < this.state.pods[i].x1.length; j += 10 ) {
                 csvFile += `${this.state.pods[i].sseName},`;
                 csvFile += this.state.pods[i].x1[j] + ',';
                 csvFile += this.state.pods[i].y1[j] + ',';
                 csvFile += '\n';
             }
-        }   
-        console.log(csvFile);
-        let blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+        }
+        let propertiesFile = this.assemblePropertiesFile();
+        console.log(propertiesFile);
 
-        saveAs(blob, "science_data.csv");
+        let blobCSV   = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+        let blobProps = new Blob([propertiesFile], { type: 'text/plain;charset=utf-8;' });
+
+        saveAs(blobCSV, "science_data.csv");
+        saveAs(blobProps, "properties.txt");
         
         console.log('Creation complete!');
+    };
+    // average background radiation: (Check assembly function)
+        // average cpm before activation
+    // Give a cpm value 10 minutes after activation (Check assembly function)
+        // paramaterize those '10 minutes'
+    // Calculate cpm growth per minute (Check assembly function)
+        // finish / time
+    // Get activation lines (Check state) + (handlePodClicked)
+    assemblePropertiesFile = () => {
+        let propertiesFile = '';
+
+        // File activation time for each pod
+        this.state.pods.forEach((pod) => {
+            if (!isNaN(pod.timeActivated))
+                propertiesFile += `${pod.sseName}_activation=${pod.timeActivated}\n`;
+            else 
+                propertiesFile += `${pod.sseName}_activation=null\n`;
+        });
+
+        // File cpm value after 10 minutes for each pod
+        this.state.pods.forEach((pod) => {
+            if (this.state.seconds >= 600)
+                propertiesFile += `${pod.sseName}_10_minutes=${pod.y1[600]}\n`;
+            else 
+                propertiesFile += `${pod.sseName}_10_minutes=${pod.y1[pod.x1.length-1]}\n`;
+        });
+
+        // File average background radiation for each pod
+        this.state.pods.forEach((pod) => {
+            if (!isNaN(pod.timeActivated)) {
+                let sum = 0;
+                for (let i = 0; i < pod.timeActivated; i++) {
+                    sum += pod.y1[i];
+                }
+                propertiesFile += `${pod.sseName}_background=${pod.timeActivated > 0 ? sum/pod.timeActivated : 0}\n`;
+            } else {
+                propertiesFile += `${pod.sseName}_background=null\n`;
+            }
+        });
+
+        // Files cpm growth per minute for each pod
+        this.state.pods.forEach((pod) => {
+            if (this.state.seconds !== 0) {
+                let growth = pod.y1[pod.y1.length-1] / pod.x1[pod.x1.length-1];
+                propertiesFile += `${pod.sseName}_growth=${growth}\n`
+            } else {
+                propertiesFile += `${pod.sseName}_growth=null\n`;
+            }
+        });
+          
+        return propertiesFile;
     };
     findPODIndex = () => {
         return this.state.pods.find((pod) => pod.name === this.state.currentPOD).id;
